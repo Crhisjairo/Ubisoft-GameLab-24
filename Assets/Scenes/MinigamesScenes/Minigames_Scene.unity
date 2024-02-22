@@ -974,6 +974,8 @@ MonoBehaviour:
   saveOnLoad: 0
   waitTimeForSaving: 5
   loadingSlider: {fileID: 1256899183}
+  _loadingScreenAnimator: {fileID: 0}
+  scenesCount: 0
 --- !u!4 &1294979067
 Transform:
   m_ObjectHideFlags: 0
@@ -1125,7 +1127,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1244,7 +1246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -966918523, guid: f07e5ee8aad90f84ca320d12e795b8f4, type: 3}
+  m_Sprite: {fileID: -462338556, guid: bf1de7e63ff67044bb70178449907ca6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
