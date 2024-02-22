@@ -2,8 +2,8 @@ using System.Collections;
 using UnityEngine;
 
 public class PlayerOneWayPlatform : MonoBehaviour
-{
-    //https://www.youtube.com/watch?v=7rCUt6mqqE8
+{   
+    //refer this video for the one way platform code: https://www.youtube.com/watch?v=7rCUt6mqqE8
     private GameObject currentOneWayPlatform;
 
     [SerializeField] private BoxCollider2D playerCollider;
@@ -40,7 +40,7 @@ public class PlayerOneWayPlatform : MonoBehaviour
         BoxCollider2D platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
 
         Physics2D.IgnoreCollision(playerCollider, platformCollider);
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(5.25f);
         Physics2D.IgnoreCollision(playerCollider, platformCollider, false);
     }
 }
