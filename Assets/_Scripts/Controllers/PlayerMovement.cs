@@ -13,8 +13,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
-    [SerializeField] private float speedIncreaseAmount = 2f;
-    [SerializeField] private float speedDecreaseAmount = 2f; 
 
     // Start is called before the first frame update
     void Start()
@@ -70,17 +68,37 @@ public class PlayerMovement : MonoBehaviour
 
     private void AdjustSpeed()
     {
+        // Define speed stages
+        float[] speedStages = { 2.0f, 4.0f, 6.0f, 8.0f, 50.0f,100.0f }; // Example speed stages
+                                                                
+        float currentSpeed = speedStages[SpeedVariableCount.speedVariableCount - 1]; // Set current speed
+        speed = currentSpeed; // Assign currentSpeed to speed
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            speed += speedIncreaseAmount;
+            // check if the next index of speedStages is not out of bounds
+            if (SpeedVariableCount.speedVariableCount < speedStages.Length)
+            {
+                currentSpeed = speedStages[SpeedVariableCount.speedVariableCount];
+                SpeedVariableCount.speedVariableCount++;
+                speed = currentSpeed;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            speed -= speedDecreaseAmount;
+            // Decrease speed if not already at minimum
+            if (SpeedVariableCount.speedVariableCount > 1)
+            {
+                currentSpeed = speedStages[SpeedVariableCount.speedVariableCount - 2];
+                SpeedVariableCount.speedVariableCount--;
+                speed = currentSpeed;
+            }
         }
 
-        // Ensure speed doesn't go below zero
-        speed = Mathf.Max(speed, 0.8f);
+        // Ensure speed doesn't go below the minimum stage
+        speed = Mathf.Max(speed, speedStages[0]);
     }
+
+
 }
 
