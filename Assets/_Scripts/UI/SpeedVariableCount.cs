@@ -20,7 +20,7 @@ public class SpeedVariableCount : MonoBehaviour
     {
         //speedText.text = "Speed Variable Count: " + speedVariableCount;
         int count = SpeedVariableCount.speedVariableCount;
-        Debug.Log("Speed Variable Count: " + count);
+       // Debug.Log("Speed Variable Count: " + count);
         if (speedText != null)
         {
             speedText.text = "Speed Stage: " + speedVariableCount;
