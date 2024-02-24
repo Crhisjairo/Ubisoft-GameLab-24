@@ -18,11 +18,11 @@ namespace _Scripts.Managers
 {
     public class MinigamesManager : MonoBehaviour
     {
+        [FormerlySerializedAs("sceneLoader")]
+        [SerializeField] private SceneLoader _sceneLoader;
         [SerializeField] private MinigameSceneNames[] scenesNamesToLoad;
         private Queue<MinigameSceneNames> _scenesSortedRan;
         
-        [SerializeField] private GlobalScenesNames bossBattleScene;
-
         [Tooltip("Time in seconds for each scene to be played.")]
         [SerializeField] private float timeForEachScene = 60f;
         [Space(20)]
@@ -42,28 +42,25 @@ namespace _Scripts.Managers
         //TODO: Trigger the save data.
 
         [SerializeField] private CinemachineBrain brain;
-        [FormerlySerializedAs("cam")]
         [SerializeField] private CinemachineVirtualCamera vCam;
 
         private Coroutine _loadingScreenRoutine;
-        private MinigameSceneNames _currentScene = MinigameSceneNames.Minigames_Scene;
+        private MinigameSceneNames _currentMinigameScene = MinigameSceneNames.Empty;
 
-        private int scenesCount;
         private bool _isLoading;
         
         private float _loadProgress = 1f;
         private float _loadBarsmoothness = 0.1f;
 
         private AsyncOperation loading;
-        
-        public float tiempoInicial;
-        private float remainTime;
+
+        private bool _isTimerOn = true;
+        private float _initialTime;
+        private float _remainingTime;
         
         private void Awake()
         {
             SetupComponents();
-            
-            scenesCount = Enum.GetNames(typeof(MinigameSceneNames)).Length;
         }
 
         private void SetupComponents()
@@ -101,7 +98,9 @@ namespace _Scripts.Managers
 
         public void StartLoadScreen(string sceneToLoad)
         {
-            _loadingScreenRoutine = StartCoroutine(LoadScreenAsync(sceneToLoad));
+            _loadingScreenRoutine = StartCoroutine(
+                LoadNextSceneAsync(sceneToLoad)
+                );
         }
 
         private void Update()
@@ -110,7 +109,7 @@ namespace _Scripts.Managers
             {
                 UpdateLoadingBar();
             }
-            else
+            else if(_isTimerOn)
             {
                 // TODO: Start counter timer more precisely. Start after the loading screen is done.
                 UpdateCounterTimer();    
@@ -132,13 +131,13 @@ namespace _Scripts.Managers
 
         private void UpdateCounterTimer()
         {
-            if (remainTime > 0)
+            if (_remainingTime > 0)
             {
-                remainTime -= Time.deltaTime;
+                _remainingTime -= Time.deltaTime;
 
-                int mins = Mathf.FloorToInt(remainTime / 60);
-                int secs = Mathf.FloorToInt(remainTime % 60);
-                int milisecs = Mathf.FloorToInt((remainTime * 1000) % 1000);
+                int mins = Mathf.FloorToInt(_remainingTime / 60);
+                int secs = Mathf.FloorToInt(_remainingTime % 60);
+                int milisecs = Mathf.FloorToInt((_remainingTime * 1000) % 1000);
                 
                 timerText.SetText(
                     string.Format("{0:D2}:{1:D2}:{2:D2}", mins, secs, milisecs)
@@ -146,24 +145,19 @@ namespace _Scripts.Managers
             }
             else
             {
-                OnTimerEnds();
+                LoadNextMinigame();
             }
         }
 
-        private void OnTimerEnds()
+        private void LoadNextMinigame()
         {
-            // Reseting loading bar.
-            _loadProgress = 1f;
-            _loadBarsmoothness = 0.1f;
-            loadingSlider.value = 0;
-            
+            ResetLoadingBar();
             ResetTimer();
             
             if(_scenesSortedRan.Count == 0)
             {
-                Debug.Log("Loading boss battle scene!.");
                 //TODO: save data, unload MinigamesManagerScene and load the boss battle scene.
-                StartLoadScreen(bossBattleScene.ToString());
+                LoadBossBattleScene();
             }
             else
             {
@@ -171,25 +165,30 @@ namespace _Scripts.Managers
             }
         }
 
-        private IEnumerator LoadScreenAsync(string sceneToLoad)
+        private void LoadBossBattleScene()
+        {
+            _isTimerOn = false;
+            // Call another script for loading the boss battle scene.
+            Debug.Log("Loading boss battle scene!.");
+
+            _sceneLoader.LoadNextScene();
+            //StartCoroutine(UnloadSceneAsync(_currentMinigameScene.ToString()));
+            
+        }
+
+        private IEnumerator LoadNextSceneAsync(string sceneToLoad)
         {
             _isLoading = true;
-         
             SetActiveAnimators(true);
             transitionCanvasAnim.Play(TransitionAnimations.FadeIn.ToString());
 
             yield return new WaitForSecondsRealtime(startAnimTime);
-            // unload the current scene if it's not the main scene.
-            if (_currentScene is not MinigameSceneNames.Minigames_Scene)
+            
+            // unload the current scene if it's not null.
+            if (_currentMinigameScene != MinigameSceneNames.Empty)
             {
-
-                AsyncOperation unloading = SceneManager.UnloadSceneAsync(_currentScene.ToString());
-                
-                while (!unloading.isDone)
-                {
-                    // Render frames while unloading the scene.
-                    yield return null;
-                }
+                // This will render frames until the scene is unloaded.
+                yield return UnloadSceneAsync(_currentMinigameScene.ToString());
             }
             
             loading = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
@@ -197,16 +196,11 @@ namespace _Scripts.Managers
             while (!loading.isDone)
             {
                 _loadProgress = loading.progress;
-                
+                // Render frames while loading the scene.
                 yield return null;
             }
             
-            if(_scenesSortedRan.Count != 0)
-                _currentScene = (MinigameSceneNames) Enum.Parse(typeof(MinigameSceneNames), sceneToLoad);
-            else
-                _currentScene = MinigameSceneNames.Minigames_Scene;
-            // TODO Unload minigames_scene
-            
+            _currentMinigameScene = (MinigameSceneNames) Enum.Parse(typeof(MinigameSceneNames), sceneToLoad);
             
             yield return new WaitForSecondsRealtime(waitTimeAfterLoading);
             // When the scene is loaded, fade out the transition canvas.
@@ -216,12 +210,20 @@ namespace _Scripts.Managers
             
             _isLoading = false;
             loading = null;
-
             //brain.gameObject.SetActive(false);
             vCam.gameObject.SetActive(false);
-            
             SetActiveAnimators(false);
+        }
+        
+        private IEnumerator UnloadSceneAsync(string sceneToUnload)
+        {
+            AsyncOperation unloading = SceneManager.UnloadSceneAsync(sceneToUnload);
             
+            while (!unloading.isDone)
+            {
+                // Render frames while unloading the scene.
+                yield return null;
+            }
         }
         
         private void SetActiveAnimators(bool isActive)
@@ -230,17 +232,20 @@ namespace _Scripts.Managers
             transitionCanvasAnim.enabled = isActive;
         }
 
-        private void OnCompleteLoading(AsyncOperation loading)
+        private void ResetLoadingBar()
         {
-            transitionCanvasAnim.Play(TransitionAnimations.FadeOut.ToString());
+            // Reseting loading bar.
+            _loadProgress = 1f;
+            _loadBarsmoothness = 0.1f;
+            loadingSlider.value = 0;
         }
         
         private void ResetTimer()
         {
-            remainTime = tiempoInicial = timeForEachScene;
-            int mins = Mathf.FloorToInt(remainTime / 60);
-            int secs = Mathf.FloorToInt(remainTime % 60);
-            int milisecs = Mathf.FloorToInt((remainTime * 1000) % 1000);
+            _remainingTime = _initialTime = timeForEachScene;
+            int mins = Mathf.FloorToInt(_remainingTime / 60);
+            int secs = Mathf.FloorToInt(_remainingTime % 60);
+            int milisecs = Mathf.FloorToInt((_remainingTime * 1000) % 1000);
             
             timerText.SetText(
                 string.Format("{0:D2}:{1:D2}:{2:D2}", mins, secs, milisecs)
