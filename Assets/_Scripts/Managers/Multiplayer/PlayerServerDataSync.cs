@@ -13,25 +13,22 @@ namespace _Scripts.Managers.Multiplayer
     /// <summary>
     /// This class is responsible for syncing player data between server and clients. Logic for data must be validated on PlayerController class.
     /// </summary>
-    public class PlayerDataSync : NetworkBehaviour
+    public class PlayerServerDataSync : NetworkBehaviour
     {
         public Sprite[] playerSprites;
-
-
-        [SyncVar(hook = nameof(OnPlayerIndexUpdate))] // hook -> this method will be executed on client side when server sends the new value for this variable.
-        [SerializeField] private PlayerIndex playerIndex = PlayerIndex.None;
-        
         public SpriteRenderer SpriteRenderer { private set; get; }
         public PlayerUI PlayerUI { private set; get; }
 
         #region Specs
+        [SyncVar(hook = nameof(OnPlayerIndexUpdate))] // hook -> this method will be executed on client side when server sends the new value for this variable.
+        [SerializeField] private PlayerIndex playerIndex = PlayerIndex.NotAssigned;
+
+        [SyncVar(hook = nameof(OnMaxHealthChanged))] 
+        [SerializeField] private float maxHealth;
         
         // [SyncVar] -> Syncs the variable from server to client. Can be just modified by server. If clients modifies its own value, the server will not be notified.
         [SyncVar(hook = nameof(OnHealthChanged))] 
         [SerializeField] private float health;
-        
-        [SyncVar(hook = nameof(OnMaxHealthChanged))] 
-        [SerializeField] private float maxHealth;
         
         
         #endregion
@@ -120,18 +117,8 @@ namespace _Scripts.Managers.Multiplayer
                Debug.Log("OnPlayerNumberUpdate: " + name + " with UI: " + PlayerUI.name);
             }
             
-            NotifyServerMaxHealthChange(5);
-            NotifyServerHealthChange(2); // TODO: default max health value
-        }
-        
-        public void NotifyServerHealthChange(float newAmount)
-        {
-            CmdChangeHealth(newAmount);
-        }
-        
-        public void NotifyServerMaxHealthChange(float newAmount)
-        {
-            CmdChangeMaxHealth(newAmount);
+            CmdChangeMaxHealth(5);
+            CmdChangeHealth(2); // TODO: default max health value
         }
         
         #endregion
@@ -139,6 +126,11 @@ namespace _Scripts.Managers.Multiplayer
         public float GetHealth()
         {
             return health;
+        }
+        
+        public PlayerIndex GetPlayerIndex()
+        {
+            return playerIndex;
         }
     }
 }

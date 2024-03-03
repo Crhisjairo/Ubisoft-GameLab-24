@@ -2,7 +2,7 @@
 {
     public enum PlayerIndex
     {
-        None,
+        NotAssigned,
         Player1,
         Player2
     }

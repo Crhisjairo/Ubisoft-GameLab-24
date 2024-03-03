@@ -32,9 +32,9 @@ namespace _Scripts.Managers.Multiplayer
 
         private void SetPlayerNumber(NetworkIdentity identity, PlayerIndex playerIndex)
         {
-            PlayerDataSync clientData  = identity.GetComponent<PlayerDataSync>();
+            PlayerServerDataSync clientServerData  = identity.GetComponent<PlayerServerDataSync>();
             
-            clientData.SetPlayerIndex(playerIndex);
+            clientServerData.SetPlayerIndex(playerIndex);
         }
         
     }

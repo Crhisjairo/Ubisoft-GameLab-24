@@ -10,6 +10,8 @@ namespace Mirror
     public class NetworkManagerHUD : MonoBehaviour
     {
         NetworkManager manager;
+        private string customIPAddress = "192.168.0.237"; // Puedes inicializarlo con la IP que desees.
+
 
         public int offsetX;
         public int offsetY;

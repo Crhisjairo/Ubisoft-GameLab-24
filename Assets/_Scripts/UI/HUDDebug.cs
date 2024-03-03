@@ -20,7 +20,7 @@ namespace _Scripts.UI
         }
 
         public void AddHealthListener(UnityAction action)
-        {
+        {    
             addHealth.onClick.AddListener(action);
         }
         

@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     private float horizontal;
     private float speed = 8f;
@@ -29,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer) return;
+        
         if (isDashing)
         {
             return;
