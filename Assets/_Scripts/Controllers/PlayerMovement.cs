@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     private float horizontal;
     private float speed = 8f;
@@ -28,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer) return;
+        
         if (isDashing)
         {
             return;
@@ -67,6 +71,12 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(groundCheck.position, 0.2f);
     }
 
     private void Flip()
