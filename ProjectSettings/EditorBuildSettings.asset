@@ -15,10 +15,10 @@ EditorBuildSettings:
     path: Assets/Scenes/MinigamesScenes/Minigame_1.unity
     guid: 4a0964f7f6b74f14ab21082d8af14109
   - enabled: 0
-    path: Assets/Scenes/MinigamesScenes/Minigame_3.unity
+    path: Assets/Scenes/Minigame_3.unity
     guid: 8a165260078094c4d965708b6ff1c639
   - enabled: 0
-    path: Assets/Scenes/MinigamesScenes/Minigame_2.unity
+    path: Assets/Scenes/Minigame_2.unity
     guid: b5d0eda68f09ef645a5f25842d7b1436
   - enabled: 0
     path: Assets/Scenes/Boss_Battle.unity
