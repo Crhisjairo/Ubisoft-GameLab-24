@@ -184,7 +184,7 @@ namespace _Scripts.Controllers
             if (collision.CompareTag("Obstacle"))
             {
                 var currentHealth = playerServerDataSync.GetHealth();
-                if (currentHealth <= 1)
+                if (currentHealth < 1)
                 {
                     Die();
                 }
@@ -193,16 +193,12 @@ namespace _Scripts.Controllers
 
         void Die()
         {
-            StartCoroutine(Respawn(0.5f));
+            Respawn();
         }
 
-        private IEnumerator Respawn(float duration)
+        private void Respawn()
         {
-
-            // Wait for the specified duration
-            yield return new WaitForSeconds(duration);
-
-            // Reset the player's position to the starting position
+            // Reset the player's position to the initial spawn point
             transform.position = startPos;
 
             // Reset the player's health to 2
