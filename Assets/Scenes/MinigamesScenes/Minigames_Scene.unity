@@ -182,8 +182,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Loading...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ae34b814903055540a1c21f3a1b699a8, type: 2}
-  m_sharedMaterial: {fileID: 1238410929584688701, guid: ae34b814903055540a1c21f3a1b699a8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 084fcb02f47cc1a4891b81ec26f70bd1, type: 2}
+  m_sharedMaterial: {fileID: 3891967022637239968, guid: 084fcb02f47cc1a4891b81ec26f70bd1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -363,7 +363,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -139.416, y: -45.35}
+  m_AnchoredPosition: {x: -121.3, y: -45.35}
   m_SizeDelta: {x: 278.834, y: 89.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &525850432
@@ -388,8 +388,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 02:20;999
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 084fcb02f47cc1a4891b81ec26f70bd1, type: 2}
+  m_sharedMaterial: {fileID: 3891967022637239968, guid: 084fcb02f47cc1a4891b81ec26f70bd1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1461,6 +1461,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 333706352516884826, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248417037373535474, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5003097942442535391, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
       propertyPath: m_LocalPosition.x
       value: 151.93259
@@ -1509,6 +1517,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneLoader
       objectReference: {fileID: 0}
+    - target: {fileID: 8699589720148367436, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2052878915, guid: bf1de7e63ff67044bb70178449907ca6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
