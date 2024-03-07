@@ -21,7 +21,7 @@ namespace _Scripts.Managers.Multiplayer
 
         #region Specs
         [SyncVar(hook = nameof(OnPlayerIndexUpdate))] // hook -> this method will be executed on client side when server sends the new value for this variable.
-        [SerializeField] private PlayerIndex playerIndex = PlayerIndex.NotAssigned;
+        private PlayerIndex playerIndex = PlayerIndex.NotAssigned;
 
         [SyncVar(hook = nameof(OnMaxHealthChanged))] 
         [SerializeField] private float maxHealth;

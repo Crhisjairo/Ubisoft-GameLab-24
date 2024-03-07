@@ -14,6 +14,10 @@ namespace _Scripts.Controllers
     /// This class is responsible for controlling player's properties and notifying server when something changes.
     /// </summary>
     [RequireComponent(typeof(PlayerServerDataSync))]
+    [RequireComponent(typeof(PlayerMovement))]
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(NetworkIdentity))]
+    [RequireComponent(typeof(NetworkTransformReliable))]
     public class PlayerController : NetworkBehaviour
     {
         [FormerlySerializedAs("_playerDataSync")]
