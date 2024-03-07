@@ -198,11 +198,11 @@ namespace _Scripts.Controllers
 
         private void Respawn()
         {
-            // Reset the player's position to the initial spawn point
+            // Reset the player's position
             transform.position = startPos;
 
-            // Reset the player's health to 2
-            playerServerDataSync.CmdChangeHealth(2f); // Assuming 3 is the desired health value
+            // Reset the player's health
+            playerServerDataSync.CmdChangeHealth(2f);
         }
 
 
