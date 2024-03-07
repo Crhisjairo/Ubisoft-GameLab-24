@@ -19,6 +19,8 @@ namespace _Scripts.Managers.Multiplayer
         public SpriteRenderer SpriteRenderer { private set; get; }
         public PlayerUI PlayerUI { private set; get; }
 
+        public Transform[] spawnPoints; // Array of spawn points for players
+
         #region Specs
         [SyncVar(hook = nameof(OnPlayerIndexUpdate))] // hook -> this method will be executed on client side when server sends the new value for this variable.
         private PlayerIndex playerIndex = PlayerIndex.NotAssigned;
@@ -131,6 +133,37 @@ namespace _Scripts.Managers.Multiplayer
         public PlayerIndex GetPlayerIndex()
         {
             return playerIndex;
+        }
+        public override void OnStartLocalPlayer()
+        {
+            base.OnStartLocalPlayer();
+
+            if (isLocalPlayer)
+            {
+                // Get the spawn point based on player index
+                Transform spawnPoint = GetSpawnPoint(GetPlayerIndex());
+
+                // Set the player's position to the spawn point
+                transform.position = spawnPoint.position;
+            }
+        }
+
+        private Transform GetSpawnPoint(PlayerIndex playerIndex)
+        {
+            // Return the appropriate spawn point based on the player index
+            if (playerIndex == PlayerIndex.Player1)
+            {
+                return spawnPoints[0];
+            }
+            else if (playerIndex == PlayerIndex.Player2)
+            {
+                return spawnPoints[1];
+            }
+            else
+            {
+                Debug.LogError("Invalid player index!");
+                return null;
+            }
         }
     }
 }

@@ -2,9 +2,23 @@ using System.Collections;
 using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
+using _Scripts.Managers.Multiplayer;
+using _Scripts.Shared;
+using _Scripts.UI;
 
+using UnityEngine.Events;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 namespace _Scripts.Controllers
-{
+{    /// <summary>
+     /// This class is responsible for controlling player's properties and notifying server when something changes.
+     /// </summary>
+    [RequireComponent(typeof(PlayerServerDataSync))]
+    [RequireComponent(typeof(PlayerMovement))]
+    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(NetworkIdentity))]
+    [RequireComponent(typeof(NetworkTransformReliable))]
     [RequireComponent(typeof(PlayerOneWayPlatform))]
     public class PlayerMovement : NetworkBehaviour
     {
@@ -20,10 +34,18 @@ namespace _Scripts.Controllers
         private float dashingTime = 0.05f;
         private float dashCooldown = 1.0f;
 
+        // Start position of the player
+        Vector2 startPos;
+
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private Transform groundCheck;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private TrailRenderer tr;
+
+
+        [FormerlySerializedAs("_playerDataSync")]
+
+        [SerializeField] PlayerServerDataSync playerServerDataSync;
 
         public override void OnStartAuthority()
         {
@@ -31,6 +53,9 @@ namespace _Scripts.Controllers
             
             PlayerInput playerInput = GetComponent<PlayerInput>();
             playerInput.enabled = true;
+            playerServerDataSync = GetComponent<PlayerServerDataSync>();
+
+            startPos = transform.position;
         }
 
         void Update()
@@ -56,6 +81,8 @@ namespace _Scripts.Controllers
             
             AdjustSpeed();
         }
+
+
 
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -150,6 +177,36 @@ namespace _Scripts.Controllers
             }
         }
 
+
+        // LOGIC FOR PLAYER DEATH
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag("Obstacle"))
+            {
+                var currentHealth = playerServerDataSync.GetHealth();
+                if (currentHealth < 1)
+                {
+                    Die();
+                }
+            }
+        }
+
+        void Die()
+        {
+            Respawn();
+        }
+
+        private void Respawn()
+        {
+            // Reset the player's position
+            transform.position = startPos;
+
+            // Reset the player's health
+            playerServerDataSync.CmdChangeHealth(2f);
+        }
+
+
+        // END LOGIC FOR PLAYER DEATH
         private IEnumerator Dash()
         {
             canDash = false;
