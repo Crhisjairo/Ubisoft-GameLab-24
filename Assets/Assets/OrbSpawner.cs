@@ -102,40 +102,48 @@ public class OrbSpawner : MonoBehaviour
 
     private void SpawnLShape()
     {
-        bool inversed = false;
+        bool inversed = true;
         int spawnAmount = 4;
         Vector3 previousPosition = Vector3.zero;
-        float diagonalOffsetX = (inversed ? -1 : 1);
-        float diagonalOffsetY = 1;
+        Vector3 spawnPoint;
+        float offsetX = (inversed ? -1 : 1);
+        float offsetY = 1;
+        Orb orb;
 
         for (int i = 0; i < spawnAmount; i++)
         {
             float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
-            Vector3 spawnPoint;
 
             // Spawn the first orb randomly
             if (i == 0)
             {
                 spawnPoint = GenerateRandomPoint();
+                orb = RandomDebuff();
             }
             else if (i <= spawnAmount / 2)
             {
                 // For the first half of the loop, spawn orbs diagonally upwards
-                spawnPoint = new Vector3(previousPosition.x, previousPosition.y + diagonalOffsetY, 0f);
+                spawnPoint = offsetPrevVector(previousPosition, 0, offsetY);
+                orb = RandomDebuff();
             }
             else
             {
-                // For the second half of the loop, spawn orbs diagonally downwards
-                spawnPoint = new Vector3(previousPosition.x + diagonalOffsetX, previousPosition.y, 0f);
+                spawnPoint = offsetPrevVector(previousPosition, offsetX, 0);
+                orb = RandomBuff();
             }
 
             previousPosition = spawnPoint;
-
-            Instantiate(RandomDebuff(), spawnPoint, rotation);
+            Instantiate(orb, spawnPoint, rotation);
         }
     }
+
+    private Vector3 offsetPrevVector(Vector3 previous, float offsetX, float offsetY)
+    {
+        return new Vector3(previous.x+offsetX, previous.y + offsetY, 0f);
+    }
+
 
     private void SingleSpawn()
     {
@@ -185,7 +193,6 @@ public class OrbSpawner : MonoBehaviour
 
             previousPosition = spawnPoint;
             int orbType = Random.Range(0, 5);
-            Orb orb;
 
             if (orbType == 0 && buffCreated == false)
             {
