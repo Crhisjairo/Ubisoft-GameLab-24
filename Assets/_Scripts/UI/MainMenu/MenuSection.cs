@@ -2,6 +2,7 @@
 using System.Collections;
 using Assets._Scripts.Shared;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Scripts.UI.MainMenu
 {
@@ -12,6 +13,8 @@ namespace _Scripts.UI.MainMenu
         private Animator animator;
         private CanvasGroup canvasGroup;
 
+        [SerializeField] private Button firstSelectedButton;
+        
         [SerializeField] private float transitionTime = 0.5f;
         public bool isActive = false;
         
@@ -39,6 +42,11 @@ namespace _Scripts.UI.MainMenu
             StartCoroutine(StartTransition());
         }
 
+        public void SelectFirstButton()
+        {
+            firstSelectedButton.Select();
+        }
+        
         private IEnumerator StartTransition()
         {
             
