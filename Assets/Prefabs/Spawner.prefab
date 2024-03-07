@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3517518743495980942}
-  - component: {fileID: 5491033302631648411}
+  - component: {fileID: 3668411656510983312}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5491033302631648411
+--- !u!114 &3668411656510983312
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,10 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 552520799038507597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a30ed984d0b24919b700175b3ba5a01, type: 3}
+  m_Script: {fileID: 11500000, guid: 517a385afd0af4b6bb03cc0ae9043789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidPrefab: {fileID: 0}
+  orbPrefabRed: {fileID: 3968777837381433771, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
+  orbPrefabBlue: {fileID: 583562016497090394, guid: f27998134b9ee42e7a0e1d6d9cc64c5a, type: 3}
   spawnDistance: 12
   spawnRate: 1
   amountPerSpawn: 1

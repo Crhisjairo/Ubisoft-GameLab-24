@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8861739128062814986}
   - component: {fileID: 9073222444883924650}
   - component: {fileID: 8680125873062306049}
-  - component: {fileID: 3220233618927673168}
   - component: {fileID: 9064018030123105457}
+  - component: {fileID: 3968777837381433771}
   m_Layer: 0
   m_Name: Asteroid
   m_TagString: Untagged
@@ -114,23 +114,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3220233618927673168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3429729455649727176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a82112863c94cd4a6a0b235db58e9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites: []
-  size: 1
-  minSize: 0.35
-  maxSize: 1.65
-  movementSpeed: 50
 --- !u!61 &9064018030123105457
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -176,3 +159,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
+--- !u!114 &3968777837381433771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3429729455649727176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f413ec97f38784ef9b79c68d416fee3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites: []
+  size: 1
+  minSize: 0.35
+  maxSize: 1.65
+  movementSpeed: 50
