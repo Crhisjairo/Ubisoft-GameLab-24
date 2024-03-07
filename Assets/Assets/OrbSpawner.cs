@@ -100,13 +100,12 @@ public class OrbSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnLShape()
+    private void SpawnInverseLShape(bool mirror)
     {
-        bool inversed = true;
         int spawnAmount = 4;
         Vector3 previousPosition = Vector3.zero;
         Vector3 spawnPoint;
-        float offsetX = (inversed ? -1 : 1);
+        float offsetX = (mirror ? -1 : 1);
         float offsetY = 1;
         Orb orb;
 
@@ -144,6 +143,43 @@ public class OrbSpawner : MonoBehaviour
         return new Vector3(previous.x+offsetX, previous.y + offsetY, 0f);
     }
 
+    private void SpawnLShape(bool mirror)
+    {
+        int spawnAmount = 4;
+        Vector3 previousPosition = Vector3.zero;
+        Vector3 spawnPoint = Vector3.zero;
+        float offsetX = (mirror ? -1 : 1);
+        float offsetY = 1;
+        Orb orb;
+
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+            Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
+
+
+            // Spawn the first orb randomly
+            if (i == 0)
+            {
+                spawnPoint = GenerateRandomPoint();
+                orb = RandomBuff();
+            }
+            else if (i == 1)
+            {
+                spawnPoint = offsetPrevVector(spawnPoint, offsetX, 0);
+                orb = RandomDebuff();
+            }
+            else
+            {
+                // For the first half of the loop, spawn orbs diagonally upwards
+                spawnPoint = offsetPrevVector(previousPosition, 0, offsetY);
+                orb = RandomDebuff();
+            }
+
+            previousPosition = spawnPoint;
+            Instantiate(orb, spawnPoint, rotation);
+        }
+    }
 
     private void SingleSpawn()
     {
@@ -168,7 +204,10 @@ public class OrbSpawner : MonoBehaviour
 
     private void Spawn()
     {
-        SpawnLShape();
+        SpawnInverseLShape(true);
+        SpawnInverseLShape(false);
+        SpawnLShape(false);
+        SpawnLShape(true);
     }
 
     private void SpawnCluster()
