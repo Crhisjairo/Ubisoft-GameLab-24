@@ -25,66 +25,6 @@ public class OrbSpawner : MonoBehaviour
 
     }
 
-    //public void Spawn()
-    //{
-    //    for (int i = 0; i < amountPerSpawn; i++)
-    //    {
-    //        // Calculate a random variance in the orb's rotation which will
-    //        // cause its trajectory to change
-    //        float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
-    //        float yVariance = Random.Range(0f, .5f);
-    //        Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
-
-    //        // Calculate the spawn point at the top of the camera's view
-    //        float cameraTopY = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 1 + yVariance, 0f)).y;
-    //        Vector3 spawnPoint = new Vector3(Random.Range(-spawnDistance, spawnDistance), cameraTopY, 0f);
-
-    //        // Create the new orb by cloning the prefab and set a random
-    //        // size within the range
-    //        Orb orb;
-    //        orb = Instantiate(RandomBuff(), spawnPoint, rotation);
-    //        orb.size = Random.Range(orb.minSize, orb.maxSize);
-
-    //    }
-    //}
-
-    void orbRandomizer(int orbType, Vector3 spawnPoint, Quaternion rotation)
-    {
-        Orb orb;
-        if (orbType > 90 && !swordOrb)
-        {
-            swordOrb = false;
-            orb = Instantiate(orbPrefabRed, spawnPoint, rotation);
-        }
-        else if (orbType > 80 && !shieldOrb)
-        {
-            shieldOrb = false;
-            orb = Instantiate(orbPrefabRed, spawnPoint, rotation);
-        }
-        else if (orbType > 70)
-        {
-            //DIAGONAL
-        }
-        else if (orbType > 60)
-        {
-            //DIAGONAL INVERSED
-        }
-        else if (orbType > 50)
-        {
-            //HORIZONTAL
-        }
-        else if (orbType > 40)
-        {
-            //debuff orb
-        }
-        orb = Instantiate(orbPrefabBlue, spawnPoint, rotation);
-
-    }
-    void triangularSpawn()
-    {
-        //
-    }
-
 
     //todo:Patterns  
     //ONCE: triplet: Sword + 2 E-Atk, random position
@@ -95,7 +35,8 @@ public class OrbSpawner : MonoBehaviour
 
     //Note: randomize Y position
 
-    public void Spawn()
+
+    private void SpawnDiagonal()
     {
         bool inversed = false;
         int diagonalSpawnAmount = 5;
@@ -106,34 +47,189 @@ public class OrbSpawner : MonoBehaviour
         for (int i = 0; i < diagonalSpawnAmount; i++)
         {
             float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
-
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
             Vector3 spawnPoint;
-            Orb orb;
 
             // For the first orb, spawn it at a random position
             if (i == 0)
-                spawnPoint = GenerateRandomSpawnPoint();
+                spawnPoint = GenerateRandomPoint();
             else
                 // For subsequent orbs, spawn them diagonally from the previous orb              
                 spawnPoint = new Vector3(previousPosition.x + diagonalOffsetX, previousPosition.y + diagonalOffsetY, 0f);
 
             previousPosition = spawnPoint;
-
-            // Instantiate orb based on the random orbType
-            orbType = Random.Range(0, 5);
-            orb = Instantiate(RandomDebuff(), spawnPoint, rotation);
-
-            orb.size = Random.Range(orb.minSize, orb.maxSize);
+            Instantiate(RandomDebuff(), spawnPoint, rotation);
         }
     }
 
-    private Vector3 GenerateRandomSpawnPoint()
+    private void SpawnDiagonal_LShape()
+    {
+        bool inversed = true;
+        int spawnAmount = 4;
+        Vector3 previousPosition = Vector3.zero;
+        float diagonalOffsetX = (inversed ? -1 : 1);
+        float diagonalOffsetY = 1;
+
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+            Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
+
+            Vector3 spawnPoint;
+
+            // Spawn the first orb randomly
+            if (i == 0)
+            {
+                spawnPoint = GenerateRandomPoint();
+            }
+            else if (i <= spawnAmount / 2)
+            {
+                // For the first half of the loop, spawn orbs diagonally upwards
+                spawnPoint = new Vector3(previousPosition.x + diagonalOffsetX, previousPosition.y + diagonalOffsetY, 0f);
+            }
+            else
+            {
+                // For the second half of the loop, spawn orbs diagonally downwards
+                spawnPoint = new Vector3(previousPosition.x + diagonalOffsetX, previousPosition.y - diagonalOffsetY, 0f);
+            }
+
+            previousPosition = spawnPoint;
+
+            Instantiate(RandomDebuff(), spawnPoint, rotation);
+        }
+    }
+
+    private void SpawnLShape()
+    {
+        bool inversed = false;
+        int spawnAmount = 4;
+        Vector3 previousPosition = Vector3.zero;
+        float diagonalOffsetX = (inversed ? -1 : 1);
+        float diagonalOffsetY = 1;
+
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+            Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
+
+            Vector3 spawnPoint;
+
+            // Spawn the first orb randomly
+            if (i == 0)
+            {
+                spawnPoint = GenerateRandomPoint();
+            }
+            else if (i <= spawnAmount / 2)
+            {
+                // For the first half of the loop, spawn orbs diagonally upwards
+                spawnPoint = new Vector3(previousPosition.x, previousPosition.y + diagonalOffsetY, 0f);
+            }
+            else
+            {
+                // For the second half of the loop, spawn orbs diagonally downwards
+                spawnPoint = new Vector3(previousPosition.x + diagonalOffsetX, previousPosition.y, 0f);
+            }
+
+            previousPosition = spawnPoint;
+
+            Instantiate(RandomDebuff(), spawnPoint, rotation);
+        }
+    }
+
+    private void SingleSpawn()
+    {
+        for (int i = 0; i < amountPerSpawn; i++)
+        {
+            // Calculate a random variance in the orb's rotation which will
+            // cause its trajectory to change
+            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+            float yVariance = Random.Range(0f, .5f);
+            Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
+
+            // Calculate the spawn point at the top of the camera's view
+            float cameraTopY = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 1 + yVariance, 0f)).y;
+            Vector3 spawnPoint = new Vector3(Random.Range(-spawnDistance, spawnDistance), cameraTopY, 0f);
+
+            orbType = Random.Range(0, 100);
+            Instantiate(RandomOrb(), spawnPoint, rotation);
+            // Orb orb = Instantiate(RandomDebuff(), spawnPoint, rotation);
+            //orb.size = Random.Range(orb.minSize, orb.maxSize);
+        }
+    }
+
+    private void Spawn()
+    {
+        SpawnLShape();
+    }
+
+    private void SpawnCluster()
+    {
+        int spawnAmount = 4;
+        bool buffCreated = false;
+        Vector3 previousPosition = Vector3.zero;
+        float minDistance = 1.0f; // Adjust this value based on your requirements
+
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+            Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
+
+            Vector3 spawnPoint;
+
+            if (i == 0)
+                spawnPoint = GenerateRandomPoint();
+
+            else
+                spawnPoint = generateRandomDiagonalPoint(previousPosition, minDistance);
+
+            previousPosition = spawnPoint;
+            int orbType = Random.Range(0, 5);
+            Orb orb;
+
+            if (orbType == 0 && buffCreated == false)
+            {
+                Instantiate(RandomBuff(), spawnPoint, rotation);
+                buffCreated = true;
+            }
+            else if (i == spawnAmount - 1 && buffCreated == false)
+            {
+                Instantiate(RandomBuff(), spawnPoint, rotation);
+            }
+            else
+            {
+                Instantiate(RandomDebuff(), spawnPoint, rotation);
+            }
+
+        }
+    }
+
+    private Vector3 generateRandomDiagonalPoint(Vector3 previousPosition, float minDistance)
+    {
+        Vector3 spawnPoint;
+        do
+        {
+            float offsetX = Random.Range(-1f, 1f);
+            float offsetY = Random.Range(-1f, 1f);
+            spawnPoint = new Vector3(previousPosition.x + offsetX, previousPosition.y + offsetY, 0f);
+        } while (Vector3.Distance(spawnPoint, previousPosition) < minDistance);
+
+        return spawnPoint;
+    }
+
+    private Vector3 GenerateRandomPoint()
     {
         float yVariance = Random.Range(0f, .5f);
         float cameraTopY = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 1 + yVariance, 0f)).y;
         return new Vector3(Random.Range(-spawnDistance, spawnDistance), cameraTopY, 0f);
+    }
+    private Orb RandomOrb()
+    {
+        orbType = Random.Range(0, 100);
+        if (orbType < 60)
+            return RandomBuff();
+        else
+            return RandomDebuff();
     }
 
     private Orb RandomBuff()
@@ -141,8 +237,8 @@ public class OrbSpawner : MonoBehaviour
         int debuff = Random.Range(0, 3);
         switch (debuff)
         {
-            case 0: return orbPrefabRed;
-            case 1: return orbPrefabBlue;
+            // case 0: return orbPrefabRed;
+            // case 1: return orbPrefabBlue;
             default: return orbPrefabBlue;
         }
 
@@ -152,10 +248,11 @@ public class OrbSpawner : MonoBehaviour
         int debuff = Random.Range(0, 3);
         switch (debuff)
         {
-            case 0: return orbPrefabRed;
-            case 1: return orbPrefabBlue;
-            default: return orbPrefabBlue;
+            // case 0: return orbPrefabRed;
+            // case 1: return orbPrefabBlue;
+            default: return orbPrefabRed;
         }
 
     }
+
 }
