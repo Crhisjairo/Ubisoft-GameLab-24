@@ -38,8 +38,7 @@ public class Orb : MonoBehaviour
     }
     private void Update()
     {
-        // Check if the Y position is under -30 and destroy the Orb
-        if (transform.position.y < -30)
+        if (transform.position.y < -10)
         {
             Destroy(gameObject);
         }
