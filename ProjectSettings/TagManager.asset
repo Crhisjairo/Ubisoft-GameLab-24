@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - OneWayPlatform
+  - CloudBackground
+  - CloudMiddleground
+  - CloudForeground
   layers:
   - Default
   - TransparentFX
