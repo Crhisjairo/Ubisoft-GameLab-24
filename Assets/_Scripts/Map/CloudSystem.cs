@@ -69,10 +69,10 @@ namespace _Scripts.Map
     
         private Vector3 CalculateRandomPosition()
         {
-            float minX = _spawnZone.position.x - _spawnZone.rect.width * 3;
-            float maxX = _spawnZone.position.x + _spawnZone.rect.width * 3;
-            float minY = _spawnZone.position.y - _spawnZone.rect.height * 3;
-            float maxY = _spawnZone.position.y + _spawnZone.rect.height * 3;
+            float minX = _spawnZone.position.x - _spawnZone.rect.width;
+            float maxX = _spawnZone.position.x + _spawnZone.rect.width;
+            float minY = _spawnZone.position.y - _spawnZone.rect.height;
+            float maxY = _spawnZone.position.y + _spawnZone.rect.height;
 
             float x = Random.Range(minX, maxX);
             float y = Random.Range(minY, maxY);

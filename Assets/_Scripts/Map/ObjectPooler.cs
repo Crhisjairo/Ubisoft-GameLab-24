@@ -33,7 +33,7 @@ namespace _Scripts.Map
 
                 for (int i = 0; i < pool.maxActiveObjects; i++)
                 {
-                    GameObject obj = Instantiate(pool.prefab);
+                    GameObject obj = Instantiate(pool.prefab, transform);
                     obj.SetActive(false);
                     objectPool.Enqueue(obj);
                 }
