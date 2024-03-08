@@ -1,7 +1,6 @@
-using System;
+using _Scripts.UI.PlayerUIs;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
+
 namespace _Scripts.UI
 {
     public class HUDPlayersManager : MonoBehaviour

@@ -1,6 +1,8 @@
 using System;
+using _Scripts.ScriptableObjects;
 using _Scripts.Shared;
 using _Scripts.UI;
+using _Scripts.UI.PlayerUIs;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -15,6 +17,8 @@ namespace _Scripts.Managers.Multiplayer
     /// </summary>
     public class PlayerServerDataSync : NetworkBehaviour
     {
+        [SerializeField] PlayerDataScriptableObject playerDataScriptableObject;
+        
         public Sprite[] playerSprites;
         public SpriteRenderer SpriteRenderer { private set; get; }
         public PlayerUI PlayerUI { private set; get; }
@@ -24,11 +28,11 @@ namespace _Scripts.Managers.Multiplayer
         private PlayerIndex playerIndex = PlayerIndex.NotAssigned;
 
         [SyncVar(hook = nameof(OnMaxHealthChanged))] 
-        [SerializeField] private float maxHealth;
+        private float maxHealth;
         
         // [SyncVar] -> Syncs the variable from server to client. Can be just modified by server. If clients modifies its own value, the server will not be notified.
         [SyncVar(hook = nameof(OnHealthChanged))] 
-        [SerializeField] private float health;
+        private float health;
         
         
         #endregion
@@ -49,6 +53,7 @@ namespace _Scripts.Managers.Multiplayer
         [Server]
         public void SetMaxHealthServerSide(float amount)
         {
+            health = amount;
             maxHealth = amount;
         }
         
@@ -58,6 +63,16 @@ namespace _Scripts.Managers.Multiplayer
             this.playerIndex = playerIndex;
         }
         
+        [Server]
+        public void LoadDefaultPlayerData()
+        {
+            Debug.Log(playerDataScriptableObject.maxHealth);
+            
+            maxHealth = playerDataScriptableObject.maxHealth;
+            health = playerDataScriptableObject.health;
+            //TODO: Other settings must be loaded from here
+        }
+
         [Command] // Command -> are methods that are called from client and executed on server.
         public void CmdChangeHealth(float amount)
         {
@@ -80,8 +95,8 @@ namespace _Scripts.Managers.Multiplayer
             Debug.Log("Client: Health changed from " + oldValue + " to " + newValue);
             
             health = newValue;
-            PlayerUI.healthSlider.value = newValue;
-            PlayerUI.healthText.text = "Health: " + health;
+            PlayerUI.lifeUIController.AddHeart((int)newValue); // TODO: Must be changed to float
+            
         }
         
         public void OnMaxHealthChanged(float oldValue, float newValue)
@@ -89,8 +104,8 @@ namespace _Scripts.Managers.Multiplayer
             Debug.Log("Client: Max Health changed from " + oldValue + " to " + newValue);
             
             maxHealth = newValue;
-            PlayerUI.healthSlider.maxValue = newValue;
-            PlayerUI.maxHealthText.text = "Max: " + maxHealth;
+            PlayerUI.lifeUIController.SetMaxHeartsTo((int)newValue); // TODO: Must be changed to float
+            
         }
         
         /// <summary>
@@ -101,6 +116,7 @@ namespace _Scripts.Managers.Multiplayer
         public void OnPlayerIndexUpdate(PlayerIndex oldPlayerIndex, PlayerIndex newPlayerIndex)
         {
             Debug.Log("Player number updated from " + oldPlayerIndex + " to " + newPlayerIndex);
+            
             
             if(newPlayerIndex == PlayerIndex.Player1)
             {
@@ -116,16 +132,18 @@ namespace _Scripts.Managers.Multiplayer
                PlayerUI = HUDPlayersManager.Instance.player2UI;
                Debug.Log("OnPlayerNumberUpdate: " + name + " with UI: " + PlayerUI.name);
             }
-            
-            CmdChangeMaxHealth(5);
-            CmdChangeHealth(2); // TODO: default max health value
         }
         
         #endregion
-
+        
         public float GetHealth()
         {
             return health;
+        }
+        
+        public float GetMaxHealth()
+        {
+            return maxHealth;
         }
         
         public PlayerIndex GetPlayerIndex()

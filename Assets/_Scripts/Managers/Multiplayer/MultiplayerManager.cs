@@ -35,6 +35,8 @@ namespace _Scripts.Managers.Multiplayer
             PlayerServerDataSync clientServerData  = identity.GetComponent<PlayerServerDataSync>();
             
             clientServerData.SetPlayerIndex(playerIndex);
+            clientServerData.LoadDefaultPlayerData();
+            
         }
         
     }

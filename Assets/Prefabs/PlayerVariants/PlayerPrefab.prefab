@@ -264,6 +264,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  playerDataScriptableObject: {fileID: 11400000, guid: 5f18a834ea5a8484283e7889e6683564, type: 2}
   playerSprites:
   - {fileID: 21300000, guid: 85b636d7118b4e04e89a23928159df59, type: 3}
   - {fileID: 21300000, guid: 9ae85551799ec1d41a8f0b876fc85ccb, type: 3}
@@ -535,14 +536,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1e90eb4d-3348-422d-baed-5ccef2e1c791
     m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6d888b51-f47a-4105-b59d-2b7e744ae155
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0212a7a9-6c5f-4ed6-ae8d-c1c33f42f256
-    m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2390513268766433027}

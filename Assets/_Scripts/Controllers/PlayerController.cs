@@ -1,5 +1,6 @@
 using System;
 using _Scripts.Managers.Multiplayer;
+using _Scripts.ScriptableObjects;
 using _Scripts.Shared;
 using _Scripts.UI;
 using Mirror;
@@ -22,7 +23,7 @@ namespace _Scripts.Controllers
     {
         [FormerlySerializedAs("_playerDataSync")]
         [SerializeField] PlayerServerDataSync playerServerDataSync;
-        
+
         private void Awake()
         {
             playerServerDataSync = GetComponent<PlayerServerDataSync>();
@@ -47,7 +48,15 @@ namespace _Scripts.Controllers
             // Notify server
             playerServerDataSync.CmdChangeHealth(newHealth);
         }
-    
+
+        public void AddHeartSlot(float amount)
+        {
+            var newMaxHealth = playerServerDataSync.GetMaxHealth();
+            newMaxHealth += amount;
+            
+            playerServerDataSync.CmdChangeMaxHealth(newMaxHealth);
+        }
+
         private void OnEnable()
         {
             // JUST FOR DEBUGGING. THIS CAUSE A WARNING ON CONSOLE. Anyways, this do not cause any problem.
