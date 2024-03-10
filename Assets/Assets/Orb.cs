@@ -8,13 +8,6 @@ public class Orb : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     [SerializeField]
-    private Sprite[] sprites;
-
-    public float size = 1f;
-    public float minSize = 0.35f;
-    public float maxSize = 1.65f;
-    public float movementSpeed = 50f;
-
 
 
     private void Awake()
@@ -25,16 +18,7 @@ public class Orb : MonoBehaviour
 
     private void Start()
     {
-        // Assign random properties to make each Orb feel unique
-        // spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
-        // transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360f);
-
-
-
-        // Set the scale and mass of the Orb based on the assigned size so
-        // the physics is more realistic
-        // transform.localScale = Vector3.one * size;
-        // rb.mass = size;
+        transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360f);
     }
     private void Update()
     {
@@ -42,13 +26,6 @@ public class Orb : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    public void SetTrajectory(Vector2 direction)
-    {
-        // The Orb only needs a force to be added once since they have no
-        // drag to make them stop moving
-        rb.AddForce(direction * movementSpeed);
     }
 
 
