@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3429729455649727176, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
       propertyPath: m_Name
-      value: OrbBlue Variant
+      value: Orb_Red
       objectReference: {fileID: 0}
     - target: {fileID: 3429729455649727176, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
       propertyPath: m_IsActive
@@ -57,45 +57,60 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9064018030123105457, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.w
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 9064018030123105457, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.x
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 9064018030123105457, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.y
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 9064018030123105457, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.z
+      value: 0.049999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 9064018030123105457, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 19.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9064018030123105457, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 10.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9064018030123105457, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.64
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 9064018030123105457, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.64
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 9073222444883924650, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
+      propertyPath: m_Size.x
+      value: 19.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9073222444883924650, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
+      propertyPath: m_Size.y
+      value: 10.8
       objectReference: {fileID: 0}
     - target: {fileID: 9073222444883924650, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1582054861, guid: bf1de7e63ff67044bb70178449907ca6, type: 3}
+      objectReference: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 9073222444883924650, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9073222444883924650, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3220233618927673168, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3429729455649727176, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -5226477866315969374}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
---- !u!1 &1194030188080014393 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3429729455649727176, guid: c51be33c6d75c45669d796fb86e526a7, type: 3}
-  m_PrefabInstance: {fileID: 4542677256520599281}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &-5226477866315969374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194030188080014393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be494a843136c4ef490dbafb8f17d5ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprites: []
-  size: 5
-  minSize: 0.35
-  maxSize: 1.65
-  movementSpeed: 20

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class OrbSpawner : MonoBehaviour
 {
@@ -16,30 +17,16 @@ public class OrbSpawner : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);
+        //InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);
         mainCamera = Camera.main;
-        // Debug.LogWarning("WRONG SETUP OF SPWAN RATE");
+        StartCoroutine(Spawn());
     }
-    private void update()
-    {
-
-    }
-
-
-    //todo:Patterns  
-    //ONCE: triplet: Sword + 2 E-Atk, random position
-    //ONCE: triplet: Shield + 2 E-spd, random position
-    //diagonal random debuff
-    //diagonal inversed random debuff
-    //horizontal debuff random
-
-    //Note: randomize Y position
 
 
     private void SpawnDiagonal()
     {
         bool inversed = false;
-        int diagonalSpawnAmount = 5;
+        int diagonalSpawnAmount = 4;
         Vector3 previousPosition = new Vector3(0, 0, 0f);
         float diagonalOffsetX = (inversed ? -1 : 1);
         float diagonalOffsetY = 1;
@@ -63,42 +50,42 @@ public class OrbSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnDiagonal_LShape()
-    {
-        bool inversed = true;
-        int spawnAmount = 4;
-        Vector3 previousPosition = Vector3.zero;
-        float diagonalOffsetX = (inversed ? -1 : 1);
-        float diagonalOffsetY = 1;
+    //private void SpawnDiagonal_LShape()
+    //{
+    //    bool inversed = true;
+    //    int spawnAmount = 4;
+    //    Vector3 previousPosition = Vector3.zero;
+    //    float diagonalOffsetX = (inversed ? -1 : 1);
+    //    float diagonalOffsetY = 1;
 
-        for (int i = 0; i < spawnAmount; i++)
-        {
-            float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
-            Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
+    //    for (int i = 0; i < spawnAmount; i++)
+    //    {
+    //        float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
+    //        Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
-            Vector3 spawnPoint;
+    //        Vector3 spawnPoint;
 
-            // Spawn the first orb randomly
-            if (i == 0)
-            {
-                spawnPoint = GenerateRandomPoint();
-            }
-            else if (i <= spawnAmount / 2)
-            {
-                // For the first half of the loop, spawn orbs diagonally upwards
-                spawnPoint = new Vector3(previousPosition.x + diagonalOffsetX, previousPosition.y + diagonalOffsetY, 0f);
-            }
-            else
-            {
-                // For the second half of the loop, spawn orbs diagonally downwards
-                spawnPoint = new Vector3(previousPosition.x + diagonalOffsetX, previousPosition.y - diagonalOffsetY, 0f);
-            }
+    //        // Spawn the first orb randomly
+    //        if (i == 0)
+    //        {
+    //            spawnPoint = GenerateRandomPoint();
+    //        }
+    //        else if (i <= spawnAmount / 2)
+    //        {
+    //            // For the first half of the loop, spawn orbs diagonally upwards
+    //            spawnPoint = new Vector3(previousPosition.x + diagonalOffsetX, previousPosition.y + diagonalOffsetY, 0f);
+    //        }
+    //        else
+    //        {
+    //            // For the second half of the loop, spawn orbs diagonally downwards
+    //            spawnPoint = new Vector3(previousPosition.x + diagonalOffsetX, previousPosition.y - diagonalOffsetY, 0f);
+    //        }
 
-            previousPosition = spawnPoint;
+    //        previousPosition = spawnPoint;
 
-            Instantiate(RandomDebuff(), spawnPoint, rotation);
-        }
-    }
+    //        Instantiate(RandomDebuff(), spawnPoint, rotation);
+    //    }
+    //}
 
     private void SpawnInverseLShape(bool mirror)
     {
@@ -140,7 +127,7 @@ public class OrbSpawner : MonoBehaviour
 
     private Vector3 offsetPrevVector(Vector3 previous, float offsetX, float offsetY)
     {
-        return new Vector3(previous.x+offsetX, previous.y + offsetY, 0f);
+        return new Vector3(previous.x + offsetX, previous.y + offsetY, 0f);
     }
 
     private void SpawnLShape(bool mirror)
@@ -181,14 +168,14 @@ public class OrbSpawner : MonoBehaviour
         }
     }
 
-    private void SingleSpawn()
+    private void SpawnSingle()
     {
         for (int i = 0; i < amountPerSpawn; i++)
         {
             // Calculate a random variance in the orb's rotation which will
             // cause its trajectory to change
             float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
-            float yVariance = Random.Range(0f, .5f);
+            float yVariance = Random.Range(1f, 1.5f);
             Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
 
             // Calculate the spawn point at the top of the camera's view
@@ -202,12 +189,21 @@ public class OrbSpawner : MonoBehaviour
         }
     }
 
-    private void Spawn()
+    private IEnumerator Spawn()
     {
-        SpawnInverseLShape(true);
-        SpawnInverseLShape(false);
-        SpawnLShape(false);
-        SpawnLShape(true);
+        //SpawnInverseLShape(true);
+        //SpawnInverseLShape(false);
+        //SpawnLShape(false);
+        //SpawnLShape(true);
+        while (true)
+        {
+            SpawnCluster();
+            yield return new WaitForSeconds(1);
+            SpawnDiagonal();
+            yield return new WaitForSeconds(1);
+            SpawnSingle();
+            yield return new WaitForSeconds(1);
+        }
     }
 
     private void SpawnCluster()
@@ -272,7 +268,7 @@ public class OrbSpawner : MonoBehaviour
     private Orb RandomOrb()
     {
         orbType = Random.Range(0, 100);
-        if (orbType < 60)
+        if (orbType < 80)
             return RandomBuff();
         else
             return RandomDebuff();
