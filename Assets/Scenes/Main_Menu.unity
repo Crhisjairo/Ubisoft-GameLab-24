@@ -3153,9 +3153,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1274870601}
+      - m_Target: {fileID: 1724491023}
         m_TargetAssemblyTypeName: _Scripts.UI.MainMenu.MenuSection, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4077,7 +4077,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 2012457256}
+    m_SelectOnUp: {fileID: 1733824118}
     m_SelectOnDown: {fileID: 1069801130}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
@@ -5392,7 +5392,7 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 2012457256}
-    m_SelectOnDown: {fileID: 1069801130}
+    m_SelectOnDown: {fileID: 1274870605}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
