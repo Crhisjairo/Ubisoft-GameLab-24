@@ -20,12 +20,12 @@ namespace _Scripts.Map
 
         private void Awake()
         {
+            poolDict = new Dictionary<string, Queue<GameObject>>();
             Instance = this;
         }
         
         void Start()
         {
-            poolDict = new Dictionary<string, Queue<GameObject>>();
 
             foreach (Pool pool in pools)
             {

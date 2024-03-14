@@ -18,8 +18,9 @@ namespace _Scripts.Managers
 {
     public class MinigamesManager : MonoBehaviour
     {
+        [FormerlySerializedAs("_sceneLoader")]
         [FormerlySerializedAs("sceneLoader")]
-        [SerializeField] private SceneLoader _sceneLoader;
+        [SerializeField] private CanvasGroupFade canvasGroupFade;
         [SerializeField] private MinigameSceneNames[] scenesNamesToLoad;
         private Queue<MinigameSceneNames> _scenesSortedRan;
         
@@ -171,7 +172,7 @@ namespace _Scripts.Managers
             // Call another script for loading the boss battle scene.
             Debug.Log("Loading boss battle scene!.");
 
-            _sceneLoader.LoadNextScene();
+            canvasGroupFade.LoadNextScene();
             //StartCoroutine(UnloadSceneAsync(_currentMinigameScene.ToString()));
             
         }

@@ -482,7 +482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &586879484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1143,7 +1143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1294979066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1156,7 +1156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb05032773366204899a19e8723cd943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneLoader: {fileID: 1845748040}
+  canvasGroupFade: {fileID: 1845748040}
   scenesNamesToLoad: 020000000300000004000000
   timeForEachScene: 5
   uiCanvasGroup: {fileID: 764119080}
@@ -1511,16 +1511,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5013730207301278803, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5799035140713213875, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
       propertyPath: m_Name
       value: SceneLoader
       objectReference: {fileID: 0}
+    - target: {fileID: 5799035140713213875, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8699589720148367436, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 2052878915, guid: bf1de7e63ff67044bb70178449907ca6, type: 3}
+    - target: {fileID: 8991205878751884738, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

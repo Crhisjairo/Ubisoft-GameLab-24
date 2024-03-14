@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using _Scripts.Shared;
 using Assets._Scripts.Shared;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 namespace _Scripts.Managers
 {
-    public class SceneLoader: MonoBehaviour
+    public class CanvasGroupFade: MonoBehaviour
     {
         [SerializeField] private GlobalScenesNames nextSceneToLoad;
 
@@ -26,6 +27,8 @@ namespace _Scripts.Managers
         
         [Space(20)]
         [SerializeField] private Slider loadingSlider;
+
+        public float transitionSpeed = 1f;
         
         private Coroutine _loadingScreenRoutine;
         private bool _isLoading;
@@ -59,7 +62,37 @@ namespace _Scripts.Managers
                 LoadNextSceneAsync(nextSceneToLoad.ToString())
                 );
         }
+
+        public IEnumerator FadeIn()
+        {
+            float alpha = uiCanvasGroup.alpha;
+
+            while (alpha < 1)
+            {
+                yield return new WaitForSeconds(0.01f);
+                alpha += 0.01f * transitionSpeed;
+                uiCanvasGroup.alpha = alpha;
+            }
+        }
         
+        public IEnumerator FadeOut()
+        {
+            float alpha = uiCanvasGroup.alpha;
+
+            while (alpha > 0)
+            {
+                yield return new WaitForSeconds(0.01f);
+                alpha -= 0.01f * transitionSpeed;
+                uiCanvasGroup.alpha = alpha;
+            }
+        }
+        
+        public void ShowScreenNoDelay()
+        {
+            uiCanvasGroup.alpha = 1f;
+        }
+
+
         private IEnumerator LoadNextSceneAsync(string sceneToLoad)
         {
             _isLoading = true;
