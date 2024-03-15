@@ -1302,9 +1302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e519287b9854467b21d2eb1996670b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSlider: {fileID: 1309125791}
-  healthText: {fileID: 687054640}
-  maxHealthText: {fileID: 115693170}
+  lifeUIController: {fileID: 0}
 --- !u!1 &967254187
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,6 +1947,9 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
+  firstSceneToLoad: 
+  canvasGroupFade: {fileID: 0}
+  scenesNamesToLoad: 
 --- !u!114 &1242468612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2800,9 +2801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e519287b9854467b21d2eb1996670b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSlider: {fileID: 2127203903}
-  healthText: {fileID: 1955301888}
-  maxHealthText: {fileID: 39476848}
+  lifeUIController: {fileID: 0}
 --- !u!1 &1659421935
 GameObject:
   m_ObjectHideFlags: 0

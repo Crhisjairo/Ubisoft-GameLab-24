@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using _Scripts.Controllers;
+using _Scripts.Managers.Multiplayer.Messages;
 using _Scripts.Shared;
 using Assets._Scripts.Shared;
 using Mirror;
@@ -30,6 +30,22 @@ namespace _Scripts.Managers.Multiplayer
         
         private Queue<AsyncOperation> _scenesAsyncOperations = new Queue<AsyncOperation>(0);
 
+        public override void Start()
+        {
+            base.Start();
+            
+            NetworkClient.RegisterHandler<ServerLoadSceneMessage>(OnLoadSceneMessage);
+        }
+
+        
+        /// <summary>
+        /// On client side when the server sends a message to load a scene.
+        /// </summary>
+        /// <param name="msg"></param>
+        private void OnLoadSceneMessage(ServerLoadSceneMessage msg)
+        {
+        }
+        
         // Client side
         public override void OnClientConnect()
         {

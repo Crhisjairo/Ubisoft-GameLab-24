@@ -1,4 +1,5 @@
 using System.Collections;
+using _Scripts.Shared;
 using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,6 +22,7 @@ namespace _Scripts.Controllers
         private float dashCooldown = 1.0f;
 
         [SerializeField] private Rigidbody2D rb;
+        [SerializeField] private Animator anim;
         [SerializeField] private Transform groundCheck;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private TrailRenderer tr;
@@ -61,8 +63,16 @@ namespace _Scripts.Controllers
         {
             if (isDashing) return;
             
-            
             movementInput = context.ReadValue<Vector2>();
+            
+            if(movementInput.x == 0)
+            {
+                anim.SetBool(PlayerAnimations.isWalking.ToString(), true);
+            }
+            else
+            {
+                anim.SetBool(PlayerAnimations.isWalking.ToString(), false);
+            }
         }
         
         public void OnJump(InputAction.CallbackContext context)
