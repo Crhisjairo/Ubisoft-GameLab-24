@@ -51,8 +51,8 @@ namespace _Scripts.Managers.Multiplayer
             
             Debug.Log("Client loaded Minigames_Scenes scene!");
 
-            if (conn.identity == null) // Notify players to load the current minigame.
-                StartCoroutine(AddPlayerDelayed(conn, "Minigame_1")); // TODO: change by _scenesSortedRan.Dequeue().ToString()...
+            //if (conn.identity == null) // Notify players to load the current minigame.
+                //StartCoroutine(AddPlayerDelayed(conn, "Minigame_1")); // TODO: change by _scenesSortedRan.Dequeue().ToString()...
         }
         
         IEnumerator AddPlayerDelayed(NetworkConnectionToClient conn, string sceneNameToLoad)
@@ -90,11 +90,8 @@ namespace _Scripts.Managers.Multiplayer
         }
         
         /// <summary>
-        /// Ejecutado en el cliente cuando el servidor cambia de escena.
+        /// Ejecutado en el cliente cuando el servidor manda un SceneMessage.
         /// </summary>
-        /// <param name="newSceneName"></param>
-        /// <param name="sceneOperation"></param>
-        /// <param name="customHandling"></param>
         public override void OnClientChangeScene(string newSceneName, SceneOperation sceneOperation, bool customHandling)
         {
             Debug.Log("Client notified to change scene to: " + newSceneName);
