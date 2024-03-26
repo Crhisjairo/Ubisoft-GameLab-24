@@ -22,6 +22,11 @@ namespace _Scripts.Managers.Multiplayer
         [SerializeField] private PlayerSlot _player1Slot;
         [SerializeField] private PlayerSlot _player2Slot;
 
+        public void ServerStartGame()
+        {
+            ServerChangeScene(MinigameSceneNames.Minigame_1.ToString());
+        }
+        
         public override void OnServerReady(NetworkConnectionToClient conn)
         {
             base.OnServerReady(conn);
