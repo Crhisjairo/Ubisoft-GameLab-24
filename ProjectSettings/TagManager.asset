@@ -8,6 +8,8 @@ TagManager:
   - CloudBackground
   - CloudMiddleground
   - CloudForeground
+  - Player1Position
+  - Player2Position
   layers:
   - Default
   - TransparentFX

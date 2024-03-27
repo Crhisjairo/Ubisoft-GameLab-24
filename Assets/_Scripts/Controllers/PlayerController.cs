@@ -60,6 +60,8 @@ namespace _Scripts.Controllers
         private void OnEnable()
         {
             // JUST FOR DEBUGGING. THIS CAUSE A WARNING ON CONSOLE. Anyways, this do not cause any problem.
+            if(HUDDebug.Instance == null) return;
+            
             HUDDebug.Instance.AddHealthListener(() => AddHealth(1));
             HUDDebug.Instance.RemoveHealthListener((() => TakeDamage(1)));
         }
