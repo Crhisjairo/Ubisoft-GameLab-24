@@ -2,6 +2,8 @@
 {
     public enum Tags
     {
+        Player1Position,
+        Player2Position
     }
     
     

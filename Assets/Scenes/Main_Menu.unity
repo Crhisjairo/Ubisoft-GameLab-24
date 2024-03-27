@@ -767,8 +767,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 959.99994, y: 258}
-  m_SizeDelta: {x: 277.4509, y: 52.022}
+  m_AnchoredPosition: {x: 955.6, y: 258}
+  m_SizeDelta: {x: 354.1809, y: 52.022}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &203289937
 Animator:
@@ -873,6 +873,8 @@ MonoBehaviour:
   hostButton: {fileID: 203289938}
   buttonText: {fileID: 902567021}
   textOnClient: Waiting for host to start...
+  textOnHost: Waiting for dreamers to connect...
+  startGameText: Start to Dream!
 --- !u!1 &265387494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1968,8 +1970,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 2894014796430751539, guid: 88f6e4d3c6eaca248a1b6211e58cf0b0, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs:
-  - {fileID: 7800332510116682242, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
+  spawnPrefabs: []
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -1987,6 +1988,8 @@ MonoBehaviour:
   timeInterpolationGui: 0
   _player1Slot: {fileID: 1563702974}
   _player2Slot: {fileID: 1563702973}
+  scenesNamesToLoad: 0200000003000000
+  _canvasGroupFade: {fileID: 1808150427}
 --- !u!4 &560652473
 Transform:
   m_ObjectHideFlags: 0
@@ -4990,6 +4993,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3549900509032016984, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
+      propertyPath: transitionSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3549900509032016984, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
       propertyPath: waitTimeBeforeDestroy
       value: 0
       objectReference: {fileID: 0}
@@ -5060,6 +5067,10 @@ PrefabInstance:
     - target: {fileID: 7866411202881922749, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
       propertyPath: m_Color.r
       value: 0.003921565
+      objectReference: {fileID: 0}
+    - target: {fileID: 8991205878751884738, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
+      propertyPath: m_SortingOrder
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9030066239903813167, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -5543,7 +5554,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 251273257481744106, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
       propertyPath: m_Alpha
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 623220334810223185, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6521,6 +6532,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1802255450}
   m_CullTransparentMesh: 1
+--- !u!114 &1808150427 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3549900509032016984, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
+  m_PrefabInstance: {fileID: 1388710146}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e86f709a214b99b8ba80c4f9ebd0fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1823545466
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,14 +21,9 @@ namespace _Scripts.Managers
         [SerializeField] private Animator spinnerAnimator;
 
         [Space(20)]
-        [SerializeField] private float startAnimTime = 3;
-        [SerializeField] private float waitTimeBeforeDestroy = 0.3f;
-        [SerializeField] private float endAnimTime = 0.3f;
-        
-        [Space(20)]
         [SerializeField] private Slider loadingSlider;
 
-        public float transitionSpeed = 1f;
+        public float transitionSpeed = 5f;
         
         private Coroutine _loadingScreenRoutine;
         private bool _isLoading;
@@ -56,20 +51,13 @@ namespace _Scripts.Managers
             }
         }
 
-        public void LoadNextScene()
-        {
-            _loadingScreenRoutine = StartCoroutine(
-                LoadNextSceneAsync(nextSceneToLoad.ToString())
-                );
-        }
-
         public IEnumerator FadeIn()
         {
             float alpha = uiCanvasGroup.alpha;
 
             while (alpha < 1)
             {
-                yield return new WaitForSeconds(0.01f);
+                yield return new WaitForSecondsRealtime(0.01f);
                 alpha += 0.01f * transitionSpeed;
                 uiCanvasGroup.alpha = alpha;
             }
@@ -81,7 +69,7 @@ namespace _Scripts.Managers
 
             while (alpha > 0)
             {
-                yield return new WaitForSeconds(0.01f);
+                yield return new WaitForSecondsRealtime(0.01f);
                 alpha -= 0.01f * transitionSpeed;
                 uiCanvasGroup.alpha = alpha;
             }
@@ -92,47 +80,6 @@ namespace _Scripts.Managers
             uiCanvasGroup.alpha = 1f;
         }
 
-
-        private IEnumerator LoadNextSceneAsync(string sceneToLoad)
-        {
-            _isLoading = true;
-            SetActiveAnimators(true);
-            
-            transitionCanvasAnim.Play(TransitionAnimations.FadeIn.ToString());
-
-            yield return new WaitForSecondsRealtime(startAnimTime);
-            
-            // This will render frames until the scene is unloaded.
-            //AsyncOperation unloading = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name);
-            
-            //while (!unloading.isDone)
-           // {
-                // Render frames while unloading the scene.
-             //   yield return null;
-            //}
-            
-            loading = SceneManager.LoadSceneAsync(sceneToLoad);
-            
-            while (!loading.isDone)
-            {
-                _loadProgress = loading.progress;
-                // Render frames while loading the scene.
-                yield return null;
-            }
-            
-            // When the scene is loaded, fade out the transition canvas.
-            transitionCanvasAnim.Play(TransitionAnimations.FadeOut.ToString());
-
-            yield return new WaitForSecondsRealtime(endAnimTime);
-
-            Destroy(gameObject, waitTimeBeforeDestroy);
-            
-            //_isLoading = false;
-            //loading = null;
-            
-            //SetActiveAnimators(false);
-        }
-        
         private void SetActiveAnimators(bool isActive)
         {
             spinnerAnimator.enabled = isActive;

@@ -172,7 +172,7 @@ namespace _Scripts.Managers
             // Call another script for loading the boss battle scene.
             Debug.Log("Loading boss battle scene!.");
 
-            canvasGroupFade.LoadNextScene();
+            //canvasGroupFade.LoadNextScene();
             //StartCoroutine(UnloadSceneAsync(_currentMinigameScene.ToString()));
             
         }

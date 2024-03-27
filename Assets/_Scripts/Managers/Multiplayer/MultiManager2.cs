@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using _Scripts.Managers.Multiplayer.Messages;
+using _Scripts.Shared;
 using _Scripts.UI.PlayerUIs;
 using Assets._Scripts.Shared;
 using Mirror;
@@ -14,6 +16,10 @@ namespace _Scripts.Managers.Multiplayer
         {
             base.Start();
             NetworkClient.RegisterHandler<PlayerComponentStatusMessage>(ClientReceivePlayerComponentStatus);
+            
+            NetworkServer.RegisterHandler<SceneStatusMessage>(ServerOnClientWithSceneLoaded);
+            NetworkClient.RegisterHandler<MinigameStatusMessage>(OnReadyToStartMinigame);
+            NetworkClient.RegisterHandler<TransitionAnimMessage>(ClientReceiveTransitionAnim);
         }
 
         #region  Server
@@ -22,9 +28,49 @@ namespace _Scripts.Managers.Multiplayer
         [SerializeField] private PlayerSlot _player1Slot;
         [SerializeField] private PlayerSlot _player2Slot;
 
+        private int _playersWithSceneReady = 0;
+        
+        private bool _isTimerOn = true;
+        private float _initialTime;
+        private float _remainingTime;
+        
+        
+        [SerializeField] private MinigameSceneNames[] scenesNamesToLoad;
+        private Queue<MinigameSceneNames> _scenesSortedRan;
+
+        [Server]
         public void ServerStartGame()
         {
-            ServerChangeScene(MinigameSceneNames.Minigame_1.ToString());
+            StartCoroutine(SceneChangeRoutine());
+        }
+
+        private IEnumerator SceneChangeRoutine()
+        {
+            foreach(var sceneName in scenesNamesToLoad) //TODO: change to _scenesSortedRan
+            {
+                _playersWithSceneReady = 0;
+            
+                // FadeOut is played when server tells the clients to start the minigame in OnReadyToStartMinigame method.
+                NetworkServer.SendToAll(new TransitionAnimMessage
+                {
+                    TransitionName = TransitionAnimations.FadeIn.ToString(),
+                    Play = true
+                });
+
+                yield return new WaitForSeconds(1f); // Wait for the fade in animation to finish.
+                ServerChangeScene(sceneName.ToString());
+                
+                // Wait until both players have the scene loaded.
+                while(_playersWithSceneReady < 2)
+                {
+                    yield return null;
+                }
+                
+                // Wait 5 seconds before starting the next minigame.
+                yield return new WaitForSeconds(150f); // TODO: change for a timer.
+            }
+            
+            yield return null;
         }
         
         public override void OnServerReady(NetworkConnectionToClient conn)
@@ -42,6 +88,30 @@ namespace _Scripts.Managers.Multiplayer
                 _player2Slot.SetIsReady(true);
             }
             
+        }
+
+        [Server]
+        public void ServerOnClientWithSceneLoaded(NetworkConnectionToClient conn, SceneStatusMessage message)
+        {
+            // Contar hasta que los dos jugadores estên cargados. Una vez cargados, les aviso que activen el tiempo para jugar.
+            Debug.Log("Player " + conn.connectionId + " is ready to start minigame!");
+            _playersWithSceneReady++;
+            
+            if (_playersWithSceneReady == 2)
+            {
+                NetworkServer.SendToAll(new MinigameStatusMessage
+                {
+                    StartMinigame = true
+                });
+
+                Time.timeScale = 1;
+            }
+        }
+
+        public override void OnServerSceneChanged(string sceneName)
+        {
+            base.OnServerSceneChanged(sceneName);
+            Time.timeScale = 0;
         }
 
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
@@ -73,9 +143,38 @@ namespace _Scripts.Managers.Multiplayer
             PlayerReadyCount--;
         }
 
+        public override void Update()
+        {
+            base.Update();
+            // UpdateCounterTimer();   
+        }
+        
+        private void UpdateCounterTimer()
+        {
+            if (_remainingTime > 0)
+            {
+                _remainingTime -= Time.deltaTime;
+
+                int mins = Mathf.FloorToInt(_remainingTime / 60);
+                int secs = Mathf.FloorToInt(_remainingTime % 60);
+                int milisecs = Mathf.FloorToInt((_remainingTime * 1000) % 1000);
+                
+               // timerText.SetText(
+                    //string.Format("{0:D2}:{1:D2}:{2:D2}", mins, secs, milisecs)
+                   // );
+            }
+            else
+            {
+                //LoadNextMinigame();
+                Debug.Log("Timer is done!");
+            }
+        }
+
         #endregion
         
         #region Client
+        
+        public CanvasGroupFade _canvasGroupFade;
 
         public void ClientReceivePlayerComponentStatus(PlayerComponentStatusMessage message)
         {
@@ -85,8 +184,54 @@ namespace _Scripts.Managers.Multiplayer
             }
 
         }
-        
-        
+
+        public override void OnClientSceneChanged()
+        {
+            base.OnClientSceneChanged();
+            Time.timeScale = 0;
+            
+            
+            NetworkClient.Send(new SceneStatusMessage
+            {
+                SceneName = SceneManager.GetActiveScene().name,
+                IsReady = true
+            });
+        }
+
+        public void OnReadyToStartMinigame(MinigameStatusMessage message)
+        {
+            Debug.Log("Server says to start minigame and change timeScale!");
+            if (message.StartMinigame)
+            {
+                Time.timeScale = 1;
+            }
+            
+            // FadeOut is played when server tells the clients to start the minigame.
+            ClientReceiveTransitionAnim(new TransitionAnimMessage
+            {
+                TransitionName = TransitionAnimations.FadeOut.ToString()
+            });
+
+            NetworkIdentity playerIdentity = NetworkClient.connection.identity;
+            
+            playerIdentity.GetComponent<PlayerInput>().enabled = true;
+        }
+
+        public void ClientReceiveTransitionAnim(TransitionAnimMessage message)
+        {
+            Debug.Log("Receive " + message.TransitionName);
+            
+            if(message.TransitionName.Equals(TransitionAnimations.FadeIn.ToString()))
+            {
+                StartCoroutine(_canvasGroupFade.FadeIn());
+            }
+            else if(message.TransitionName.Equals(TransitionAnimations.FadeOut.ToString()))
+            {
+                StartCoroutine(_canvasGroupFade.FadeOut());
+            }
+            
+        }
+
         #endregion
     }
 }
