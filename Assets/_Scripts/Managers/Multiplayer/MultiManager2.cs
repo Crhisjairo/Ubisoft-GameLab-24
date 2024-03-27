@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using _Scripts.Managers.Multiplayer.Messages;
 using _Scripts.Shared;
+using _Scripts.UI.MainMenu;
 using _Scripts.UI.PlayerUIs;
 using Assets._Scripts.Shared;
+using kcp2k;
 using Mirror;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -175,6 +179,15 @@ namespace _Scripts.Managers.Multiplayer
         #region Client
         
         public CanvasGroupFade _canvasGroupFade;
+        public TMP_InputField _ipField;
+        public TextMeshProUGUI connectionErrorText;
+        public MenuSection lobbySection;
+
+        public override void Awake()
+        {
+            base.Awake();
+            connectionErrorText.text = string.Empty;
+        }
 
         public void ClientReceivePlayerComponentStatus(PlayerComponentStatusMessage message)
         {
@@ -230,6 +243,61 @@ namespace _Scripts.Managers.Multiplayer
                 StartCoroutine(_canvasGroupFade.FadeOut());
             }
             
+        }
+
+        public void StartClientBtn()
+        {
+            KcpTransport kcp = transport as KcpTransport;
+            if(kcp == null)
+            {
+                Debug.LogError("KcpTransport is null");
+                return;
+            }
+
+            Debug.Log(_ipField.text);
+
+            if (_ipField.text == string.Empty)
+            {
+                networkAddress = "localhost";
+                kcp.Port = 7777;   
+            }
+            else
+            {
+                string[] ipPort = _ipField.text.Split(":");
+                
+                if(ipPort.Length != 2)
+                {
+                    connectionErrorText.text = "Please use ip:port";
+                    return;
+                }
+                
+                networkAddress = ipPort[0];
+                if(ushort.TryParse(ipPort[1], out ushort port))
+                    kcp.Port = port;
+                else
+                {
+                    connectionErrorText.text = "Please use ip:port";
+                    return;   
+                }
+            }
+            
+            StartClient();
+        }
+
+        public override void OnClientConnect()
+        {
+            base.OnClientConnect();
+            lobbySection.SetActive(true);
+        }
+
+        public override void OnClientError(TransportError error, string reason)
+        {
+            base.OnClientError(error, reason);
+            connectionErrorText.text = 
+                error == TransportError.Timeout 
+                    ? TransportError.Timeout.ToString() 
+                    : reason;
+
         }
 
         #endregion
