@@ -16,7 +16,7 @@ public class titleAnimation : MonoBehaviour
     public float glowOffset = 0.66f;
     public float glowOuter = 0.731f;
 
-    private TextMeshPro textMesh;
+    private TextMeshProUGUI textMesh;
     private float lerpTime;
 
 
@@ -24,7 +24,7 @@ public class titleAnimation : MonoBehaviour
     {
         LeanTween.scale(objectAnimation, finalPosition, 5f).setEaseInOutSine().setLoopPingPong();
 
-        textMesh = objectAnimation.GetComponent<TextMeshPro>();
+        textMesh = objectAnimation.GetComponent<TextMeshProUGUI>();
        
     }
 
