@@ -71,7 +71,7 @@ namespace _Scripts.Managers.Multiplayer
                 }
                 
                 // Wait 5 seconds before starting the next minigame.
-                yield return new WaitForSeconds(150f); // TODO: change for a timer.
+                yield return new WaitForSeconds(15f); // TODO: change for a timer.
             }
             
             yield return null;
