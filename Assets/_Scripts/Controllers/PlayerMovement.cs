@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using _Scripts.Controllers.PlayerMoveSets;
 using _Scripts.Shared;
 using Mirror;
 using UnityEngine;
@@ -9,23 +11,41 @@ namespace _Scripts.Controllers
     [RequireComponent(typeof(PlayerOneWayPlatform))]
     public class PlayerMovement : NetworkBehaviour
     {
-        private Vector2 movementInput;
+        public Vector2 MovementInput { set; get; }
         private float speed = 8f;
         private float jumpingPower = 16f;
         private bool isFacingRight = true;
-        private bool _jumped = false;
+        public bool Jumped { set; get; } = false;
 
-        private bool canDash = true;
-        private bool isDashing = false;
-        private float dashingPower = 24f;
-        private float dashingTime = 0.05f;
-        private float dashCooldown = 1.0f;
+        public bool CanDash { private set; get; } = true;
+        public bool IsDashing { private set; get; }
+        public float dashingPower { private set; get; } = 24f;
+        public float dashingTime { private set; get; } = 0.05f;
+        public float dashCooldown { private set; get; } = 1.0f;
+        
+        public PlayerMoveSetStates defaultMoveSetState = PlayerMoveSetStates.PlatformMove;
+        
+        /// <summary>
+        /// This variable is used to sync the move set state between the server and the client.
+        /// </summary>
+        [SyncVar(hook = nameof(OnUpdateMoveSetOnServer))]
+        private PlayerMoveSetStates _currentMoveSetState;
+        
+        /// <summary>
+        /// This interface is used to control the player's movement based on the current move set state.
+        /// </summary>
+        private IPlayerMoveSetState _currentMoveSetInterface;
 
         [SerializeField] private Rigidbody2D rb;
-        [SerializeField] private Animator anim;
+        public Animator anim;
         [SerializeField] private Transform groundCheck;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private TrailRenderer tr;
+
+        private void Awake()
+        {
+            SetMoveSetState(defaultMoveSetState);
+        }
 
         public override void OnStartAuthority()
         {
@@ -39,17 +59,17 @@ namespace _Scripts.Controllers
         {
             if (!isLocalPlayer) return;
         
-            if (isDashing)
+            if (IsDashing)
             {
                 return;
             }
 
-            if (_jumped && IsGrounded())
+            if (Jumped && IsGrounded())
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
             }
 
-            if (!_jumped && rb.velocity.y > 0)
+            if (!Jumped && rb.velocity.y > 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             }
@@ -61,40 +81,26 @@ namespace _Scripts.Controllers
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            if (isDashing) return;
-            
-            movementInput = context.ReadValue<Vector2>();
-            
-            if(movementInput.x == 0)
-            {
-                anim.SetBool(PlayerAnimations.isWalking.ToString(), true);
-            }
-            else
-            {
-                anim.SetBool(PlayerAnimations.isWalking.ToString(), false);
-            }
+            _currentMoveSetInterface.Move(context);
         }
         
         public void OnJump(InputAction.CallbackContext context)
         {
-            _jumped = context.action.triggered; // context.action.triggered;
+            _currentMoveSetInterface.Jump(context);
         }
         
         public void OnDash(InputAction.CallbackContext context)
         {
-            if (context.action.triggered && canDash)
-            {
-                StartCoroutine(Dash());
-            }
+            _currentMoveSetInterface.Dash(context);
         }
 
         private void FixedUpdate()
         {
-            if (isDashing)
+            if (IsDashing)
             {
                 return;
             }
-            rb.velocity = new Vector2(movementInput.x * speed, rb.velocity.y);
+            rb.velocity = new Vector2(MovementInput.x * speed, rb.velocity.y);
         }
 
         //create invisible at player's feet. If the player is touching the ground, the player can jump.
@@ -111,9 +117,9 @@ namespace _Scripts.Controllers
 
         private void Flip()
         {
-            if (movementInput.x != 0)
+            if (MovementInput.x != 0)
             {
-                if ((isFacingRight && movementInput.x < 0f) || (!isFacingRight && movementInput.x > 0f))
+                if ((isFacingRight && MovementInput.x < 0f) || (!isFacingRight && MovementInput.x > 0f))
                 {
                     isFacingRight = !isFacingRight;
                     Vector3 localScale = transform.localScale;
@@ -129,7 +135,7 @@ namespace _Scripts.Controllers
             float[] speedStages = { 2.0f, 4.0f, 6.0f, 8.0f, 50.0f, 100.0f }; // Example speed stages
 
             // Check if not dashing before adjusting speed
-            if (!isDashing)
+            if (!IsDashing)
             {
                 float currentSpeed = speedStages[SpeedVariableCount.speedVariableCount - 1]; // Set current speed
                 speed = currentSpeed; // Assign currentSpeed to speed
@@ -160,10 +166,10 @@ namespace _Scripts.Controllers
             }
         }
 
-        private IEnumerator Dash()
+        public IEnumerator DashRoutine()
         {
-            canDash = false;
-            isDashing = true;
+            CanDash = false;
+            IsDashing = true;
             // Store the current horizontal velocity
             float originalHorizontalVelocity = rb.velocity.x;
             float originalGravity = rb.gravityScale;
@@ -178,10 +184,40 @@ namespace _Scripts.Controllers
             // Restore the original horizontal velocity
             rb.velocity = new Vector2(originalHorizontalVelocity, 0f);
             rb.gravityScale = originalGravity;
-            isDashing = false;
+            IsDashing = false;
             yield return new WaitForSeconds(dashCooldown);
 
-            canDash = true;
+            CanDash = true;
+        }
+        
+        public void SetMoveSetState(PlayerMoveSetStates newState)
+        {
+            switch (newState)
+            {
+                case PlayerMoveSetStates.VerticalMove:
+                    _currentMoveSetInterface = new VerticalMove(this);
+                    _currentMoveSetState = PlayerMoveSetStates.VerticalMove;
+                    break;
+                case PlayerMoveSetStates.PlatformMove:
+                    _currentMoveSetInterface = new PlatformMove(this);
+                    _currentMoveSetState = PlayerMoveSetStates.PlatformMove;
+                    break;
+                default:
+                    Debug.Log("Invalid state. Setting to default \"" + nameof(PlatformMove) + "\"  state.");
+                    _currentMoveSetInterface = new PlatformMove(this);
+                    _currentMoveSetState = PlayerMoveSetStates.PlatformMove;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// When the move set is updated on the server, update the client's move set.
+        /// </summary>
+        /// <param name="oldState"></param>
+        /// <param name="newState"></param>
+        private void OnUpdateMoveSetOnServer(PlayerMoveSetStates oldState, PlayerMoveSetStates newState)
+        {
+            SetMoveSetState(newState);
         }
     }
 }

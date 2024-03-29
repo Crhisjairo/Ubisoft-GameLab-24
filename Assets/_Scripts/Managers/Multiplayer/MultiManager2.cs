@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using _Scripts.Controllers;
 using _Scripts.Managers.Multiplayer.Messages;
 using _Scripts.Shared;
 using _Scripts.UI.MainMenu;
@@ -27,6 +28,9 @@ namespace _Scripts.Managers.Multiplayer
         }
 
         #region  Server
+
+        public float timeOnMinigameDebug = 60f;
+        
         public int PlayerReadyCount { private set; get; }
         
         [SerializeField] private PlayerSlot _player1Slot;
@@ -71,7 +75,7 @@ namespace _Scripts.Managers.Multiplayer
                 }
                 
                 // Wait 5 seconds before starting the next minigame.
-                yield return new WaitForSeconds(15f); // TODO: change for a timer.
+                yield return new WaitForSeconds(timeOnMinigameDebug); // TODO: change for a timer.
             }
             
             yield return null;
@@ -94,12 +98,24 @@ namespace _Scripts.Managers.Multiplayer
             
         }
 
+        private int sceneComptTemp = 0;
+        
         [Server]
         public void ServerOnClientWithSceneLoaded(NetworkConnectionToClient conn, SceneStatusMessage message)
         {
             // Contar hasta que los dos jugadores estên cargados. Una vez cargados, les aviso que activen el tiempo para jugar.
             Debug.Log("Player " + conn.connectionId + " is ready to start minigame!");
             _playersWithSceneReady++;
+
+            // Set Minigame settings like PlayerMoveSetStates, etc.
+            if (sceneComptTemp == 0)
+            {
+                conn.identity.GetComponent<PlayerMovement>().SetMoveSetState(PlayerMoveSetStates.VerticalMove);
+            }
+            else if (sceneComptTemp == 1)
+            {
+                conn.identity.GetComponent<PlayerMovement>().SetMoveSetState(PlayerMoveSetStates.PlatformMove);
+            }
             
             if (_playersWithSceneReady == 2)
             {
@@ -109,6 +125,7 @@ namespace _Scripts.Managers.Multiplayer
                 });
 
                 Time.timeScale = 1;
+                sceneComptTemp++;
             }
         }
 

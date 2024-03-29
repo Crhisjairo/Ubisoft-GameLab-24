@@ -2295,6 +2295,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
+  timeOnMinigameDebug: 15
   _player1Slot: {fileID: 1563702974}
   _player2Slot: {fileID: 1563702973}
   scenesNamesToLoad: 0200000003000000
@@ -5199,6 +5200,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectAnimation: {fileID: 1266213167}
   finalPosition: {x: 1.2, y: 1.2, z: 0}
+  startColor: {r: 0, g: 0, b: 1, a: 1}
+  endColor: {r: 1, g: 0, b: 0, a: 1}
+  colorChangeSpeed: 1
+  glowEnabled: 1
+  glowOffset: 0.66
+  glowOuter: 0.731
 --- !u!1 &1274870601
 GameObject:
   m_ObjectHideFlags: 0
