@@ -22,7 +22,7 @@ namespace _Scripts.Managers.Multiplayer
         [Command]
         private void CmdStartGame()
         {
-            if (_multiManager2.PlayerReadyCount == 2)
+            if (_multiManager2.PlayersOnLobbyCount == 2)
             {
                 // Notify all clients to change scene.
                 RpcChangeScene(MinigameSceneNames.Minigame_1.ToString());

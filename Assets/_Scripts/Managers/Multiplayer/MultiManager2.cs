@@ -32,7 +32,7 @@ namespace _Scripts.Managers.Multiplayer
 
         public float timeOnMinigameDebug = 60f;
         
-        public int PlayerReadyCount { private set; get; }
+        public int PlayersOnLobbyCount { private set; get; }
         
         [SerializeField] private PlayerSlot _player1Slot;
         [SerializeField] private PlayerSlot _player2Slot;
@@ -46,6 +46,8 @@ namespace _Scripts.Managers.Multiplayer
         
         [SerializeField] private MinigameSceneNames[] scenesNamesToLoad;
         private Queue<MinigameSceneNames> _scenesSortedRan;
+
+        [SerializeField] private Canvas _canvasUi;
 
         [Server]
         public void ServerStartGame()
@@ -86,13 +88,13 @@ namespace _Scripts.Managers.Multiplayer
         {
             base.OnServerReady(conn);
             Debug.Log(conn.connectionId + " is ready");
-            PlayerReadyCount++;
+            PlayersOnLobbyCount++;
             
-            if(PlayerReadyCount == 1)
+            if(PlayersOnLobbyCount == 1)
             {
                 _player1Slot.SetIsReady(true);
             }
-            else if(PlayerReadyCount == 2)
+            else if(PlayersOnLobbyCount == 2)
             {
                 _player2Slot.SetIsReady(true);
             }
@@ -175,27 +177,44 @@ namespace _Scripts.Managers.Multiplayer
             
             conn.identity.GetComponent<PlayerInput>().enabled = false;
             
+            Debug.Log("PlayerOnLobbyCount: " + PlayersOnLobbyCount);
+
+            // Player is notified on SetPlayerNumber method.
+            if(numPlayers == 1)
+                SetPlayerNumber(conn.identity, PlayerIndex.Player1);
+            else if(numPlayers == 2)
+                SetPlayerNumber(conn.identity, PlayerIndex.Player2);
+            
             conn.Send(new PlayerComponentStatusMessage()
             {
                 componentName = "PlayerInput",
                 isActive = false
             });
         }
+        
+        private void SetPlayerNumber(NetworkIdentity identity, PlayerIndex playerIndex)
+        {
+            PlayerServerDataSync clientServerData  = identity.GetComponent<PlayerServerDataSync>();
+            
+            clientServerData.SetPlayerIndex(playerIndex);
+            clientServerData.LoadDefaultPlayerData();
+            
+        }
 
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
         {
             base.OnServerDisconnect(conn);
             
-            if(PlayerReadyCount == 1)
+            if(PlayersOnLobbyCount == 1)
             {
                 _player1Slot.SetIsReady(false);
             }
-            else if(PlayerReadyCount == 2)
+            else if(PlayersOnLobbyCount == 2)
             {
                 _player2Slot.SetIsReady(false);
             }
 
-            PlayerReadyCount--;
+            PlayersOnLobbyCount--;
         }
 
         public override void Update()

@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player1_animation_0
+      name: Player2_animation_0
       rect:
         serializedVersion: 2
         x: 4
@@ -118,7 +118,7 @@ TextureImporter:
         width: 121
         height: 275
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -131,7 +131,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player1_animation_1
+      name: Player2_animation_1
       rect:
         serializedVersion: 2
         x: 138
@@ -139,7 +139,7 @@ TextureImporter:
         width: 122
         height: 275
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,7 +152,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player1_animation_2
+      name: Player2_animation_2
       rect:
         serializedVersion: 2
         x: 272
@@ -160,7 +160,7 @@ TextureImporter:
         width: 118
         height: 275
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,7 +173,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player1_animation_3
+      name: Player2_animation_3
       rect:
         serializedVersion: 2
         x: 407
@@ -181,7 +181,7 @@ TextureImporter:
         width: 118
         height: 275
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player1_animation_0: 642404123
-      Player1_animation_1: -1537260157
-      Player1_animation_2: 823954953
-      Player1_animation_3: -1653413543
+      Player2_animation_0: 642404123
+      Player2_animation_1: -1537260157
+      Player2_animation_2: 823954953
+      Player2_animation_3: -1653413543
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

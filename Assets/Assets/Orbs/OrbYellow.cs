@@ -1,13 +1,14 @@
 using UnityEngine;
-using _Scripts.Controllers;
-
-public class OrbYellow : Orb
+namespace Assets.Orbs
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    public class OrbYellow : Orb
     {
-        if (other.CompareTag("Player"))
+        private void OnTriggerEnter2D(Collider2D other)
         {
-
+            if (other.CompareTag("Player"))
+            {
+                Debug.Log("Yellow orb is not implemented yet.");
+            }
         }
     }
 }

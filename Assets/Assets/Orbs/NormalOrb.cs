@@ -1,8 +1,9 @@
 using _Scripts.Controllers;
+using _Scripts.Managers.Multiplayer;
 using UnityEngine;
 namespace Assets.Orbs
 {
-    public class OrbLife : Orb
+    public class NormalOrb : Orb
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -19,12 +20,6 @@ namespace Assets.Orbs
                     Basket basket = null;
                     other.TryGetComponent<Basket>(out basket);
                     player = basket.GetGlobalPlayerData();
-                }
-
-                if (player == null)
-                {
-                    Debug.LogWarning("Player not found when " + nameof(OrbLife) + " collided with " + other.name);
-                    return;
                 }
                 
                 player.AddHealth(1);

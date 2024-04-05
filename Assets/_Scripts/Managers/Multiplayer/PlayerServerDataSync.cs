@@ -1,10 +1,12 @@
 using System;
+using _Scripts.Controllers;
 using _Scripts.ScriptableObjects;
 using _Scripts.Shared;
 using _Scripts.UI;
 using _Scripts.UI.PlayerUIs;
 using Mirror;
 using TMPro;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -20,6 +22,8 @@ namespace _Scripts.Managers.Multiplayer
         [SerializeField] PlayerDataScriptableObject playerDataScriptableObject;
         
         public Sprite[] playerSprites;
+        public AnimatorController[] playerAnimators;
+        
         public SpriteRenderer SpriteRenderer { private set; get; }
         public PlayerUI PlayerUI { private set; get; }
 
@@ -116,12 +120,14 @@ namespace _Scripts.Managers.Multiplayer
         public void OnPlayerIndexUpdate(PlayerIndex oldPlayerIndex, PlayerIndex newPlayerIndex)
         {
             Debug.Log("Player number updated from " + oldPlayerIndex + " to " + newPlayerIndex);
-            
-            
+
             if(newPlayerIndex == PlayerIndex.Player1)
             {
                 // Set player 1 specs
                 SpriteRenderer.sprite = playerSprites[0];
+                Debug.Log("Player 1 Sprite :" + SpriteRenderer.sprite.name);
+                GetComponent<PlayerMovement>().anim.runtimeAnimatorController = playerAnimators[0];
+                
                 PlayerUI = HUDPlayersManager.Instance.player1UI;
                 Debug.Log("OnPlayerNumberUpdate: " + name + " with UI: " + PlayerUI.name);
             }
@@ -129,7 +135,10 @@ namespace _Scripts.Managers.Multiplayer
             {
                 // Set player 2 specs
                SpriteRenderer.sprite = playerSprites[1];
+               Debug.Log("Player 2 Sprite :" + SpriteRenderer.sprite.name);
                PlayerUI = HUDPlayersManager.Instance.player2UI;
+               GetComponent<PlayerMovement>().anim.runtimeAnimatorController = playerAnimators[1];
+               
                Debug.Log("OnPlayerNumberUpdate: " + name + " with UI: " + PlayerUI.name);
             }
         }

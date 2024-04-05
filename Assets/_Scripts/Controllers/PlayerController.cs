@@ -3,6 +3,7 @@ using _Scripts.Managers.Multiplayer;
 using _Scripts.ScriptableObjects;
 using _Scripts.Shared;
 using _Scripts.UI;
+using _Scripts.UI.PlayerUIs;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Events;

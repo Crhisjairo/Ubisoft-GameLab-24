@@ -142,6 +142,10 @@ PrefabInstance:
       propertyPath: col
       value: 
       objectReference: {fileID: 1882615461602829073}
+    - target: {fileID: 4739477161580616095, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2065499661, guid: 9078a169219b72048a2190054c36973a, type: 3}
     - target: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -28.97
@@ -194,6 +198,38 @@ PrefabInstance:
       propertyPath: _assetId
       value: 3812668758
       objectReference: {fileID: 0}
+    - target: {fileID: 5891242089191156156, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: playerAnimators.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5891242089191156156, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: playerSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: -258639548, guid: 9078a169219b72048a2190054c36973a, type: 3}
+    - target: {fileID: 5891242089191156156, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: playerSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 823954953, guid: 00f1b985885130e4980d0c36c4ddd948, type: 3}
+    - target: {fileID: 5891242089191156156, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: playerAnimators.Array.data[0]
+      value: 
+      objectReference: {fileID: 9100000, guid: d29ee891011394746a0224f3d4852037, type: 2}
+    - target: {fileID: 5891242089191156156, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: playerAnimators.Array.data[1]
+      value: 
+      objectReference: {fileID: 9100000, guid: 7953ddb989f883f438ede685013ec0ed, type: 2}
+    - target: {fileID: 6547249118592196743, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547249118592196743, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548142003725007812, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d29ee891011394746a0224f3d4852037, type: 2}
     - target: {fileID: 7554084361443308709, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_Name
       value: PlayerMinigameAdaptive
