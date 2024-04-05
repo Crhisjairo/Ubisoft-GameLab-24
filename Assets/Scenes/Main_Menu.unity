@@ -6948,6 +6948,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1414734237689456745, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 93a1222d24427bf41aa35f704bf05906, type: 2}
     - target: {fileID: 1536668231189241251, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
@@ -6980,6 +6984,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3481773061184857172, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 642404123, guid: 00f1b985885130e4980d0c36c4ddd948, type: 3}
     - target: {fileID: 3867155931984431663, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
       propertyPath: m_text
       value: Player2_name
