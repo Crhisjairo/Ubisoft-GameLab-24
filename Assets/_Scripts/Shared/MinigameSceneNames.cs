@@ -10,6 +10,7 @@ namespace Assets._Scripts.Shared
         Minigame_1, 
         Minigame_2, 
         Minigame_3, 
-        playable
+        playable,
+        Boss
     }
 }

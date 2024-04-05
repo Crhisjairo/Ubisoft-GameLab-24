@@ -138,6 +138,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2390513268766433027, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 1882615461602829073}
     - target: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -28.97
@@ -192,7 +196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7554084361443308709, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_Name
-      value: PlayerMinigame1Debug Variant
+      value: PlayerMinigameAdaptive
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -205,5 +209,10 @@ PrefabInstance:
 --- !u!4 &328500188681217510 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+  m_PrefabInstance: {fileID: 4682869139353879446}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1882615461602829073 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6547249118592196743, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
   m_PrefabInstance: {fileID: 4682869139353879446}
   m_PrefabAsset: {fileID: 0}

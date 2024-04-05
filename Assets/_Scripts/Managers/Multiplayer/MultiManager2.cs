@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _Scripts.Controllers;
 using _Scripts.Managers.Multiplayer.Messages;
+using _Scripts.Map;
 using _Scripts.Shared;
 using _Scripts.UI.MainMenu;
 using _Scripts.UI.PlayerUIs;
@@ -98,7 +99,7 @@ namespace _Scripts.Managers.Multiplayer
             
         }
 
-        private int sceneComptTemp = 0;
+        private MinigameSceneNames currentSceneName = MinigameSceneNames.Minigame_1;
         
         [Server]
         public void ServerOnClientWithSceneLoaded(NetworkConnectionToClient conn, SceneStatusMessage message)
@@ -108,15 +109,9 @@ namespace _Scripts.Managers.Multiplayer
             _playersWithSceneReady++;
 
             // Set Minigame settings like PlayerMoveSetStates, etc.
-            if (sceneComptTemp == 0)
-            {
-                conn.identity.GetComponent<PlayerMovement>().SetMoveSetState(PlayerMoveSetStates.VerticalMove);
-            }
-            else if (sceneComptTemp == 1)
-            {
-                conn.identity.GetComponent<PlayerMovement>().SetMoveSetState(PlayerMoveSetStates.PlatformMove);
-            }
-            
+            // 0 = minigame_1, 1 = bossfight
+            AssignPlayersNetEntitiesByScene(conn, _playersWithSceneReady);
+
             if (_playersWithSceneReady == 2)
             {
                 NetworkServer.SendToAll(new MinigameStatusMessage
@@ -125,10 +120,49 @@ namespace _Scripts.Managers.Multiplayer
                 });
 
                 Time.timeScale = 1;
-                sceneComptTemp++;
+                currentSceneName++;
             }
         }
 
+        private void AssignPlayersNetEntitiesByScene(NetworkConnectionToClient conn, int player)
+        {
+            switch (currentSceneName)
+            {
+                case MinigameSceneNames.Minigame_1:
+                    AssignNetEntitiesMinigame1(conn, player);
+                    break;
+                case MinigameSceneNames.Boss:
+                    AssignNetEntitiesBoss(conn, player);
+                    break;
+            }
+        }
+
+        private void AssignNetEntitiesMinigame1(NetworkConnectionToClient conn, int player)
+        {
+            conn.identity.GetComponent<PlayerMovement>().SetMoveSetState(PlayerMoveSetStates.VerticalMove);
+
+            if (player == 1)
+            {
+                Hook hook = GameObject.FindWithTag("Player1Position").GetComponent<Hook>();
+                hook.SetFollowTarget(conn);
+            }
+            else
+            {
+                Hook hook = GameObject.FindWithTag("Player2Position").GetComponent<Hook>();
+                hook.SetFollowTarget(conn);
+                
+            }
+            
+        }
+
+        
+        private void AssignNetEntitiesBoss(NetworkConnectionToClient conn, int player)
+        {
+            conn.identity.GetComponent<PlayerMovement>().SetMoveSetState(PlayerMoveSetStates.PlatformMove);
+            
+            
+        }
+        
         public override void OnServerSceneChanged(string sceneName)
         {
             base.OnServerSceneChanged(sceneName);

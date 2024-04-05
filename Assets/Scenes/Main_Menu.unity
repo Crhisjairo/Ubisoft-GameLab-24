@@ -2295,7 +2295,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  timeOnMinigameDebug: 15
+  timeOnMinigameDebug: 100
   _player1Slot: {fileID: 1563702974}
   _player2Slot: {fileID: 1563702973}
   scenesNamesToLoad: 0200000003000000

@@ -12,16 +12,18 @@ namespace _Scripts.Controllers
     public class PlayerMovement : NetworkBehaviour
     {
         public Vector2 MovementInput { set; get; }
-        private float speed = 8f;
-        private float jumpingPower = 16f;
+        public float speed { private set; get; } = 8f ;
+        public float jumpingPower { private set; get; } = 16f;
         private bool isFacingRight = true;
         public bool Jumped { set; get; } = false;
 
-        public bool CanDash { private set; get; } = true;
-        public bool IsDashing { private set; get; }
+        public bool CanDash { set; get; } = true;
+        public bool IsDashing { set; get; }
         public float dashingPower { private set; get; } = 24f;
         public float dashingTime { private set; get; } = 0.05f;
         public float dashCooldown { private set; get; } = 1.0f;
+        
+        public float defaultGravityScale = 4.0f;
         
         public PlayerMoveSetStates defaultMoveSetState = PlayerMoveSetStates.PlatformMove;
         
@@ -36,11 +38,12 @@ namespace _Scripts.Controllers
         /// </summary>
         private IPlayerMoveSetState _currentMoveSetInterface;
 
-        [SerializeField] private Rigidbody2D rb;
+        public Rigidbody2D rb;
+        public Collider2D col;
         public Animator anim;
         [SerializeField] private Transform groundCheck;
         [SerializeField] private LayerMask groundLayer;
-        [SerializeField] private TrailRenderer tr;
+        public TrailRenderer tr;
 
         private void Awake()
         {
@@ -58,7 +61,7 @@ namespace _Scripts.Controllers
         void Update()
         {
             if (!isLocalPlayer) return;
-        
+
             if (IsDashing)
             {
                 return;
@@ -96,11 +99,7 @@ namespace _Scripts.Controllers
 
         private void FixedUpdate()
         {
-            if (IsDashing)
-            {
-                return;
-            }
-            rb.velocity = new Vector2(MovementInput.x * speed, rb.velocity.y);
+            _currentMoveSetInterface.FixedUpdateOnState();
         }
 
         //create invisible at player's feet. If the player is touching the ground, the player can jump.
@@ -166,30 +165,6 @@ namespace _Scripts.Controllers
             }
         }
 
-        public IEnumerator DashRoutine()
-        {
-            CanDash = false;
-            IsDashing = true;
-            // Store the current horizontal velocity
-            float originalHorizontalVelocity = rb.velocity.x;
-            float originalGravity = rb.gravityScale;
-            rb.gravityScale = 0f;
-            // Set the velocity for dashing
-            rb.velocity = new Vector2(originalHorizontalVelocity * dashingPower, 0f);
-            // Enable trail renderer
-            tr.emitting = true;
-            yield return new WaitForSeconds(dashingTime);
-            // Disable trail renderer
-            tr.emitting = false;
-            // Restore the original horizontal velocity
-            rb.velocity = new Vector2(originalHorizontalVelocity, 0f);
-            rb.gravityScale = originalGravity;
-            IsDashing = false;
-            yield return new WaitForSeconds(dashCooldown);
-
-            CanDash = true;
-        }
-        
         public void SetMoveSetState(PlayerMoveSetStates newState)
         {
             switch (newState)

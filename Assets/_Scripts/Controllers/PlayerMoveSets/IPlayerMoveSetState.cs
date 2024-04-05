@@ -18,5 +18,7 @@ namespace _Scripts.Controllers.PlayerMoveSets
         /// </summary>
         /// <param name="context"></param>
         public void Dash(InputAction.CallbackContext context);
+
+        public void FixedUpdateOnState();
     }
 }
