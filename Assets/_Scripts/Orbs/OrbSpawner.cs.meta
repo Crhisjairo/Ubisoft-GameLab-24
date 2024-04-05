@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 517a385afd0af4b6bb03cc0ae9043789
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - orbPrefabRed: {fileID: -8325600911184058823, guid: 6ca8ce75790fb4d2fa47bb41a09a05a1, type: 3}
+  - orbPrefabBlue: {fileID: -1840765361836363455, guid: 868b8572b51b649349aa92c41d0eda23, type: 3}
+  - orbPrefabYellow: {fileID: -2582407991833421449, guid: 21e98886e7ee1416884292cc8376e126, type: 3}
+  - orbPrefabBlack: {fileID: 4635887029548965809, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
