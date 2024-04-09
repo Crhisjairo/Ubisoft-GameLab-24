@@ -1,56 +1,80 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using _Scripts.Controllers;
+using _Scripts.Managers.Multiplayer;
+using _Scripts.Map;
+using Mirror;
+using TMPro;
+using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))]
-public class Orb : MonoBehaviour
+public class Orb : NetworkBehaviour
 {
-    private Rigidbody2D rb;
     public float gravityScale = 0.2f;
     private SpriteRenderer spriteRenderer;
+    private CircleCollider2D collider2D;
+
+    public TextMeshPro amount;
 
     [SerializeField]
-
+    private float speed = 5.0f;
 
     protected virtual void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        rb.gravityScale = gravityScale;
+        collider2D  = GetComponent<CircleCollider2D>();
     }
 
-    private void Start()
-    {
-        //transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360f);
-    }
     private void Update()
     {
-        if (transform.position.y < -10)
-        {
-            Destroy(gameObject);
-        }
+        float step = speed * Time.deltaTime;
+        transform.Translate(Vector3.down * step);
     }
-
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    // if (collision.gameObject.CompareTag("Basket"))
-    // {
-    //      triggerOrbEffect()
-    //     GameManager.Instance.OnOrbDestroyed(this);
-    //     Destroy(gameObject);
-    // }
-    //}
-
-    //public virtual void triggerOrbEffect(){}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // if (other.CompareTag("Player"))
-        // {
-        //     PlayerController player = other.GetComponent<PlayerController>();
-        //     player.AddHealth(1);
-        // }
+        PlayerController playerServerDataSync = null;
+        
+        if (other.CompareTag("Player"))
+        {
+            playerServerDataSync = other.GetComponent<PlayerController>();
+            //TODO: in boss fight ?
+        } else if (other.CompareTag("Basket"))
+        {
+            // NOTE: Only the basket has an specific behavior when colliding with an orb.
+            //Basket basket = other.GetComponent<Basket>();
+            playerServerDataSync = NetworkClient.connection.identity.GetComponent<PlayerController>();
+            
+        }
+        
+        if (playerServerDataSync != null)
+        {
+            OnApplyOrbEffect(playerServerDataSync);
+            StartCoroutine(DestroyDelayed());
+        }
+        
     }
 
+    public virtual void OnApplyOrbEffect(PlayerController playerController)
+    {
+        Debug.LogWarning("Orb effect not implemented in " + gameObject.name + ", please override OnApplyOrbEffect method.");
+        Debug.LogWarning("Collision with -> PlayerServerDataSync: " + playerController.gameObject.name);
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+    
+    private IEnumerator DestroyDelayed()
+    {
+        spriteRenderer.enabled = false;
+        collider2D.enabled = false;
+        amount.enabled = false;
+        
+        yield return new WaitForSeconds(1.0f);
+        Destroy(gameObject);
+    } 
 }

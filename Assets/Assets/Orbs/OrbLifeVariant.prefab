@@ -179,6 +179,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4861432846946802449, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
+      propertyPath: _assetId
+      value: 952396320
+      objectReference: {fileID: 0}
     - target: {fileID: 3703571534113283168, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
       propertyPath: m_Radius
       value: 0.28371674
@@ -186,6 +190,10 @@ PrefabInstance:
     - target: {fileID: 3703571534113283168, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
       propertyPath: m_Offset.x
       value: 0.004080832
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234612159747901291, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7267910859391157251, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
       propertyPath: m_Name
@@ -282,6 +290,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7267910859391157251, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5718688487854623982}
+    - targetCorrespondingSourceObject: {fileID: 7267910859391157251, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7890835817847668181}
   m_SourcePrefab: {fileID: 100100000, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
 --- !u!1 &5510994272550511743 stripped
 GameObject:
@@ -300,7 +311,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be494a843136c4ef490dbafb8f17d5ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   gravityScale: 0.2
+  amount: {fileID: 2108083213622845450}
+  speed: 5
+--- !u!114 &7890835817847668181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5510994272550511743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 6667393788230907080}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  onlySyncOnChangeCorrectionMultiplier: 2
+  rotationSensitivity: 0.01
+  compressRotation: 0
+  positionPrecision: 0.01
+  scalePrecision: 0.01
 --- !u!4 &6667393788230907080 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8368080839371986100, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}

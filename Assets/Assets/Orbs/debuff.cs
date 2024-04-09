@@ -1,25 +1,18 @@
-using UnityEngine;
 using _Scripts.Controllers;
-
-public class Debuff : Orb
+namespace Assets.Orbs
 {
-    // Override the Awake method to set a different gravity scale
-    protected override void Awake()
+    public class Debuff : Orb
     {
-        gravityScale = 0.22f;
-        base.Awake();
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
+        // Override the Awake method to set a different gravity scale
+        protected override void Awake()
         {
-            PlayerController player = other.GetComponent<PlayerController>();
-            if (player != null)
-            {
-                player.TakeDamage(0.5f);
-                Destroy(gameObject);
-            }
+            gravityScale = 0.22f;
+            base.Awake();
+        }
+
+        public override void OnApplyOrbEffect(PlayerController playerController)
+        {
+            
         }
     }
 }

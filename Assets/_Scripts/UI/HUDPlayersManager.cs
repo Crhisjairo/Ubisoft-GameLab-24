@@ -9,7 +9,7 @@ namespace _Scripts.UI
         public PlayerUI player2UI;
         
         public static HUDPlayersManager Instance { get; private set; }
-        
+
         private void Awake()
         {
             if (Instance == null)

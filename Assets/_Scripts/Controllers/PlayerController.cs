@@ -35,15 +35,24 @@ namespace _Scripts.Controllers
             // Check if dead
             var newHealth = playerServerDataSync.GetHealth();
             newHealth -= amount;
-            
+
             // Notify server
             playerServerDataSync.CmdChangeHealth(newHealth);
+            
+            if (newHealth <= 0)
+            {
+                // Notify server
+                //playerServerDataSync.CmdDie();
+            }
         }
         
         public void AddHealth(float amount)
         {
             //Check if full health
             var newHealth = playerServerDataSync.GetHealth();
+            
+            if(newHealth >= playerServerDataSync.GetMaxHealth()) return;
+            
             newHealth += amount;
             
             // Notify server
@@ -66,6 +75,6 @@ namespace _Scripts.Controllers
             HUDDebug.Instance.AddHealthListener(() => AddHealth(1));
             HUDDebug.Instance.RemoveHealthListener((() => TakeDamage(1)));
         }
-        
+
     }
 }

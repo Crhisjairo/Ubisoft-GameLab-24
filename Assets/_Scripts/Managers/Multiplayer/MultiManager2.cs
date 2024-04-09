@@ -14,6 +14,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 namespace _Scripts.Managers.Multiplayer
 {
     public class MultiManager2 : NetworkManager
@@ -47,7 +48,7 @@ namespace _Scripts.Managers.Multiplayer
         [SerializeField] private MinigameSceneNames[] scenesNamesToLoad;
         private Queue<MinigameSceneNames> _scenesSortedRan;
 
-        [SerializeField] private Canvas _canvasUi;
+        [SerializeField] private CanvasGroup _canvasUIGroup;
 
         [Server]
         public void ServerStartGame()
@@ -83,7 +84,7 @@ namespace _Scripts.Managers.Multiplayer
             
             yield return null;
         }
-        
+
         public override void OnServerReady(NetworkConnectionToClient conn)
         {
             base.OnServerReady(conn);
@@ -98,6 +99,8 @@ namespace _Scripts.Managers.Multiplayer
             {
                 _player2Slot.SetIsReady(true);
             }
+            
+            Debug.Log("Finished");
             
         }
 
@@ -168,6 +171,12 @@ namespace _Scripts.Managers.Multiplayer
         public override void OnServerSceneChanged(string sceneName)
         {
             base.OnServerSceneChanged(sceneName);
+
+            NetworkServer.SendToAll(new PlayerComponentStatusMessage()
+            {
+                componentName = "UI",
+                isActive = true
+            });
             Time.timeScale = 0;
         }
 
@@ -265,7 +274,11 @@ namespace _Scripts.Managers.Multiplayer
             {
                 NetworkClient.connection.identity.GetComponent<PlayerInput>().enabled = message.isActive;
             }
-
+            
+            if(message.componentName == "UI" && message.isActive)
+            {
+                _canvasUIGroup.alpha = 1;
+            }
         }
 
         public override void OnClientSceneChanged()
