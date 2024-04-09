@@ -72,6 +72,8 @@ public class Orb : NetworkBehaviour
     {
         spriteRenderer.enabled = false;
         collider2D.enabled = false;
+        amount.enabled = false;
+        
         yield return new WaitForSeconds(1.0f);
         Destroy(gameObject);
     } 
