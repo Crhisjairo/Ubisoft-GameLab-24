@@ -5,27 +5,9 @@ namespace Assets.Orbs
 {
     public class NormalOrb : Orb
     {
-        private void OnTriggerEnter2D(Collider2D other)
+        public override void OnApplyOrbEffect(PlayerController playerController)
         {
-            return;
-            if (other.CompareTag("Player"))
-            {
-                PlayerController player = null;
-
-                other.TryGetComponent<PlayerController>(out player);
-
-                if (player == null)
-                {
-                    // Maybe is a basket
-                    Basket basket = null;
-                    other.TryGetComponent<Basket>(out basket);
-                    player = basket.GetGlobalPlayerData();
-                }
-                
-                player.AddHealth(1);
-                
-                Destroy(gameObject);
-            }
+            
         }
     }
 }

@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8148546363086446533
 Transform:
   m_ObjectHideFlags: 0
@@ -145,14 +145,26 @@ PrefabInstance:
     - target: {fileID: 4739477161580616095, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -2065499661, guid: 9078a169219b72048a2190054c36973a, type: 3}
+      objectReference: {fileID: -99773297, guid: 696b89263230eaf4a869cf712ea07dbd, type: 3}
+    - target: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28.97
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -205,11 +217,11 @@ PrefabInstance:
     - target: {fileID: 5891242089191156156, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: playerSprites.Array.data[0]
       value: 
-      objectReference: {fileID: -258639548, guid: 9078a169219b72048a2190054c36973a, type: 3}
+      objectReference: {fileID: -99773297, guid: 696b89263230eaf4a869cf712ea07dbd, type: 3}
     - target: {fileID: 5891242089191156156, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: playerSprites.Array.data[1]
       value: 
-      objectReference: {fileID: 823954953, guid: 00f1b985885130e4980d0c36c4ddd948, type: 3}
+      objectReference: {fileID: -1396438496, guid: 99addab4d9609774c9fb9ba018fb5c4e, type: 3}
     - target: {fileID: 5891242089191156156, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: playerAnimators.Array.data[0]
       value: 
@@ -220,11 +232,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 7953ddb989f883f438ede685013ec0ed, type: 2}
     - target: {fileID: 6547249118592196743, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 1.69
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 6547249118592196743, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.42
+      value: 0.74
       objectReference: {fileID: 0}
     - target: {fileID: 6548142003725007812, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_Controller

@@ -1,15 +1,16 @@
 ﻿using System.Collections;
+using Mirror;
 using UnityEngine;
 using UnityEngine.Serialization;
 namespace Assets.Orbs
 {
-    public class OrbSpawner : MonoBehaviour
+    public class OrbSpawner : NetworkBehaviour
     {
-        public Orb lifeOrbPrefab;
-        public Orb normalOrbPrefab;
-        public Orb debuffOrbPrefab;
+        public GameObject lifeOrbPrefab;
+        public GameObject normalOrbPrefab;
+        public GameObject debuffOrbPrefab;
 
-        public Orb otherOrbPrefab;
+        public GameObject otherOrbPrefab;
         
         bool swordOrb = false;
         bool shieldOrb = false;
@@ -21,11 +22,18 @@ namespace Assets.Orbs
         public float trajectoryVariance = 15f;
         int orbType = 0;
 
+        public bool isDebug = false;
+        
         private void Start()
         {
+            
             //InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);
             mainCamera = Camera.main;
-            StartCoroutine(Spawn());
+            
+            
+            if(isServer || isDebug)
+                StartCoroutine(Spawn());
+
         }
 
 
@@ -51,7 +59,9 @@ namespace Assets.Orbs
                     spawnPoint = new Vector3(previousPosition.x + diagonalOffsetX, previousPosition.y + diagonalOffsetY, 0f);
 
                 previousPosition = spawnPoint;
-                Instantiate(RandomDebuff(), spawnPoint, Quaternion.Euler(0, 0, 0));
+                GameObject newOrb = Instantiate(RandomDebuff(), spawnPoint, Quaternion.Euler(0, 0, 0));
+                
+                NetworkServer.Spawn(newOrb);
             }
         }
 
@@ -63,7 +73,7 @@ namespace Assets.Orbs
             Vector3 spawnPoint;
             float offsetX = (mirror ? -1 : 1);
             float offsetY = 1;
-            Orb orb;
+            GameObject orb;
 
             for (int i = 0; i < spawnAmount; i++)
             {
@@ -90,7 +100,10 @@ namespace Assets.Orbs
                 }
 
                 previousPosition = spawnPoint;
-                Instantiate(orb, spawnPoint, Quaternion.Euler(0, 0, 0));
+                GameObject newOrb = Instantiate(orb, spawnPoint, Quaternion.Euler(0, 0, 0));
+                
+                if(!isDebug)
+                    NetworkServer.Spawn(newOrb);
             }
         }
 
@@ -106,7 +119,7 @@ namespace Assets.Orbs
             Vector3 spawnPoint = Vector3.zero;
             float offsetX = (mirror ? -1 : 1);
             float offsetY = 1;
-            Orb orb;
+            GameObject orb;
 
             for (int i = 0; i < spawnAmount; i++)
             {
@@ -132,7 +145,10 @@ namespace Assets.Orbs
                 }
 
                 previousPosition = spawnPoint;
-                Instantiate(orb, spawnPoint, Quaternion.Euler(0, 0, 0));
+                GameObject newOrb = Instantiate(orb, spawnPoint, Quaternion.Euler(0, 0, 0));
+                
+                if(!isDebug)
+                    NetworkServer.Spawn(newOrb);
             }
         }
 
@@ -152,7 +168,11 @@ namespace Assets.Orbs
                 Vector3 spawnPoint = new Vector3(Random.Range(-spawnDistance, spawnDistance), cameraTopY, 0f);
 
                 orbType = Random.Range(0, 100);
-                Instantiate(RandomOrb(), spawnPoint, Quaternion.Euler(0, 0, 0));
+                GameObject newOrb = Instantiate(RandomOrb(), spawnPoint, Quaternion.Euler(0, 0, 0));
+                
+                if(!isDebug)
+                    NetworkServer.Spawn(newOrb);
+                
                 // Orb orb = Instantiate(RandomDebuff(), spawnPoint, rotation);
                 //orb.size = Random.Range(orb.minSize, orb.maxSize);
             }
@@ -211,7 +231,7 @@ namespace Assets.Orbs
             float cameraTopY = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 1 + yVariance, 0f)).y;
             return new Vector3(Random.Range(-spawnDistance, spawnDistance), cameraTopY, 0f);
         }
-        private Orb RandomOrb()
+        private GameObject RandomOrb()
         {
             orbType = Random.Range(0, 100);
             if (orbType < 85)
@@ -220,7 +240,7 @@ namespace Assets.Orbs
                 return RandomDebuff();
         }
 
-        private Orb RandomBuff()
+        private GameObject RandomBuff()
         {
             int rand = Random.Range(0, 3);
             switch (rand)
@@ -231,7 +251,7 @@ namespace Assets.Orbs
             }
 
         }
-        private Orb RandomDebuff()
+        private GameObject RandomDebuff()
         {
             return debuffOrbPrefab;
         }

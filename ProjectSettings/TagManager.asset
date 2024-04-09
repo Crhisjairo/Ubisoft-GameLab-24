@@ -10,6 +10,7 @@ TagManager:
   - CloudForeground
   - Player1Position
   - Player2Position
+  - Basket
   layers:
   - Default
   - TransparentFX
