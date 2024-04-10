@@ -16,13 +16,13 @@ namespace Assets.Orbs
         bool shieldOrb = false;
         private Camera mainCamera;
         public float spawnDistance = 12f;
-        public float spawnRate = 1f;
+        public float spawnWaitTime = 1f;
         public int amountPerSingleSpawnMax = 5;
-        [Range(0f, 45f)]
-        public float trajectoryVariance = 15f;
         int orbType = 0;
 
         public bool isDebug = false;
+        
+        public float distanceBetweenOrbs = 5f;
         
         private void Start()
         {
@@ -41,14 +41,11 @@ namespace Assets.Orbs
         {
             int diagonalSpawnAmount = 4;
             Vector3 previousPosition = new Vector3(0, 0, 0f);
-            float diagonalOffsetX = (inversed ? -1 : 1);
-            float diagonalOffsetY = 1;
+            float diagonalOffsetX = (inversed ? -distanceBetweenOrbs : distanceBetweenOrbs);
+            float diagonalOffsetY = distanceBetweenOrbs;
 
             for (int i = 0; i < diagonalSpawnAmount; i++)
             {
-                float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
-                Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
-
                 Vector3 spawnPoint;
 
                 // For the first orb, spawn it at a random position
@@ -71,16 +68,12 @@ namespace Assets.Orbs
             int spawnAmount = 4;
             Vector3 previousPosition = Vector3.zero;
             Vector3 spawnPoint;
-            float offsetX = (mirror ? -1 : 1);
-            float offsetY = 1;
+            float offsetX = (mirror ? -distanceBetweenOrbs : distanceBetweenOrbs);
+            float offsetY = distanceBetweenOrbs;
             GameObject orb;
 
             for (int i = 0; i < spawnAmount; i++)
             {
-                float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
-                Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
-
-
                 // Spawn the first orb randomly
                 if (i == 0)
                 {
@@ -117,15 +110,12 @@ namespace Assets.Orbs
             int spawnAmount = 4;
             Vector3 previousPosition = Vector3.zero;
             Vector3 spawnPoint = Vector3.zero;
-            float offsetX = (mirror ? -1 : 1);
-            float offsetY = 1;
+            float offsetX = (mirror ? -distanceBetweenOrbs : distanceBetweenOrbs);
+            float offsetY = distanceBetweenOrbs;
             GameObject orb;
 
             for (int i = 0; i < spawnAmount; i++)
             {
-                float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
-                Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
-
                 // Spawn the first orb randomly
                 if (i == 0)
                 {
@@ -159,12 +149,8 @@ namespace Assets.Orbs
             {
                 // Calculate a random variance in the orb's rotation which will
                 // cause its trajectory to change
-                float variance = Random.Range(-trajectoryVariance, trajectoryVariance);
-                float yVariance = Random.Range(1f, 1.5f);
-                Quaternion rotation = Quaternion.AngleAxis(variance, Vector3.forward);
-
                 // Calculate the spawn point at the top of the camera's view
-                float cameraTopY = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 1 + yVariance, 0f)).y;
+                float cameraTopY = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 1.5f, 0f)).y;
                 Vector3 spawnPoint = new Vector3(Random.Range(-spawnDistance, spawnDistance), cameraTopY, 0f);
 
                 orbType = Random.Range(0, 100);
@@ -184,29 +170,29 @@ namespace Assets.Orbs
             {
 
                 SpawnSingle();
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(spawnWaitTime);
 
                 SpawnDiagonal(true);
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(spawnWaitTime);
 
                 SpawnDiagonal(false);
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(spawnWaitTime);
 
                 SpawnSingle();
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(spawnWaitTime);
                 SpawnLShape(false);
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(spawnWaitTime);
 
                 SpawnInverseLShape(false);
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(spawnWaitTime);
 
                 SpawnSingle();
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(spawnWaitTime);
                 SpawnLShape(true);
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(spawnWaitTime);
 
                 SpawnInverseLShape(true);
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(spawnWaitTime);
             }
         }
 
@@ -227,8 +213,7 @@ namespace Assets.Orbs
 
         private Vector3 GenerateRandomPoint()
         {
-            float yVariance = Random.Range(0f, .5f);
-            float cameraTopY = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 1 + yVariance, 0f)).y;
+            float cameraTopY = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 1.5f, 0f)).y;
             return new Vector3(Random.Range(-spawnDistance, spawnDistance), cameraTopY, 0f);
         }
         private GameObject RandomOrb()

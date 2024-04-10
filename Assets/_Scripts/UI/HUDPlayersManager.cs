@@ -13,6 +13,8 @@ namespace _Scripts.UI
         public GlobalItemUI globalItemUI;
         
         public static HUDPlayersManager Instance { get; private set; }
+        
+        [SerializeField] private TutorialBox tutorialBox;
 
         [SerializeField] private TextMeshProUGUI timerText;
         private float _remainingTime;
@@ -33,6 +35,11 @@ namespace _Scripts.UI
         public void SetInitialTimer(float time)
         {
             _remainingTime = time;
+        }
+
+        public void StartTutorialAnimation()
+        {
+            tutorialBox.StartAnimation();
         }
         
         private void UpdateCounterTimer()
