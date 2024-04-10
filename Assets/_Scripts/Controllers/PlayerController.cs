@@ -58,7 +58,7 @@ namespace _Scripts.Controllers
             // Notify server
             playerServerDataSync.CmdChangeHealth(newHealth);
         }
-
+        
         public void AddHeartSlot(float amount)
         {
             var newMaxHealth = playerServerDataSync.GetMaxHealth();
@@ -67,6 +67,22 @@ namespace _Scripts.Controllers
             playerServerDataSync.CmdChangeMaxHealth(newMaxHealth);
         }
 
+        public void AddRegularBombs(int amount)
+        {
+            var newRegularBombs = playerServerDataSync.GetRegularBombs();
+            newRegularBombs += amount;
+            
+            playerServerDataSync.CmdChangeRegularBombs(newRegularBombs);
+        }
+        
+        public void AddStrongBombs(int amount)
+        {
+            var newStrongBombs = playerServerDataSync.GetStrongBombs();
+            newStrongBombs += amount;
+            
+            playerServerDataSync.CmdChangeStrongBombs(newStrongBombs);
+        }
+        
         private void OnEnable()
         {
             // JUST FOR DEBUGGING. THIS CAUSE A WARNING ON CONSOLE. Anyways, this do not cause any problem.

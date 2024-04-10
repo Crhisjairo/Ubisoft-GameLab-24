@@ -170,6 +170,7 @@ MonoBehaviour:
   syncInterval: 0
   gravityScale: 0.2
   amount: {fileID: 2122976531042782156}
+  orbAmount: 1
   speed: 5
 --- !u!114 &6140819738343401870
 MonoBehaviour:

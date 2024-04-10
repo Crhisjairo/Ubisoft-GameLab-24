@@ -39,6 +39,12 @@ namespace _Scripts.Managers.Multiplayer
         private float health;
         
         
+        [SyncVar(hook = nameof(OnRegularBombsChanged))]
+        private int regularBombs = int.MaxValue;
+        
+        [SyncVar(hook = nameof(OnStrongBombsChanged))]
+        private int strongBombs = 0;
+        
         #endregion
         
         private void Awake()
@@ -62,6 +68,18 @@ namespace _Scripts.Managers.Multiplayer
         }
         
         [Server]
+        public void SetStrongBombsServerSide(int amount)
+        {
+            strongBombs = amount;
+        }
+        
+        [Server]
+        public void SetRegularBombsServerSide(int amount)
+        {
+            regularBombs = amount;
+        }
+
+        [Server]
         public void SetPlayerIndex(PlayerIndex playerIndex)
         {
             this.playerIndex = playerIndex;
@@ -77,6 +95,8 @@ namespace _Scripts.Managers.Multiplayer
             //TODO: Other settings must be loaded from here
         }
 
+        
+        
         [Command] // Command -> are methods that are called from client and executed on server.
         public void CmdChangeHealth(float amount)
         {
@@ -91,9 +111,23 @@ namespace _Scripts.Managers.Multiplayer
             SetMaxHealthServerSide(amount);
         }
         
+        [Command]
+        public void CmdChangeRegularBombs(int amount)
+        {
+            SetRegularBombsServerSide(amount);
+        }
+        
+        [Command]
+        public void CmdChangeStrongBombs(int amount)
+        {
+            SetStrongBombsServerSide(amount);
+        }
+        
         #endregion
         
         #region ClientSide
+        
+        
         public void OnHealthChanged(float oldValue, float newValue)
         {
             Debug.Log("Client: Health changed from " + oldValue + " to " + newValue);
@@ -110,6 +144,22 @@ namespace _Scripts.Managers.Multiplayer
             maxHealth = newValue;
             PlayerUI.lifeUIController.SetMaxHeartsTo((int)newValue); // TODO: Must be changed to float
             
+        }
+        
+        public void OnRegularBombsChanged(int oldValue, int newValue)
+        {
+            regularBombs = newValue;
+            
+            HUDPlayersManager.Instance.globalItemUI.UpdateRegularBombText(newValue);
+        }
+
+        public void OnStrongBombsChanged(int oldValue, int newValue)
+        {
+            Debug.Log("Strong bombs changed from " + oldValue + " to " + newValue);
+            
+            strongBombs = newValue;
+            
+            HUDPlayersManager.Instance.globalItemUI.UpdateStrongBombText(newValue);
         }
         
         /// <summary>
@@ -158,6 +208,16 @@ namespace _Scripts.Managers.Multiplayer
         public PlayerIndex GetPlayerIndex()
         {
             return playerIndex;
+        }
+        
+        public int GetRegularBombs()
+        {
+            return regularBombs;
+        }
+        
+        public int GetStrongBombs()
+        {
+            return strongBombs;
         }
     }
 }

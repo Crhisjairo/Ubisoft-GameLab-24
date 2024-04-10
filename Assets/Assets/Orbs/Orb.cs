@@ -18,6 +18,8 @@ public class Orb : NetworkBehaviour
 
     public TextMeshPro amount;
 
+    public int orbAmount = 1;
+    
     [SerializeField]
     private float speed = 5.0f;
 
