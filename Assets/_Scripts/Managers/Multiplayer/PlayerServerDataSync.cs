@@ -6,7 +6,6 @@ using _Scripts.UI;
 using _Scripts.UI.PlayerUIs;
 using Mirror;
 using TMPro;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -22,7 +21,7 @@ namespace _Scripts.Managers.Multiplayer
         [SerializeField] PlayerDataScriptableObject playerDataScriptableObject;
         
         public Sprite[] playerSprites;
-        public AnimatorController[] playerAnimators;
+        public RuntimeAnimatorController[] playerAnimators;
         
         public SpriteRenderer SpriteRenderer { private set; get; }
         public PlayerUI PlayerUI { private set; get; }
