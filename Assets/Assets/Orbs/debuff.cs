@@ -1,18 +1,27 @@
 using _Scripts.Controllers;
+using Mirror;
+using UnityEngine;
 namespace Assets.Orbs
 {
     public class Debuff : Orb
     {
-        // Override the Awake method to set a different gravity scale
-        protected override void Awake()
+        [SyncVar]
+        private bool _isFirstSend = true;
+        
+        protected override void Start()
         {
-            gravityScale = 0.22f;
-            base.Awake();
+            amountText.text = (-orbAmount).ToString();
         }
 
+        
         public override void OnApplyOrbEffect(PlayerController playerController)
         {
+            if(_isFirstSend)
+            {
+                playerController.RemoveStrongBombs(orbAmount);
+            }
             
+            _isFirstSend = false;
         }
     }
 }

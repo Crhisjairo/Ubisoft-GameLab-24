@@ -4455,7 +4455,7 @@ AudioSource:
   m_GameObject: {fileID: 549537739}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: a3268abe5c80f9f4ebcaad804e022ed0, type: 2}
   m_audioClip: {fileID: 8300000, guid: 9f7d2072900ce2a4eb6f1c5d506bab10, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -4569,7 +4569,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 560652468}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
   m_Name: 
@@ -11585,9 +11585,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 92d0f709aba6bea4ca683c8caf8f7310, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e03c165ac382b1e4690c56e28cbcce37, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -11869,9 +11869,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3e77adde7567f2649b5b7acde9364902, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 366c678dc3d6ed94d85594ec335652a3, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

@@ -6,6 +6,8 @@ using _Scripts.Map;
 using Mirror;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -16,12 +18,15 @@ public class Orb : NetworkBehaviour
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D collider2D;
 
-    public TextMeshPro amount;
+    public TextMeshPro amountText;
 
     public int orbAmount = 1;
     
     [SerializeField]
     private float speed = 5.0f;
+    
+    [SerializeField] protected int maxOrbAmount = 2;
+    [SerializeField] protected int minOrbAmount = 1;
 
     protected virtual void Awake()
     {
@@ -29,6 +34,17 @@ public class Orb : NetworkBehaviour
         collider2D  = GetComponent<CircleCollider2D>();
     }
 
+    protected virtual void Start()
+    {
+        amountText.text = orbAmount.ToString();
+    }
+
+    public void CalculateRandomAmount()
+    {
+        orbAmount = Random.Range(minOrbAmount, maxOrbAmount + 1);
+        amountText.text = orbAmount.ToString();
+    }
+    
     private void Update()
     {
         float step = speed * Time.deltaTime;
@@ -77,7 +93,7 @@ public class Orb : NetworkBehaviour
     {
         spriteRenderer.enabled = false;
         collider2D.enabled = false;
-        amount.enabled = false;
+        amountText.enabled = false;
         
         yield return new WaitForSeconds(1.0f);
         Destroy(gameObject);

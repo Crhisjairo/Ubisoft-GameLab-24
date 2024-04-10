@@ -25,7 +25,7 @@ namespace _Scripts.Controllers
         
         public float defaultGravityScale = 4.0f;
         
-        public PlayerMoveSetStates defaultMoveSetState = PlayerMoveSetStates.PlatformMove;
+        public PlayerMoveSetStates defaultMoveSetState = PlayerMoveSetStates.VerticalMove;
         
         /// <summary>
         /// This variable is used to sync the move set state between the server and the client.

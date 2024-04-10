@@ -9,6 +9,7 @@ namespace Assets.Orbs
         [SyncVar]
         private bool _isFirstSend = true;
         
+
         public override void OnApplyOrbEffect(PlayerController playerController)
         {
            // if(_isFirstSend)
@@ -17,8 +18,7 @@ namespace Assets.Orbs
             {
                 playerController.AddStrongBombs(orbAmount);
             }
-               
-               
+
             _isFirstSend = false;
         }
     }

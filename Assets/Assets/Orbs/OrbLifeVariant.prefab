@@ -185,11 +185,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3703571534113283168, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
       propertyPath: m_Radius
-      value: 0.28371674
+      value: 0.35843676
       objectReference: {fileID: 0}
     - target: {fileID: 3703571534113283168, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
       propertyPath: m_Offset.x
-      value: 0.004080832
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3703571534113283168, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5217500464259416643, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
+      propertyPath: _assetId
+      value: 952396320
       objectReference: {fileID: 0}
     - target: {fileID: 5234612159747901291, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
       propertyPath: m_IsActive
@@ -315,8 +323,11 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   gravityScale: 0.2
-  amount: {fileID: 2108083213622845450}
+  amountText: {fileID: 2108083213622845450}
+  orbAmount: 1
   speed: 5
+  maxOrbAmount: 1
+  minOrbAmount: 1
 --- !u!114 &7890835817847668181
 MonoBehaviour:
   m_ObjectHideFlags: 0

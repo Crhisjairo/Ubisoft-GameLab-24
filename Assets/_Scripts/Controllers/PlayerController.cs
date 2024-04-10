@@ -82,7 +82,18 @@ namespace _Scripts.Controllers
             
             playerServerDataSync.CmdChangeStrongBombs(newStrongBombs);
         }
-        
+
+        public void RemoveStrongBombs(int amount)
+        {
+            var newStrongBombs = playerServerDataSync.GetStrongBombs();
+            newStrongBombs -= amount;
+
+            if (newStrongBombs <= 0)
+                newStrongBombs = 0;
+            
+            playerServerDataSync.CmdChangeStrongBombs(newStrongBombs);
+        }
+
         private void OnEnable()
         {
             // JUST FOR DEBUGGING. THIS CAUSE A WARNING ON CONSOLE. Anyways, this do not cause any problem.

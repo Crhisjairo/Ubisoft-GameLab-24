@@ -57,6 +57,7 @@ namespace Assets.Orbs
 
                 previousPosition = spawnPoint;
                 GameObject newOrb = Instantiate(RandomDebuff(), spawnPoint, Quaternion.Euler(0, 0, 0));
+                newOrb.GetComponent<Orb>().CalculateRandomAmount();
                 
                 NetworkServer.Spawn(newOrb);
             }
@@ -94,6 +95,7 @@ namespace Assets.Orbs
 
                 previousPosition = spawnPoint;
                 GameObject newOrb = Instantiate(orb, spawnPoint, Quaternion.Euler(0, 0, 0));
+                newOrb.GetComponent<Orb>().CalculateRandomAmount();
                 
                 if(!isDebug)
                     NetworkServer.Spawn(newOrb);
@@ -136,6 +138,7 @@ namespace Assets.Orbs
 
                 previousPosition = spawnPoint;
                 GameObject newOrb = Instantiate(orb, spawnPoint, Quaternion.Euler(0, 0, 0));
+                newOrb.GetComponent<Orb>().CalculateRandomAmount();
                 
                 if(!isDebug)
                     NetworkServer.Spawn(newOrb);
@@ -155,7 +158,8 @@ namespace Assets.Orbs
 
                 orbType = Random.Range(0, 100);
                 GameObject newOrb = Instantiate(RandomOrb(), spawnPoint, Quaternion.Euler(0, 0, 0));
-                
+                newOrb.GetComponent<Orb>().CalculateRandomAmount();
+
                 if(!isDebug)
                     NetworkServer.Spawn(newOrb);
                 

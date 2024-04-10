@@ -1182,6 +1182,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5160951916430349907, guid: fb1c3f27381290f40b1497ada5ce78a5, type: 3}
     - target: {fileID: 4402591742934861551, guid: 829778f5c93b243fc872b57734481af9, type: 3}
+      propertyPath: normalOrbPrefab
+      value: 
+      objectReference: {fileID: 5160951916430349907, guid: fb1c3f27381290f40b1497ada5ce78a5, type: 3}
+    - target: {fileID: 4402591742934861551, guid: 829778f5c93b243fc872b57734481af9, type: 3}
       propertyPath: distanceBetweenOrbs
       value: 3
       objectReference: {fileID: 0}
@@ -7193,8 +7197,8 @@ AudioSource:
   m_GameObject: {fileID: 1194011929}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 25c9487ee44cf1644983be61cf2bdb15, type: 3}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: a3268abe5c80f9f4ebcaad804e022ed0, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 4918148736e32ed4da2f348edbe8bd2f, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -8875,6 +8879,7 @@ MonoBehaviour:
   player1UI: {fileID: 1572974861}
   player2UI: {fileID: 2063210243}
   globalItemUI: {fileID: 0}
+  tutorialBox: {fileID: 0}
   timerText: {fileID: 0}
 --- !u!114 &1529999772
 MonoBehaviour:

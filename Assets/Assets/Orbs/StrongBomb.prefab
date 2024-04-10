@@ -340,8 +340,11 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   gravityScale: 0.2
-  amount: {fileID: 1528744744447075150}
+  amountText: {fileID: 1528744744447075150}
+  orbAmount: 1
   speed: 5
+  maxOrbAmount: 4
+  minOrbAmount: 1
 --- !u!114 &-93304860527938125
 MonoBehaviour:
   m_ObjectHideFlags: 0
