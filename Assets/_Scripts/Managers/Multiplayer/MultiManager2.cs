@@ -125,7 +125,7 @@ namespace _Scripts.Managers.Multiplayer
                 NetworkServer.SendToAll(new MinigameStatusMessage
                 {
                     StartMinigame = true,
-                    TimerValue = timeOnMinigame
+                    TimerValue = timeOnMinigame,
                 });
 
                 Time.timeScale = 1;
@@ -283,6 +283,7 @@ namespace _Scripts.Managers.Multiplayer
             }
             
             HUDPlayersManager.Instance.SetInitialTimer(message.TimerValue);
+            HUDPlayersManager.Instance.StartTutorialAnimation();
             
             // FadeOut is played when server tells the clients to start the minigame.
             ClientReceiveTransitionAnim(new TransitionAnimMessage

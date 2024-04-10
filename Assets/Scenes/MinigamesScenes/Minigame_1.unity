@@ -1174,9 +1174,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4402591742934861551, guid: 829778f5c93b243fc872b57734481af9, type: 3}
+      propertyPath: spawnWaitTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402591742934861551, guid: 829778f5c93b243fc872b57734481af9, type: 3}
       propertyPath: otherOrbPrefab
       value: 
       objectReference: {fileID: 5160951916430349907, guid: fb1c3f27381290f40b1497ada5ce78a5, type: 3}
+    - target: {fileID: 4402591742934861551, guid: 829778f5c93b243fc872b57734481af9, type: 3}
+      propertyPath: distanceBetweenOrbs
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5262454842919993267, guid: 829778f5c93b243fc872b57734481af9, type: 3}
       propertyPath: m_SizeDelta.x
       value: 28.7023
@@ -1219,7 +1227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5262454842919993267, guid: 829778f5c93b243fc872b57734481af9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 16.95
+      value: 15.7
       objectReference: {fileID: 0}
     - target: {fileID: 5262454842919993267, guid: 829778f5c93b243fc872b57734481af9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

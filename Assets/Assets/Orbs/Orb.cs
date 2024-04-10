@@ -33,6 +33,9 @@ public class Orb : NetworkBehaviour
     {
         float step = speed * Time.deltaTime;
         transform.Translate(Vector3.down * step);
+        
+        if(transform.position.y <= -188f)
+            Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
