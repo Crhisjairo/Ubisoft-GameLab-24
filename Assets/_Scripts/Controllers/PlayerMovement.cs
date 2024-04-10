@@ -13,13 +13,13 @@ namespace _Scripts.Controllers
     {
         public Vector2 MovementInput { set; get; }
         public float speed { private set; get; } = 8f ;
-        public float jumpingPower { private set; get; } = 16f;
+        public float jumpingPower { private set; get; } = 20f;
         private bool isFacingRight = true;
         public bool Jumped { set; get; } = false;
 
         public bool CanDash { set; get; } = true;
         public bool IsDashing { set; get; }
-        public float dashingPower { private set; get; } = 24f;
+        public float dashingPower { private set; get; } = 20f;
         public float dashingTime { private set; get; } = 0.05f;
         public float dashCooldown { private set; get; } = 1.0f;
         
@@ -39,7 +39,7 @@ namespace _Scripts.Controllers
         private IPlayerMoveSetState _currentMoveSetInterface;
 
         public Rigidbody2D rb;
-        public Collider2D col;
+        public CapsuleCollider2D col;
         public Animator anim;
         [SerializeField] private Transform groundCheck;
         [SerializeField] private LayerMask groundLayer;
@@ -60,7 +60,7 @@ namespace _Scripts.Controllers
 
         void Update()
         {
-            if (!isLocalPlayer) return;
+            //if (!isLocalPlayer) return;
 
             if (IsDashing)
             {
@@ -105,6 +105,8 @@ namespace _Scripts.Controllers
         //create invisible at player's feet. If the player is touching the ground, the player can jump.
         private bool IsGrounded()
         {
+            Debug.Log("IsGrounded: " + Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer));
+            
             return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         }
 

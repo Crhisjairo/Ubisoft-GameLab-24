@@ -12,7 +12,11 @@ namespace _Scripts.Controllers.PlayerMoveSets
         {
             _player = player;
             _player.rb.gravityScale = _player.defaultGravityScale;
+            _player.rb.bodyType = RigidbodyType2D.Dynamic;
             _player.col.enabled = true;
+
+            _player.IsDashing = false;
+            _player.CanDash = true;
         }
         
         public void Move(InputAction.CallbackContext context)
@@ -28,6 +32,7 @@ namespace _Scripts.Controllers.PlayerMoveSets
         public void Jump(InputAction.CallbackContext context)
         {
             _player.Jumped = context.action.triggered; // context.action.triggered;
+            Debug.Log("Jumped: " + _player.Jumped);
         }
         public void Dash(InputAction.CallbackContext context)
         {

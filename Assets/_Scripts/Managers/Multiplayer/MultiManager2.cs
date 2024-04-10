@@ -5,6 +5,7 @@ using _Scripts.Controllers;
 using _Scripts.Managers.Multiplayer.Messages;
 using _Scripts.Map;
 using _Scripts.Shared;
+using _Scripts.UI;
 using _Scripts.UI.MainMenu;
 using _Scripts.UI.PlayerUIs;
 using Assets._Scripts.Shared;
@@ -31,7 +32,8 @@ namespace _Scripts.Managers.Multiplayer
 
         #region  Server
 
-        public float timeOnMinigameDebug = 60f;
+        public float timeOnMinigame = 120f;
+        public float timeOnBoss = 60f;
         
         public int PlayersOnLobbyCount { private set; get; }
         
@@ -79,7 +81,8 @@ namespace _Scripts.Managers.Multiplayer
                 }
                 
                 // Wait 5 seconds before starting the next minigame.
-                yield return new WaitForSeconds(timeOnMinigameDebug); // TODO: change for a timer.
+                yield return new WaitForSeconds(timeOnMinigame); // TODO: change for a timer.
+                timeOnMinigame = timeOnBoss;
             }
             
             yield return null;
@@ -121,7 +124,8 @@ namespace _Scripts.Managers.Multiplayer
             {
                 NetworkServer.SendToAll(new MinigameStatusMessage
                 {
-                    StartMinigame = true
+                    StartMinigame = true,
+                    TimerValue = timeOnMinigame
                 });
 
                 Time.timeScale = 1;
@@ -179,20 +183,24 @@ namespace _Scripts.Managers.Multiplayer
             });
             Time.timeScale = 0;
         }
-
+        
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
             base.OnServerAddPlayer(conn);
-            
+
             conn.identity.GetComponent<PlayerInput>().enabled = false;
             
             Debug.Log("PlayerOnLobbyCount: " + PlayersOnLobbyCount);
 
             // Player is notified on SetPlayerNumber method.
-            if(numPlayers == 1)
+            if (numPlayers == 1)
+            {
                 SetPlayerNumber(conn.identity, PlayerIndex.Player1);
-            else if(numPlayers == 2)
+            }
+            else if (numPlayers == 2)
+            {
                 SetPlayerNumber(conn.identity, PlayerIndex.Player2);
+            }
             
             conn.Send(new PlayerComponentStatusMessage()
             {
@@ -224,33 +232,6 @@ namespace _Scripts.Managers.Multiplayer
             }
 
             PlayersOnLobbyCount--;
-        }
-
-        public override void Update()
-        {
-            base.Update();
-            // UpdateCounterTimer();   
-        }
-        
-        private void UpdateCounterTimer()
-        {
-            if (_remainingTime > 0)
-            {
-                _remainingTime -= Time.deltaTime;
-
-                int mins = Mathf.FloorToInt(_remainingTime / 60);
-                int secs = Mathf.FloorToInt(_remainingTime % 60);
-                int milisecs = Mathf.FloorToInt((_remainingTime * 1000) % 1000);
-                
-               // timerText.SetText(
-                    //string.Format("{0:D2}:{1:D2}:{2:D2}", mins, secs, milisecs)
-                   // );
-            }
-            else
-            {
-                //LoadNextMinigame();
-                Debug.Log("Timer is done!");
-            }
         }
 
         #endregion
@@ -285,8 +266,7 @@ namespace _Scripts.Managers.Multiplayer
         {
             base.OnClientSceneChanged();
             Time.timeScale = 0;
-            
-            
+
             NetworkClient.Send(new SceneStatusMessage
             {
                 SceneName = SceneManager.GetActiveScene().name,
@@ -301,6 +281,8 @@ namespace _Scripts.Managers.Multiplayer
             {
                 Time.timeScale = 1;
             }
+            
+            HUDPlayersManager.Instance.SetInitialTimer(message.TimerValue);
             
             // FadeOut is played when server tells the clients to start the minigame.
             ClientReceiveTransitionAnim(new TransitionAnimMessage
@@ -367,6 +349,7 @@ namespace _Scripts.Managers.Multiplayer
             StartClient();
         }
 
+        
         public override void OnClientConnect()
         {
             base.OnClientConnect();
