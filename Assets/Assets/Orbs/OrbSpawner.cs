@@ -89,7 +89,9 @@ namespace Assets.Orbs
                 }
                 else
                 {
-                    spawnPoint = offsetPrevVector(previousPosition, offsetX, 0);
+                    // spawnPoint = offsetPrevVector(previousPosition, offsetX, 0);
+                    // orb = RandomBuff();
+                    spawnPoint = GenerateRandomPoint();
                     orb = RandomBuff();
                 }
 
@@ -132,8 +134,11 @@ namespace Assets.Orbs
                 else
                 {
                     // For the first half of the loop, spawn orbs diagonally upwards
-                    spawnPoint = offsetPrevVector(previousPosition, 0, offsetY);
-                    orb = RandomDebuff();
+                    // spawnPoint = offsetPrevVector(previousPosition, 0, offsetY);
+                    // orb = RandomDebuff();
+                    
+                    spawnPoint = GenerateRandomPoint();
+                    orb = RandomBuff();
                 }
 
                 previousPosition = spawnPoint;
@@ -156,7 +161,7 @@ namespace Assets.Orbs
                 float cameraTopY = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 1.5f, 0f)).y;
                 Vector3 spawnPoint = new Vector3(Random.Range(-spawnDistance, spawnDistance), cameraTopY, 0f);
 
-                orbType = Random.Range(0, 100);
+                //orbType = Random.Range(0, 100);
                 GameObject newOrb = Instantiate(RandomOrb(), spawnPoint, Quaternion.Euler(0, 0, 0));
                 newOrb.GetComponent<Orb>().CalculateRandomAmount();
 

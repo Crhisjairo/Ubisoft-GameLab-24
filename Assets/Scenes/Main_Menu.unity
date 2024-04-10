@@ -5775,7 +5775,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954358000}
+      - m_Target: {fileID: 1469187802}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: SetResolution
         m_Mode: 0
@@ -6007,14 +6007,14 @@ MonoBehaviour:
   m_FillRect: {fileID: 165692141}
   m_HandleRect: {fileID: 403825117}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: 0.000000001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954358000}
+      - m_Target: {fileID: 1469187802}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 0
@@ -6972,7 +6972,6 @@ GameObject:
   - component: {fileID: 954357997}
   - component: {fileID: 954357996}
   - component: {fileID: 954357999}
-  - component: {fileID: 954358000}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -7056,20 +7055,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954357993}
   m_CullTransparentMesh: 1
---- !u!114 &954358000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 954357993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78065ad711f5cd44495e2ee8c5b234eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: a3268abe5c80f9f4ebcaad804e022ed0, type: 2}
-  resolutionDropdown: {fileID: 719065517}
 --- !u!224 &961534297 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6637740854935944897, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
@@ -10625,7 +10610,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 954358000}
+      - m_Target: {fileID: 1469187802}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: SetFullScreen
         m_Mode: 0
@@ -10732,6 +10717,7 @@ GameObject:
   - component: {fileID: 1469187796}
   - component: {fileID: 1469187800}
   - component: {fileID: 1469187801}
+  - component: {fileID: 1469187802}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -10850,6 +10836,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469187795}
   m_Enabled: 1
+--- !u!114 &1469187802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469187795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78065ad711f5cd44495e2ee8c5b234eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 747715455}
+  fullscreenToggle: {fileID: 1439119642}
+  audioMixer: {fileID: 24100000, guid: a3268abe5c80f9f4ebcaad804e022ed0, type: 2}
+  resolutionDropdown: {fileID: 719065517}
 --- !u!1 &1538146223
 GameObject:
   m_ObjectHideFlags: 0

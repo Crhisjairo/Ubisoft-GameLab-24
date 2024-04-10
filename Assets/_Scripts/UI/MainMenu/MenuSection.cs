@@ -30,14 +30,16 @@ namespace _Scripts.UI.MainMenu
         {
             gameObject.SetActive(isActive);
             canvasGroup.alpha = isActive ? 1 : 0;
+            canvasGroup.interactable = isActive;
         }
 
         public void SetActive(bool active)
         {
             isActive = active;
             
-            if(isActive)
-                gameObject.SetActive(isActive);
+           if(isActive) gameObject.SetActive(isActive);
+            
+            canvasGroup.interactable = isActive;
             
             StartCoroutine(StartTransition());
         }
@@ -64,6 +66,7 @@ namespace _Scripts.UI.MainMenu
             if (!isActive)
             {
                 yield return new WaitForSeconds(transitionTime);
+                canvasGroup.interactable = isActive;
                 gameObject.SetActive(isActive);
             }
                 
