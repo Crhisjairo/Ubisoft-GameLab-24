@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using Mirror;
 using TMPro;
 using UnityEngine;
@@ -17,7 +17,10 @@ namespace _Scripts.UI
         public string textOnHost = "Waiting for dreamers...";
 
         public string startGameText = "Start to Dream!";
-        
+
+        private Coroutine animateTextCoroutine;
+
+
         private void Start()
         {
             hostButton.interactable = false;
@@ -35,6 +38,30 @@ namespace _Scripts.UI
             {
                 hostButton.interactable = true;
                 buttonText.text = startGameText;
+                //modificar boton aqui
+                StartCoroutine(AnimateButtonScale());
+            }
+        }
+
+        private IEnumerator AnimateButtonScale()
+        {
+            float duration = 1.0f; 
+            Vector3 originalScale = hostButton.transform.localScale; 
+            Vector3 targetScale = originalScale * 1.2f; 
+
+            while (true)
+            {
+                for (float t = 0; t < duration; t += Time.deltaTime)
+                {
+                    hostButton.transform.localScale = Vector3.Lerp(originalScale, targetScale, t / duration);
+                    yield return null;
+                }
+
+                for (float t = 0; t < duration; t += Time.deltaTime)
+                {
+                    hostButton.transform.localScale = Vector3.Lerp(targetScale, originalScale, t / duration);
+                    yield return null;
+                }
             }
         }
     }
