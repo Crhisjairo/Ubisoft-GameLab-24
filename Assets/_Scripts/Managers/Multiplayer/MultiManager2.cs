@@ -135,12 +135,14 @@ namespace _Scripts.Managers.Multiplayer
 
         private void AssignPlayersNetEntitiesByScene(NetworkConnectionToClient conn, int player)
         {
+            Debug.Log("Assigning net entities to players on scene: " + currentSceneName + " for player " + player + "!");
+            
             switch (currentSceneName)
             {
                 case MinigameSceneNames.Minigame_1:
                     AssignNetEntitiesMinigame1(conn, player);
                     break;
-                case MinigameSceneNames.Boss:
+                case MinigameSceneNames.Minigame_2:
                     AssignNetEntitiesBoss(conn, player);
                     break;
             }

@@ -41,6 +41,11 @@ namespace _Scripts.UI
                 //modificar boton aqui
                 StartCoroutine(AnimateButtonScale());
             }
+            else if (NetworkManager.singleton.numPlayers < 2)
+            {
+                hostButton.interactable = false;
+                buttonText.text = textOnHost;
+            }
         }
 
         private IEnumerator AnimateButtonScale()

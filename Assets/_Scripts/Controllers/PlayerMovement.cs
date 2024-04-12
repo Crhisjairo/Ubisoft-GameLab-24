@@ -12,18 +12,18 @@ namespace _Scripts.Controllers
     public class PlayerMovement : NetworkBehaviour
     {
         public Vector2 MovementInput { set; get; }
-        public float speed { private set; get; } = 8f ;
-        public float jumpingPower { private set; get; } = 20f;
+        public float speed = 18f ;
+        public float jumpingPower = 35f;
         private bool isFacingRight = true;
         public bool Jumped { set; get; } = false;
 
         public bool CanDash { set; get; } = true;
         public bool IsDashing { set; get; }
-        public float dashingPower { private set; get; } = 20f;
+        public float dashingPower = 20f;
         public float dashingTime { private set; get; } = 0.05f;
         public float dashCooldown { private set; get; } = 1.0f;
         
-        public float defaultGravityScale = 4.0f;
+        public float defaultGravityScale = 8.0f;
         
         public PlayerMoveSetStates defaultMoveSetState = PlayerMoveSetStates.VerticalMove;
         
@@ -79,7 +79,8 @@ namespace _Scripts.Controllers
 
             Flip();
             
-            AdjustSpeed();
+            if(_currentMoveSetState == PlayerMoveSetStates.PlatformMove)
+                AdjustSpeed();
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -133,7 +134,7 @@ namespace _Scripts.Controllers
         private void AdjustSpeed()
         {
             // Define speed stages
-            float[] speedStages = { 2.0f, 4.0f, 6.0f, 8.0f, 50.0f, 100.0f }; // Example speed stages
+            float[] speedStages = { 2.0f, 4.0f, 6.0f, 18.0f, 50.0f, 100.0f }; // Example speed stages
 
             // Check if not dashing before adjusting speed
             if (!IsDashing)
@@ -185,6 +186,18 @@ namespace _Scripts.Controllers
                     _currentMoveSetState = PlayerMoveSetStates.PlatformMove;
                     break;
             }
+        }
+        
+        [Command]
+        public void CmdSendBoolAnimation(string animationName, bool value)
+        {
+            RpcReceiveBoolAnimation(animationName, value);
+        }
+        
+        [ClientRpc]
+        private void RpcReceiveBoolAnimation(string animationName, bool value)
+        {
+            anim.SetBool(animationName, value);
         }
 
         /// <summary>

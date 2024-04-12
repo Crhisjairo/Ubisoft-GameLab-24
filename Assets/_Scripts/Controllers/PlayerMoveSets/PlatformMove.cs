@@ -13,8 +13,11 @@ namespace _Scripts.Controllers.PlayerMoveSets
             _player = player;
             _player.rb.gravityScale = _player.defaultGravityScale;
             _player.rb.bodyType = RigidbodyType2D.Dynamic;
+            _player.rb.isKinematic = false;
             _player.col.enabled = true;
 
+            _player.speed = 18.0f;
+            
             _player.IsDashing = false;
             _player.CanDash = true;
         }
@@ -48,7 +51,7 @@ namespace _Scripts.Controllers.PlayerMoveSets
             
             _player.rb.velocity = new Vector2(_player.MovementInput.x * _player.speed, _player.rb.velocity.y);
         }
-        
+
         private IEnumerator DashRoutine()
         {
             _player.CanDash = false;

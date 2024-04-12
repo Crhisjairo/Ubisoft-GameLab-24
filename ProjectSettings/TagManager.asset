@@ -54,3 +54,6 @@ TagManager:
   - name: Entities
     uniqueID: 1015279779
     locked: 0
+  - name: CanvasUI
+    uniqueID: 4283261305
+    locked: 0

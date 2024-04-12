@@ -14,6 +14,8 @@ namespace _Scripts.Controllers.PlayerMoveSets
             _player = player;
             _player.rb.gravityScale = 0f;
             _player.col.enabled = false;
+
+            _player.speed = 8.0f;
         }
         
         public void Move(InputAction.CallbackContext context)
@@ -27,6 +29,9 @@ namespace _Scripts.Controllers.PlayerMoveSets
 
             _player.anim.SetBool(PlayerAnimations.isWalking.ToString(), 
                 _player.MovementInput.y == 0);
+            _player.CmdSendBoolAnimation(PlayerAnimations.isWalking.ToString(), 
+                _player.MovementInput.y == 0);
+            _player.anim.Play("OnGet");
         }
 
         public void Jump(InputAction.CallbackContext context)
@@ -38,7 +43,7 @@ namespace _Scripts.Controllers.PlayerMoveSets
         {
             if (context.action.triggered && _player.CanDash)
             {
-                _player.StartCoroutine(VerticalDashRoutine());
+                //_player.StartCoroutine(VerticalDashRoutine());
             }
         }
 

@@ -13,6 +13,7 @@ namespace Assets.Orbs
             //     GlobalPlayerData.Instance.AddRegularBomb(orbAmount);
             
             // _isFirstSend = false;
+            
         }
     }
 }

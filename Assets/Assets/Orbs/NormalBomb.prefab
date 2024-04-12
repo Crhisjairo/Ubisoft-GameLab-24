@@ -172,6 +172,8 @@ MonoBehaviour:
   amountText: {fileID: 2122976531042782156}
   orbAmount: 1
   speed: 5
+  maxOrbAmount: 2
+  minOrbAmount: 1
 --- !u!114 &6140819738343401870
 MonoBehaviour:
   m_ObjectHideFlags: 0
