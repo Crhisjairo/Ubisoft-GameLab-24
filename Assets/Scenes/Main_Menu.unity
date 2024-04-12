@@ -4541,7 +4541,7 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  timeOnMinigame: 5
+  timeOnMinigame: 60
   timeOnBoss: 60
   _player1Slot: {fileID: 1563702974}
   _player2Slot: {fileID: 1563702973}
