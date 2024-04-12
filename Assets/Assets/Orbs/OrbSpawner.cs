@@ -11,33 +11,42 @@ namespace Assets.Orbs
         public GameObject debuffOrbPrefab;
 
         public GameObject otherOrbPrefab;
-        
+
         bool swordOrb = false;
         bool shieldOrb = false;
         private Camera mainCamera;
         public float spawnDistance = 12f;
         public float spawnWaitTime = 1f;
         public int amountPerSingleSpawnMax = 5;
+        public float timeUntilDebuffSpawn = 10f;
+        private bool debuffActive = false;
         int orbType = 0;
 
         public bool isDebug = false;
-        
+
         public float distanceBetweenOrbs = 5f;
-        
+
         private void Start()
         {
-            
+
             //InvokeRepeating(nameof(Spawn), spawnRate, spawnRate);
             mainCamera = Camera.main;
-            
-            
-            if(isServer || isDebug)
+
+            if (isServer || isDebug)
+            {
+                StartCoroutine(debuffDelayStartup());
                 StartCoroutine(Spawn());
+            }
 
         }
+        private IEnumerator debuffDelayStartup()
+        {
+            yield return new WaitForSeconds(timeUntilDebuffSpawn);
+            debuffActive = true;
+            Debug.Log("Delay over. Debuff will spawn");
+        }
 
-
-        private void SpawnDiagonal(bool inversed)
+        private void SpawnDiagonal(bool inversed, bool isDebuff = true)
         {
             int diagonalSpawnAmount = 4;
             Vector3 previousPosition = new Vector3(0, 0, 0f);
@@ -58,7 +67,7 @@ namespace Assets.Orbs
                 previousPosition = spawnPoint;
                 GameObject newOrb = Instantiate(RandomDebuff(), spawnPoint, Quaternion.Euler(0, 0, 0));
                 newOrb.GetComponent<Orb>().CalculateRandomAmount();
-                
+
                 NetworkServer.Spawn(newOrb);
             }
         }
@@ -98,8 +107,8 @@ namespace Assets.Orbs
                 previousPosition = spawnPoint;
                 GameObject newOrb = Instantiate(orb, spawnPoint, Quaternion.Euler(0, 0, 0));
                 newOrb.GetComponent<Orb>().CalculateRandomAmount();
-                
-                if(!isDebug)
+
+                if (!isDebug)
                     NetworkServer.Spawn(newOrb);
             }
         }
@@ -136,7 +145,7 @@ namespace Assets.Orbs
                     // For the first half of the loop, spawn orbs diagonally upwards
                     // spawnPoint = offsetPrevVector(previousPosition, 0, offsetY);
                     // orb = RandomDebuff();
-                    
+
                     spawnPoint = GenerateRandomPoint();
                     orb = RandomBuff();
                 }
@@ -144,8 +153,8 @@ namespace Assets.Orbs
                 previousPosition = spawnPoint;
                 GameObject newOrb = Instantiate(orb, spawnPoint, Quaternion.Euler(0, 0, 0));
                 newOrb.GetComponent<Orb>().CalculateRandomAmount();
-                
-                if(!isDebug)
+
+                if (!isDebug)
                     NetworkServer.Spawn(newOrb);
             }
         }
@@ -155,8 +164,7 @@ namespace Assets.Orbs
             int spawnAmount = Random.Range(1, amountPerSingleSpawnMax + 1);
             for (int i = 0; i < spawnAmount; i++)
             {
-                // Calculate a random variance in the orb's rotation which will
-                // cause its trajectory to change
+
                 // Calculate the spawn point at the top of the camera's view
                 float cameraTopY = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 1.5f, 0f)).y;
                 Vector3 spawnPoint = new Vector3(Random.Range(-spawnDistance, spawnDistance), cameraTopY, 0f);
@@ -165,14 +173,44 @@ namespace Assets.Orbs
                 GameObject newOrb = Instantiate(RandomOrb(), spawnPoint, Quaternion.Euler(0, 0, 0));
                 newOrb.GetComponent<Orb>().CalculateRandomAmount();
 
-                if(!isDebug)
+                if (!isDebug)
                     NetworkServer.Spawn(newOrb);
-                
+
                 // Orb orb = Instantiate(RandomDebuff(), spawnPoint, rotation);
                 //orb.size = Random.Range(orb.minSize, orb.maxSize);
             }
         }
-
+        private void randomSpawn()
+        {
+            float random = Random.Range(0, 8);
+            switch (random)
+            {
+                case 0:
+                    SpawnDiagonal(true);
+                    break;
+                case 1:
+                    SpawnDiagonal(false);
+                    break;
+                case 2:
+                    SpawnLShape(false);
+                    break;
+                case 3:
+                    SpawnLShape(true);
+                    break;
+                case 4:
+                    SpawnInverseLShape(false);
+                    break;
+                case 5:
+                    SpawnInverseLShape(true);
+                    break;
+                case 6:
+                    SpawnDiagonal(false, false);
+                    break;
+                case 7:
+                    SpawnDiagonal(true, false);
+                    break;
+            }
+        }
         private IEnumerator Spawn()
         {
             while (true)
@@ -181,27 +219,12 @@ namespace Assets.Orbs
                 SpawnSingle();
                 yield return new WaitForSeconds(spawnWaitTime);
 
-                SpawnDiagonal(true);
-                yield return new WaitForSeconds(spawnWaitTime);
+                if (debuffActive)
+                {
+                    randomSpawn();
+                    yield return new WaitForSeconds(spawnWaitTime);
+                }
 
-                SpawnDiagonal(false);
-                yield return new WaitForSeconds(spawnWaitTime);
-
-                SpawnSingle();
-                yield return new WaitForSeconds(spawnWaitTime);
-                SpawnLShape(false);
-                yield return new WaitForSeconds(spawnWaitTime);
-
-                SpawnInverseLShape(false);
-                yield return new WaitForSeconds(spawnWaitTime);
-
-                SpawnSingle();
-                yield return new WaitForSeconds(spawnWaitTime);
-                SpawnLShape(true);
-                yield return new WaitForSeconds(spawnWaitTime);
-
-                SpawnInverseLShape(true);
-                yield return new WaitForSeconds(spawnWaitTime);
             }
         }
 
