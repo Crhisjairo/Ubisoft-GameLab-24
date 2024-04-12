@@ -31,7 +31,6 @@ namespace _Scripts.Controllers.PlayerMoveSets
                 _player.MovementInput.y == 0);
             _player.CmdSendBoolAnimation(PlayerAnimations.isWalking.ToString(), 
                 _player.MovementInput.y == 0);
-            _player.anim.Play("OnGet");
         }
 
         public void Jump(InputAction.CallbackContext context)
