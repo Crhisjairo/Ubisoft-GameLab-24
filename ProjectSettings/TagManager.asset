@@ -11,6 +11,8 @@ TagManager:
   - Player1Position
   - Player2Position
   - Basket
+  - Player1Data
+  - Player2Data
   layers:
   - Default
   - TransparentFX
