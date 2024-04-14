@@ -78,24 +78,41 @@ namespace _Scripts.Managers.Multiplayer
             regularBombs = amount;
         }
 
+        private PlayerData playerDataAttached;
+
         [Server]
         public void SetPlayerIndex(PlayerIndex playerIndex)
         {
             this.playerIndex = playerIndex;
-        }
-        
-        [Server]
-        public void LoadDefaultPlayerData()
-        {
-            Debug.Log(playerDataScriptableObject.maxHealth);
-            
-            maxHealth = playerDataScriptableObject.maxHealth;
-            health = playerDataScriptableObject.health;
-            //TODO: Other settings must be loaded from here
+
+            if (playerIndex == PlayerIndex.Player1)
+            {
+                playerDataAttached = GameObject.FindWithTag("Player1Data").GetComponent<PlayerData>();
+                
+                maxHealth = playerDataAttached.maxHealth;
+                health = playerDataAttached.health;
+                regularBombs = playerDataAttached.regularBombs;
+                strongBombs = playerDataAttached.strongBombs;
+            } else if (playerIndex == PlayerIndex.Player2)
+            {
+                playerDataAttached = GameObject.FindWithTag("Player2Data").GetComponent<PlayerData>();
+
+                maxHealth = playerDataAttached.maxHealth;
+                health = playerDataAttached.health;
+                regularBombs = playerDataAttached.regularBombs;
+                strongBombs = playerDataAttached.strongBombs;
+            }
         }
 
-        
-        
+        private void OnDestroy()
+        {
+            playerDataAttached.maxHealth = maxHealth;
+            playerDataAttached.health = health;
+            playerDataAttached.regularBombs = regularBombs;
+            playerDataAttached.strongBombs = strongBombs;
+        }
+
+
         [Command] // Command -> are methods that are called from client and executed on server.
         public void CmdChangeHealth(float amount)
         {
