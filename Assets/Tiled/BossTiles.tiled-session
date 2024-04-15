@@ -5,8 +5,8 @@
     },
     "activeFile": "Free/Free.tmx",
     "expandedProjectPaths": [
-        ".",
-        "Free"
+        "Free",
+        "."
     ],
     "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
     "fileStates": {
@@ -58,11 +58,11 @@
             "scaleInDock": 1
         },
         "Free/Free.tmx": {
-            "scale": 0.75,
-            "selectedLayer": 1,
+            "scale": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 495.33333333333337,
-                "y": 170.66666666666669
+                "x": 637.5,
+                "y": 235
             }
         },
         "Free/Terrain_and_Props.tsx": {
@@ -92,13 +92,14 @@
     "map.lastUsedFormat": "tmx",
     "map.width": 50,
     "openFiles": [
-        "Free/Free.tmx"
+        "Free/Free.tmx",
+        "Free/cave.tsx"
     ],
     "project": "BossTiles.tiled-project",
     "recentFiles": [
-        "sans titre.tmx",
         "Free/cave.tsx",
         "Free/Free.tmx",
+        "sans titre.tmx",
         "Free/Terrain_and_Props.tsx",
         "Free.tmx",
         "C:/Users/crhis/Downloads/forest-nature-fantasy-tileset-free/Fantasy Swamp Forest/Free/Terrain_and_Props.tsx",
