@@ -13,6 +13,7 @@ TagManager:
   - Basket
   - Player1Data
   - Player2Data
+  - Boss
   layers:
   - Default
   - TransparentFX

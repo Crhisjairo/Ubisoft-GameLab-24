@@ -16,7 +16,7 @@ namespace _Scripts.Controllers.Boss
         [SerializeField] private Slider healthSlider;
         [SerializeField] private float maxHealth = 100f;
         
-        [SyncVar]
+        [SyncVar(hook = nameof(OnCurrentHealthChanged))]
         private float _currentHealth;
         
         [SyncVar(hook = nameof(OnChangeStateClient))]
@@ -41,6 +41,12 @@ namespace _Scripts.Controllers.Boss
         }
 
         #region Server
+
+        private void Update()
+        {
+            if(!isServer) return;
+            
+        }
 
         [Command]
         public void CmdTakeDamage(float damage)
@@ -98,6 +104,12 @@ namespace _Scripts.Controllers.Boss
             // Change state logic.
         }
 
+        public void OnCurrentHealthChanged(float oldValue, float newValue)
+        {
+            _currentHealth = newValue;
+            healthSlider.value = _currentHealth;
+        }
+        
         #endregion
     }
 }

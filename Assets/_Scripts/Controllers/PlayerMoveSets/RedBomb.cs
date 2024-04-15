@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Assets._Scripts.Controllers.PlayerMoveSets
+namespace _Scripts.Controllers.PlayerMoveSets
 {
     public class RedBomb : Bomb
     {

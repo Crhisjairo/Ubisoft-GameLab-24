@@ -58,11 +58,11 @@
             "scaleInDock": 1
         },
         "Free/Free.tmx": {
-            "scale": 1.5,
+            "scale": 0.75,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 537,
-                "y": 199.3333333333333
+                "x": 495.33333333333337,
+                "y": 170.66666666666669
             }
         },
         "Free/Terrain_and_Props.tsx": {
@@ -78,15 +78,16 @@
             "scaleInEditor": 2
         },
         "sans titre.tmx": {
-            "scale": 1.1981875,
+            "scale": 0.75,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 717.3334724323197,
-                "y": 403.1088623441657
+                "x": 832.6666666666665,
+                "y": 394.6666666666667
             }
         }
     },
-    "last.imagePath": "C:/Users/crhis/Downloads/PixelFantasy_Caves_1.0",
+    "last.externalTilesetPath": "C:/Projects/Unity/Ubisoft-GameLab-24/Assets/Tiled/Free",
+    "last.imagePath": "C:/Projects/Unity/Ubisoft-GameLab-24/Assets/Tiled",
     "map.height": 30,
     "map.lastUsedFormat": "tmx",
     "map.width": 50,
@@ -95,10 +96,10 @@
     ],
     "project": "BossTiles.tiled-project",
     "recentFiles": [
-        "Free/Free.tmx",
-        "Free/cave.tsx",
-        "Free/Terrain_and_Props.tsx",
         "sans titre.tmx",
+        "Free/cave.tsx",
+        "Free/Free.tmx",
+        "Free/Terrain_and_Props.tsx",
         "Free.tmx",
         "C:/Users/crhis/Downloads/forest-nature-fantasy-tileset-free/Fantasy Swamp Forest/Free/Terrain_and_Props.tsx",
         "C:/Users/crhis/Downloads/forest-nature-fantasy-tileset-free/Fantasy Swamp Forest/Free/Free.tmx",

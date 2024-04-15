@@ -12,22 +12,33 @@ namespace _Scripts.UI
         public float animRotation = 5f;
         public float animRotationSpeed = 1f;
         
+        private int _tutorialIndex = 0;
+        
         private void Start()
         {
            
         }
 
+        
         public void StartAnimation()
         {
-            _startPos = transform.position;
+            if (_tutorialIndex == 0)
+            {
+                _startPos = transform.position;
             
-            transform.rotation = Quaternion.Euler(0, 0, -animRotation);
+                transform.rotation = Quaternion.Euler(0, 0, -animRotation);
         
-            LeanTween.rotateZ(gameObject, animRotation, animRotationSpeed)
-                .setEaseInOutSine()
-                .setLoopPingPong();
+                LeanTween.rotateZ(gameObject, animRotation, animRotationSpeed)
+                    .setEaseInOutSine()
+                    .setLoopPingPong();
 
-            StartCoroutine(StartAnimationRoutine());
+                StartCoroutine(StartAnimationRoutine());
+            }
+            else
+            {
+                // Add the second tutorial here.
+            }
+            
         }
 
         private IEnumerator StartAnimationRoutine()
