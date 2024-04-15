@@ -53,6 +53,12 @@ TagManager:
   - name: Background
     uniqueID: 1384285089
     locked: 0
+  - name: Boss
+    uniqueID: 3668489679
+    locked: 0
+  - name: Platforms
+    uniqueID: 2496956979
+    locked: 0
   - name: Entities
     uniqueID: 1015279779
     locked: 0

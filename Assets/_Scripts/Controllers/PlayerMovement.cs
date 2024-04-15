@@ -106,7 +106,7 @@ namespace _Scripts.Controllers
         //create invisible at player's feet. If the player is touching the ground, the player can jump.
         private bool IsGrounded()
         {
-            Debug.Log("IsGrounded: " + Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer));
+            // Debug.Log("IsGrounded: " + Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer));
             
             return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         }
