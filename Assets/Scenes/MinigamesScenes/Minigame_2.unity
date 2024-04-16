@@ -8350,6 +8350,10 @@ PrefabInstance:
       value: 2072895518
       objectReference: {fileID: 0}
     - target: {fileID: 2635350109736308226, guid: 88f6e4d3c6eaca248a1b6211e58cf0b0, type: 3}
+      propertyPath: m_PreviewTimeScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2635350109736308226, guid: 88f6e4d3c6eaca248a1b6211e58cf0b0, type: 3}
       propertyPath: m_Parameters.colorGradient.atime2
       value: 65535
       objectReference: {fileID: 0}
