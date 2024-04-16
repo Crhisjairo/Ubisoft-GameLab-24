@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8784062855207400562}
   - component: {fileID: 5669517478972529436}
   - component: {fileID: 1528744744447075150}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,9 +187,9 @@ GameObject:
   - component: {fileID: -93304860527938125}
   - component: {fileID: 3647385390863100156}
   - component: {fileID: 1123692456974204978}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: ThrowStrongBomb
-  m_TagString: Untagged
+  m_TagString: ThrowableBomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -336,11 +336,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8795353fa0b7c475cbd06397bc30eaee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
+  speed: 40
   lifeTime: 10
   gravityScale: 2
   explosionPrefab: {fileID: 0}
-  waitTimeBeforeGravity: 2
+  waitTimeBeforeGravity: 1
+  damage: 8
 --- !u!114 &-93304860527938125
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -204,6 +204,8 @@ namespace _Scripts.Managers.Multiplayer
                Debug.Log("Player 2 Sprite :" + SpriteRenderer.sprite.name);
                PlayerUI = HUDPlayersManager.Instance.player2UI;
                GetComponent<PlayerMovement>().anim.runtimeAnimatorController = playerAnimators[1];
+               //var newScale = transform.localScale;
+               //transform.localScale = new Vector3(-newScale.x, newScale.y, newScale.z);
                
                Debug.Log("OnPlayerNumberUpdate: " + name + " with UI: " + PlayerUI.name);
             }

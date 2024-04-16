@@ -30,6 +30,7 @@ namespace _Scripts.Controllers
 
         [SerializeField] private GameObject normalBombPrefab;
         [SerializeField] private GameObject strongBombPrefab;
+        [SerializeField] private Transform bombSpawnPoint;
 
         private BombType _currentBombType;
 
@@ -113,13 +114,11 @@ namespace _Scripts.Controllers
         [Command]
         public void CmdSpawnBomb(Vector2 position, BombType bombType)
         {
-            Vector2 direction = _playerMovement.GetFacingDirection();
-            
             switch (bombType)
             {
                 case BombType.Regular:
-                    GameObject normalBomb = Instantiate(normalBombPrefab, position, Quaternion.identity);
-                    normalBomb.GetComponent<ThrowableBomb>().SetDirection(direction);
+                    GameObject normalBomb = Instantiate(normalBombPrefab, bombSpawnPoint.position, Quaternion.identity);
+                    normalBomb.GetComponent<ThrowableBomb>().SetDirection(position);
                     
                     NetworkServer.Spawn(normalBomb);
                     // playerServerDataSync.SetRegularBombsServerSide();
@@ -127,8 +126,8 @@ namespace _Scripts.Controllers
                 case BombType.Strong:
                     if(playerServerDataSync.GetStrongBombs() <= 0) return;
                     
-                    GameObject strongBomb = Instantiate(strongBombPrefab, position, Quaternion.identity);
-                    strongBomb.GetComponent<ThrowableBomb>().SetDirection(direction);
+                    GameObject strongBomb = Instantiate(strongBombPrefab, bombSpawnPoint.position, Quaternion.identity);
+                    strongBomb.GetComponent<ThrowableBomb>().SetDirection(position);
                     
                     NetworkServer.Spawn(strongBomb);
                     RemoveStrongBombs(1);
@@ -141,16 +140,21 @@ namespace _Scripts.Controllers
 
         public void ThrowBomb(InputAction.CallbackContext context)
         {
+            if(_playerMovement._currentMoveSetState == PlayerMoveSetStates.VerticalMove) return;
+            
             if (!context.performed || !_canFire) return;
             
             if (playerServerDataSync.GetStrongBombs() <= 0)
             {
                 _currentBombType = BombType.Regular;
+            } else
+            {
+                _currentBombType = BombType.Strong;
             }
             
             // Notify server
-            // TODO: For testing purposes
-            CmdSpawnBomb(transform.position, BombType.Strong);
+            Vector2 position = _playerMovement.GetFacingDirection();
+            CmdSpawnBomb(position, _currentBombType);
         }
         
         private IEnumerator StartCooldownTimer()

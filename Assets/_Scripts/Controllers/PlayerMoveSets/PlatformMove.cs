@@ -30,6 +30,8 @@ namespace _Scripts.Controllers.PlayerMoveSets
 
             _player.anim.SetBool(PlayerAnimations.isWalking.ToString(), 
                 _player.MovementInput.x == 0);
+            _player.CmdSendBoolAnimation(PlayerAnimations.isWalking.ToString(), 
+                _player.MovementInput.x == 0);
         }
 
         public void Jump(InputAction.CallbackContext context)

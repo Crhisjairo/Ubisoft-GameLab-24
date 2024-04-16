@@ -31,7 +31,7 @@ namespace _Scripts.Controllers
         /// This variable is used to sync the move set state between the server and the client.
         /// </summary>
         [SyncVar(hook = nameof(OnUpdateMoveSetOnServer))]
-        private PlayerMoveSetStates _currentMoveSetState;
+        public PlayerMoveSetStates _currentMoveSetState;
         
         /// <summary>
         /// This interface is used to control the player's movement based on the current move set state.

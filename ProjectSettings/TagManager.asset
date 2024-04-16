@@ -14,6 +14,7 @@ TagManager:
   - Player1Data
   - Player2Data
   - Boss
+  - ThrowableBomb
   layers:
   - Default
   - TransparentFX

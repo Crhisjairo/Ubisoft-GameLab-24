@@ -11,13 +11,19 @@ namespace _Scripts.Controllers.Bombs
         public GameObject explosionPrefab;
         
         public float waitTimeBeforeGravity = 2f;
+        
+        public int damage = 3;
 
         private Rigidbody2D rb;
-
+        private SpriteRenderer _spriteRenderer;
+        private CircleCollider2D _collider;
+        
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             rb.gravityScale = 0;
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _collider = GetComponent<CircleCollider2D>();
         }
 
         protected virtual void Start()
@@ -25,11 +31,17 @@ namespace _Scripts.Controllers.Bombs
             
             // Destroy the bullet after 'lifeTime' seconds
             Invoke(nameof(ExplodeInvocation), lifeTime);
+            Invoke(nameof(ApplyGravityInvocation), 0);
         }
 
         private void ExplodeInvocation()
         {
             StartCoroutine(Explode());
+        }
+        
+        private void ApplyGravityInvocation()
+        {
+            StartCoroutine(ApplyGravityRoutine());
         }
 
         private IEnumerator ApplyGravityRoutine()
@@ -46,9 +58,9 @@ namespace _Scripts.Controllers.Bombs
             rb.velocity = direction * speed;
         }
         
-        void OnTriggerEnter2D(Collider2D other)
+        protected virtual void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Boss") || other.CompareTag("Player"))
+            if (other.CompareTag("Boss"))
             {
                 ExplodeInvocation();
             }
@@ -57,6 +69,8 @@ namespace _Scripts.Controllers.Bombs
         private IEnumerator Explode()
         {
             //Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            _spriteRenderer.enabled = false;
+            _collider.enabled = false;
 
             yield return new WaitForSeconds(1f);
             Destroy(gameObject);

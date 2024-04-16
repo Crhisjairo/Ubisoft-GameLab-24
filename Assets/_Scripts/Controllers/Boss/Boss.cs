@@ -1,4 +1,5 @@
 ﻿using System;
+using _Scripts.Controllers.Bombs;
 using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ namespace _Scripts.Controllers.Boss
         public int bossState1Limit = 85;
         public int bossState2Limit = 50;
         public int bossState3Limit = 35;
-        
+
         [Space(10)]
         [SerializeField] private Slider healthSlider;
         [SerializeField] private float maxHealth = 100f;
@@ -30,9 +31,12 @@ namespace _Scripts.Controllers.Boss
 
         [HideInInspector] public Rigidbody2D rb;
 
+        private Animator _animator;
+        
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+            _animator = GetComponent<Animator>();
         }
 
         private void Start()
@@ -46,13 +50,16 @@ namespace _Scripts.Controllers.Boss
 
         #region Server
 
-        [Command]
-        public void CmdTakeDamage(float damage)
+        [Server]
+        public void TakeDamage(float damage)
         {
             if (!isServer) return;
             
             _currentHealth -= damage;
             healthSlider.value = _currentHealth;
+            
+            _animator.SetTrigger("Attacked");
+            RpcReceiveBoolAnimation("Attacked", true);
             
             if(_currentHealth <= bossState1Limit && _currentStateEnum == BossStates.BossState1)
                 ChangeBossStateOnServer(BossStates.BossState2);
@@ -69,18 +76,42 @@ namespace _Scripts.Controllers.Boss
         {
             // Check if server needs to change state whit OnChangeStateClient.
             OnChangeStateClient(_currentStateEnum, newState);
-            _currentStateEnum = newState;
+            //_currentStateEnum = newState;
         }
+        
+        public float pushForce = 10f;
+        
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if(!isServer) return;
+            
+            if (other.collider.CompareTag("Player"))
+            {
+                Rigidbody rb = other.collider.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    Vector3 pushDirection = (other.transform.position - transform.position).normalized;
+                    rb.AddForce(pushDirection * pushForce, ForceMode.Impulse);
+                }
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if(other.CompareTag("ThrowableBomb"))
+            {
+                TakeDamage(
+                    other.GetComponent<ThrowableBomb>().damage
+                    );
+            }
+        }
+
+
 
         #endregion
 
         #region Client
 
-        public void TakeDamage(float damage)
-        {
-            CmdTakeDamage(damage);
-        }
-        
         public void OnChangeStateClient(BossStates oldValue, BossStates newValue)
         {
             _currentStateEnum = newValue;
@@ -113,6 +144,13 @@ namespace _Scripts.Controllers.Boss
             healthSlider.value = _currentHealth;
         }
         
+        [ClientRpc]
+        private void RpcReceiveBoolAnimation(string animationName, bool value)
+        {
+            _animator.SetBool(animationName, value);
+        }
+       
+
         #endregion
     }
 }

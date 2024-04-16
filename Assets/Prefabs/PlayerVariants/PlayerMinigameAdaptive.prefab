@@ -130,6 +130,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.2, y: 3.9}
   m_EdgeRadius: 0
+--- !u!1 &6216684698781024547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6866331027139920870}
+  m_Layer: 3
+  m_Name: BombSpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6866331027139920870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6216684698781024547}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.334, y: -0.005, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 328500188681217510}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4682869139353879446
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -146,6 +177,10 @@ PrefabInstance:
       propertyPath: defaultMoveSetState
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3638586763167249223, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: bombSpawnPoint
+      value: 
+      objectReference: {fileID: 6866331027139920870}
     - target: {fileID: 3638586763167249223, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: normalBombPrefab
       value: 
@@ -166,10 +201,18 @@ PrefabInstance:
       propertyPath: playerCollider
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4684595247351436206, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: syncScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4739477161580616095, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -99773297, guid: 696b89263230eaf4a869cf712ea07dbd, type: 3}
+    - target: {fileID: 4739477161580616095, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_LocalScale.x
       value: 7
@@ -401,6 +444,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8148546363086446533}
+    - targetCorrespondingSourceObject: {fileID: 4932555970664326768, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6866331027139920870}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7554084361443308709, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       insertIndex: 3

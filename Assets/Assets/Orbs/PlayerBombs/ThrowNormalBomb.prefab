@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: -8729760164004055962}
   - component: {fileID: -5759730212648745348}
   - component: {fileID: 5939897562834385650}
-  - component: {fileID: 1524008565552294103}
   - component: {fileID: 6140819738343401870}
   - component: {fileID: 9160284900965717646}
   - component: {fileID: -7152251595047126816}
-  m_Layer: 11
+  - component: {fileID: 5951923731567735195}
+  m_Layer: 0
   m_Name: ThrowNormalBomb
-  m_TagString: Untagged
+  m_TagString: ThrowableBomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,23 +153,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.2
---- !u!114 &1524008565552294103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5160951916430349907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc53767058bd44a1bb76268e2dcff95c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 30
-  lifeTime: 10
-  gravityScale: 2
-  explosionPrefab: {fileID: 0}
-  waitTimeBeforeGravity: 2
 --- !u!114 &6140819738343401870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +228,24 @@ MonoBehaviour:
   compressRotation: 0
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &5951923731567735195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5160951916430349907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68acc106b973404fab1ec8057bdfaa5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 40
+  lifeTime: 10
+  gravityScale: 2
+  explosionPrefab: {fileID: 0}
+  waitTimeBeforeGravity: 1
+  damage: 3
 --- !u!1 &9018209167821557729
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +257,7 @@ GameObject:
   - component: {fileID: 6164655405874528863}
   - component: {fileID: 2883266225100434726}
   - component: {fileID: 2122976531042782156}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
