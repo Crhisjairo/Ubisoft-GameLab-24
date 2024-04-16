@@ -12,6 +12,10 @@ namespace _Scripts.Controllers.Boss
         public BossState2 BossState2;
         public BossState3 BossState3;
         
+        public int bossState1Limit = 85;
+        public int bossState2Limit = 50;
+        public int bossState3Limit = 35;
+        
         [Space(10)]
         [SerializeField] private Slider healthSlider;
         [SerializeField] private float maxHealth = 100f;
@@ -42,12 +46,6 @@ namespace _Scripts.Controllers.Boss
 
         #region Server
 
-        private void Update()
-        {
-            if(!isServer) return;
-            
-        }
-
         [Command]
         public void CmdTakeDamage(float damage)
         {
@@ -55,6 +53,11 @@ namespace _Scripts.Controllers.Boss
             
             _currentHealth -= damage;
             healthSlider.value = _currentHealth;
+            
+            if(_currentHealth <= bossState1Limit && _currentStateEnum == BossStates.BossState1)
+                ChangeBossStateOnServer(BossStates.BossState2);
+            else if(_currentHealth <= bossState2Limit && _currentStateEnum == BossStates.BossState2)
+                ChangeBossStateOnServer(BossStates.BossState3);
             
             if (_currentHealth <= 0)
             {
