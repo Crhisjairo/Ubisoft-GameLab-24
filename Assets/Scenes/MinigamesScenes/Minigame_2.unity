@@ -8349,6 +8349,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 2072895518
       objectReference: {fileID: 0}
+    - target: {fileID: 1883429190343342162, guid: 88f6e4d3c6eaca248a1b6211e58cf0b0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d29ee891011394746a0224f3d4852037, type: 2}
     - target: {fileID: 2635350109736308226, guid: 88f6e4d3c6eaca248a1b6211e58cf0b0, type: 3}
       propertyPath: m_PreviewTimeScale
       value: 1
