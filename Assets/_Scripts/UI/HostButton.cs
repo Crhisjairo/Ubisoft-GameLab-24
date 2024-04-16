@@ -25,6 +25,7 @@ namespace _Scripts.UI
         {
             hostButton.interactable = false;
             buttonText.text = textOnHost;
+            buttonText.fontSize = 25;
          
             if (!isServer)
             {
@@ -38,6 +39,7 @@ namespace _Scripts.UI
             {
                 hostButton.interactable = true;
                 buttonText.text = startGameText;
+                buttonText.fontSize = 45;
                 //modificar boton aqui
                 StartCoroutine(AnimateButtonScale());
             }
@@ -45,6 +47,7 @@ namespace _Scripts.UI
             {
                 hostButton.interactable = false;
                 buttonText.text = textOnHost;
+                buttonText.fontSize = 25;
             }
         }
 

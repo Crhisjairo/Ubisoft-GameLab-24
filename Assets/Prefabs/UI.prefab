@@ -2694,7 +2694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c09ae943ed849559d840688df5e56d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: -130}
+  offset: {x: 0, y: -230}
   animSpeed: 2
   animRotation: 1
   animRotationSpeed: 3

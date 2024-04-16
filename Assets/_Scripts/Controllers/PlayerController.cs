@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using _Scripts.Controllers.Bombs;
 using _Scripts.Managers.Multiplayer;
 using _Scripts.ScriptableObjects;
@@ -8,6 +9,7 @@ using _Scripts.UI.PlayerUIs;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -30,10 +32,17 @@ namespace _Scripts.Controllers
         [SerializeField] private GameObject strongBombPrefab;
 
         private BombType _currentBombType;
+
+        private PlayerMovement _playerMovement;
+        
+        
+        private bool _canFire = true;
+        public float fireRateWaitTime = 0.5f;
         
         private void Awake()
         {
             playerServerDataSync = GetComponent<PlayerServerDataSync>();
+            _playerMovement = GetComponent<PlayerMovement>();
         }
 
         public void TakeDamage(float amount)
@@ -89,6 +98,7 @@ namespace _Scripts.Controllers
             playerServerDataSync.CmdChangeStrongBombs(newStrongBombs);
         }
 
+        
         public void RemoveStrongBombs(int amount)
         {
             var newStrongBombs = playerServerDataSync.GetStrongBombs();
@@ -103,37 +113,51 @@ namespace _Scripts.Controllers
         [Command]
         public void CmdSpawnBomb(Vector2 position, BombType bombType)
         {
+            Vector2 direction = _playerMovement.GetFacingDirection();
+            
             switch (bombType)
             {
                 case BombType.Regular:
                     GameObject normalBomb = Instantiate(normalBombPrefab, position, Quaternion.identity);
+                    normalBomb.GetComponent<ThrowableBomb>().SetDirection(direction);
+                    
                     NetworkServer.Spawn(normalBomb);
+                    // playerServerDataSync.SetRegularBombsServerSide();
                     break;
                 case BombType.Strong:
+                    if(playerServerDataSync.GetStrongBombs() <= 0) return;
+                    
                     GameObject strongBomb = Instantiate(strongBombPrefab, position, Quaternion.identity);
+                    strongBomb.GetComponent<ThrowableBomb>().SetDirection(direction);
+                    
                     NetworkServer.Spawn(strongBomb);
+                    RemoveStrongBombs(1);
+                    
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(bombType), bombType, null);
             }
         }
-        
-        public void ThrowBomb()
+
+        public void ThrowBomb(InputAction.CallbackContext context)
         {
+            if (!context.performed || !_canFire) return;
+            
             if (playerServerDataSync.GetStrongBombs() <= 0)
             {
                 _currentBombType = BombType.Regular;
             }
             
-            // Check if player has bombs
-            if (playerServerDataSync.GetRegularBombs() <= 0)
-            {
-                // Play sound.
-                return;
-            }
-            
             // Notify server
-            CmdSpawnBomb(transform.position, _currentBombType);
+            // TODO: For testing purposes
+            CmdSpawnBomb(transform.position, BombType.Strong);
+        }
+        
+        private IEnumerator StartCooldownTimer()
+        {
+            _canFire = false;
+            yield return new WaitForSeconds(fireRateWaitTime);
+            _canFire = true;
         }
 
         private void OnEnable()

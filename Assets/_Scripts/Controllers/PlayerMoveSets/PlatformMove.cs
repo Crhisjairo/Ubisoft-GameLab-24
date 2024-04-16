@@ -35,7 +35,6 @@ namespace _Scripts.Controllers.PlayerMoveSets
         public void Jump(InputAction.CallbackContext context)
         {
             _player.Jumped = context.action.triggered; // context.action.triggered;
-            Debug.Log("Jumped: " + _player.Jumped);
         }
         public void Dash(InputAction.CallbackContext context)
         {

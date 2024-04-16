@@ -187,6 +187,18 @@ namespace _Scripts.Controllers
                     break;
             }
         }
+
+        public Vector2 GetFacingDirection()
+        {
+            if (isFacingRight)
+            {
+                return Vector2.right;
+            }
+            else
+            {
+                return Vector2.left;
+            }
+        }
         
         [Command]
         public void CmdSendBoolAnimation(string animationName, bool value)

@@ -1,38 +1,60 @@
+using System;
 using System.Collections;
 using UnityEngine;
 namespace _Scripts.Controllers.Bombs
 {
     public class ThrowableBomb : MonoBehaviour
     {
-        public float speed = 7f;
-        public float lifeTime = 3f;
+        public float speed = 25f;
+        public float lifeTime = 8f;
         public float gravityScale = 0.05f;
         public GameObject explosionPrefab;
+        
+        public float waitTimeBeforeGravity = 2f;
 
         private Rigidbody2D rb;
 
-        protected virtual void Start()
+        private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+            rb.gravityScale = 0;
+        }
 
-            // Apply initial velocity based on player's direction
-            Vector2 direction = transform.right * (Mathf.Approximately(transform.localScale.x, 1) ? 1 : -1); // Check if player is facing right or left
-            rb.velocity = direction * speed;
-
-            rb.gravityScale = gravityScale;
-
+        protected virtual void Start()
+        {
+            
             // Destroy the bullet after 'lifeTime' seconds
-            Destroy(gameObject, lifeTime);
+            Invoke(nameof(ExplodeInvocation), lifeTime);
+        }
+
+        private void ExplodeInvocation()
+        {
+            StartCoroutine(Explode());
+        }
+
+        private IEnumerator ApplyGravityRoutine()
+        {
+            yield return new WaitForSeconds(waitTimeBeforeGravity);
+            
+            rb.gravityScale = gravityScale;
+        }
+
+        public void SetDirection(Vector2 direction)
+        {
+            Debug.Log("SetDirection: " + direction);
+            
+            rb.velocity = direction * speed;
         }
         
         void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Boss") || other.CompareTag("Player"))
             {
-                StartCoroutine(explode());
+                ExplodeInvocation();
             }
         }
-        private IEnumerator explode()
+        
+        private IEnumerator Explode()
         {
             //Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
