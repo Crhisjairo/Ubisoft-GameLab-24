@@ -406,6 +406,21 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
+  - m_Index: 32
+    m_Metrics:
+      m_Width: 33.03125
+      m_Height: 15.125
+      m_HorizontalBearingX: 1.171875
+      m_HorizontalBearingY: 34.46875
+      m_HorizontalAdvance: 35.28125
+    m_GlyphRect:
+      m_X: 368
+      m_Y: 193
+      m_Width: 34
+      m_Height: 16
+    m_Scale: 1
+    m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   - m_Index: 33
     m_Metrics:
       m_Width: 26.1875
@@ -1171,21 +1186,6 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-  - m_Index: 32
-    m_Metrics:
-      m_Width: 33.03125
-      m_Height: 15.125
-      m_HorizontalBearingX: 1.171875
-      m_HorizontalBearingY: 34.46875
-      m_HorizontalAdvance: 35.28125
-    m_GlyphRect:
-      m_X: 368
-      m_Y: 193
-      m_Width: 34
-      m_Height: 16
-    m_Scale: 1
-    m_AtlasIndex: 0
-    m_ClassDefinitionType: 0
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 10
@@ -1270,6 +1270,10 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 60
     m_GlyphIndex: 31
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 61
+    m_GlyphIndex: 32
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 62
@@ -1474,10 +1478,6 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 121
     m_GlyphIndex: 91
-    m_Scale: 1
-  - m_ElementType: 1
-    m_Unicode: 61
-    m_GlyphIndex: 32
     m_Scale: 1
   m_AtlasTextures:
   - {fileID: -2350117656556827869}
@@ -8191,7 +8191,7 @@ Material:
     - _ColorMask: 15
     - _CullMode: 0
     - _Diffuse: 0.5
-    - _FaceDilate: 0
+    - _FaceDilate: 0.382
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
     - _GlowInner: 0
@@ -8205,12 +8205,12 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.136
+    - _OutlineWidth: 0.286
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.9
-    - _ScaleRatioB: 0.73125
-    - _ScaleRatioC: 0.365625
+    - _ScaleRatioB: 0.38744998
+    - _ScaleRatioC: 0.19372499
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
