@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
-
-namespace _Scripts.Controllers.PlayerMoveSets
+namespace _Scripts.Controllers.Bombs
 {
-    public class Bomb : MonoBehaviour
+    public class ThrowableBomb : MonoBehaviour
     {
         public float speed = 7f;
         public float lifeTime = 3f;

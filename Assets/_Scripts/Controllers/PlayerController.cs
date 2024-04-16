@@ -1,4 +1,5 @@
 using System;
+using _Scripts.Controllers.Bombs;
 using _Scripts.Managers.Multiplayer;
 using _Scripts.ScriptableObjects;
 using _Scripts.Shared;
@@ -25,6 +26,11 @@ namespace _Scripts.Controllers
         [FormerlySerializedAs("_playerDataSync")]
         [SerializeField] PlayerServerDataSync playerServerDataSync;
 
+        [SerializeField] private GameObject normalBombPrefab;
+        [SerializeField] private GameObject strongBombPrefab;
+
+        private BombType _currentBombType;
+        
         private void Awake()
         {
             playerServerDataSync = GetComponent<PlayerServerDataSync>();
@@ -92,6 +98,42 @@ namespace _Scripts.Controllers
                 newStrongBombs = 0;
             
             playerServerDataSync.CmdChangeStrongBombs(newStrongBombs);
+        }
+
+        [Command]
+        public void CmdSpawnBomb(Vector2 position, BombType bombType)
+        {
+            switch (bombType)
+            {
+                case BombType.Regular:
+                    GameObject normalBomb = Instantiate(normalBombPrefab, position, Quaternion.identity);
+                    NetworkServer.Spawn(normalBomb);
+                    break;
+                case BombType.Strong:
+                    GameObject strongBomb = Instantiate(strongBombPrefab, position, Quaternion.identity);
+                    NetworkServer.Spawn(strongBomb);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(bombType), bombType, null);
+            }
+        }
+        
+        public void ThrowBomb()
+        {
+            if (playerServerDataSync.GetStrongBombs() <= 0)
+            {
+                _currentBombType = BombType.Regular;
+            }
+            
+            // Check if player has bombs
+            if (playerServerDataSync.GetRegularBombs() <= 0)
+            {
+                // Play sound.
+                return;
+            }
+            
+            // Notify server
+            CmdSpawnBomb(transform.position, _currentBombType);
         }
 
         private void OnEnable()

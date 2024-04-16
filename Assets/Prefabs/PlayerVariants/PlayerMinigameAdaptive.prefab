@@ -146,13 +146,21 @@ PrefabInstance:
       propertyPath: defaultMoveSetState
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3638586763167249223, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: normalBombPrefab
+      value: 
+      objectReference: {fileID: 5160951916430349907, guid: bdae6be72ed68024da23f3364c457fe6, type: 3}
+    - target: {fileID: 3638586763167249223, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: strongBombPrefab
+      value: 
+      objectReference: {fileID: 5160951916430349907, guid: 0c7847ab0f2745b47b1fbcbb1d9e071e, type: 3}
     - target: {fileID: 3811801319722086460, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.099
+      value: -0.08
       objectReference: {fileID: 0}
     - target: {fileID: 3811801319722086460, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.362
+      value: -0.3841
       objectReference: {fileID: 0}
     - target: {fileID: 4129536993291724530, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: playerCollider
@@ -217,6 +225,46 @@ PrefabInstance:
     - target: {fileID: 5085364860433311905, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_BodyType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571597269171475063, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571597269171475063, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_ActionId
+      value: 03e81c84-f7d1-4699-a78a-b22db1914519
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571597269171475063, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_ActionName
+      value: Player/Fire[/Mouse/leftButton,/XInputControllerWindows/buttonWest]
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571597269171475063, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571597269171475063, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571597269171475063, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 8251227603371192529}
+    - target: {fileID: 5571597269171475063, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571597269171475063, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ThrowBomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571597269171475063, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: _Scripts.Controllers.PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571597269171475063, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5819671654112691989, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: sceneId
@@ -403,3 +451,14 @@ CapsuleCollider2D:
   m_Offset: {x: 0.019586973, y: -0.03110879}
   m_Size: {x: 0.25569507, y: 0.6777825}
   m_Direction: 0
+--- !u!114 &8251227603371192529 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3638586763167249223, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+  m_PrefabInstance: {fileID: 4682869139353879446}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2894014796430751539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ccaf0f9b352e71439cb6f9a8f56a2db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

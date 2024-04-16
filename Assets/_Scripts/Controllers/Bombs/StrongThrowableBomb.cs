@@ -1,6 +1,7 @@
-namespace _Scripts.Controllers.PlayerMoveSets
+
+namespace _Scripts.Controllers.Bombs
 {
-    public class RedBomb : Bomb
+    public class StrongThrowableBomb : ThrowableBomb
     {
         // Start is called before the first frame update
         protected override void Start()

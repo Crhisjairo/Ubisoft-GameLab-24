@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 3647385390863100156}
   - component: {fileID: 1123692456974204978}
   m_Layer: 11
-  m_Name: StrongBomb
+  m_Name: OrbStrongBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
