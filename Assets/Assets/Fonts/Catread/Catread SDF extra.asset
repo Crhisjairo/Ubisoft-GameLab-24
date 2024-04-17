@@ -58,11 +58,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Catread SDF 4
+  m_Name: Catread SDF extra
   m_EditorClassIdentifier: 
-  hashCode: 322391265
+  hashCode: 1115364719
   material: {fileID: 3891967022637239968}
-  materialHashCode: 537978273
+  materialHashCode: -689278353
   m_Version: 1.1.0
   m_SourceFontFileGUID: c97991c8b72f612469685efdbeed3c74
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: c97991c8b72f612469685efdbeed3c74, type: 3}
