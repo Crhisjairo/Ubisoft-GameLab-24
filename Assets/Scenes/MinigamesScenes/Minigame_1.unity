@@ -1149,6 +1149,7 @@ MonoBehaviour:
   filledHeartSprite: {fileID: 921488665, guid: 0e1160d41525fa94599d7c5d42b30ead, type: 3}
   heartAnimationSpeed: 0.5
   heartAnimationSize: {x: 1.2, y: 1.2, z: 1}
+  hearts: 0
 --- !u!1001 &109962274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9057,7 +9058,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1UI: {fileID: 1572974861}
   player2UI: {fileID: 2063210243}
-  globalItemUI: {fileID: 0}
   tutorialBox: {fileID: 0}
   timerText: {fileID: 0}
 --- !u!114 &1529999772
@@ -9499,6 +9499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeUIController: {fileID: 95137656}
+  itemsUI: {fileID: 0}
 --- !u!224 &1572974862
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10633,7 +10634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85514462d75856348b8b4f1692858d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 0.4
   direction: {x: 0, y: 1}
 --- !u!1 &1715106251
 GameObject:
@@ -11982,7 +11983,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1912609181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12952,6 +12953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeUIController: {fileID: 2116899855}
+  itemsUI: {fileID: 0}
 --- !u!1 &2110211981
 GameObject:
   m_ObjectHideFlags: 0
@@ -13078,6 +13080,7 @@ MonoBehaviour:
   filledHeartSprite: {fileID: 21300000, guid: dc6f2bdc915ece347845925e71cd6b7f, type: 3}
   heartAnimationSpeed: 0.5
   heartAnimationSize: {x: 1.2, y: 1.2, z: 1}
+  hearts: 0
 --- !u!114 &2116899856
 MonoBehaviour:
   m_ObjectHideFlags: 0

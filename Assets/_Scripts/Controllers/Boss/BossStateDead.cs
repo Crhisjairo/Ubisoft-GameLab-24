@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _Scripts.UI;
+using UnityEngine;
 
 namespace _Scripts.Controllers.Boss
 {
@@ -31,6 +32,7 @@ namespace _Scripts.Controllers.Boss
             
             boss.finalScreen.OnFinishFadeIn.AddListener(boss.winSection.SetActive);
             boss.finalScreen.FadeIn();
+            HUDPlayersManager.Instance.gameObject.SetActive(false);
 
         }
         public void StopState()
