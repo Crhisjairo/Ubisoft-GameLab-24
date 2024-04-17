@@ -9419,6 +9419,10 @@ PrefabInstance:
       propertyPath: sceneId
       value: 3346840799
       objectReference: {fileID: 0}
+    - target: {fileID: 6124849682234234246, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
+      propertyPath: firstSelectedButton
+      value: 
+      objectReference: {fileID: 1563702976}
     - target: {fileID: 6637740854935944897, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -9596,6 +9600,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6637740854935944897, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
   m_PrefabInstance: {fileID: 1563702972}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1563702976 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2538911380832509711, guid: 7cb2145ee68a4724ca4eac6f79f656e2, type: 3}
+  m_PrefabInstance: {fileID: 1563702972}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1568213447
 GameObject:
   m_ObjectHideFlags: 0
