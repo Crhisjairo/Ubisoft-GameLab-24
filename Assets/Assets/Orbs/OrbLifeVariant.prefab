@@ -76,7 +76,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1015279779
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 3
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2108083213622845450
@@ -203,6 +203,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6383560059861100831, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7267910859391157251, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
       propertyPath: m_Name
       value: OrbLifeVariant
@@ -277,7 +281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8694254166402529235, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8694254166402529235, guid: 7cc74febc82e4456691e42d7b4888e47, type: 3}
       propertyPath: m_SortingOrder

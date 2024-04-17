@@ -101,6 +101,27 @@ namespace _Scripts.Controllers
         private void FixedUpdate()
         {
             _currentMoveSetInterface.FixedUpdateOnState();
+            
+            if (_inImpulse)
+            {
+                rb.AddForce(_impulseDirection, ForceMode2D.Impulse);
+            }
+        }
+        
+        private bool _inImpulse;
+        private const float ImpulseTime = .15f;
+        private Vector2 _impulseDirection;
+        
+        public IEnumerator ActivateImpulseCounter(Vector2 impulseDirection)
+        {
+            _inImpulse = true;
+            _impulseDirection = impulseDirection;
+            
+            yield return new WaitForSeconds(ImpulseTime);
+            
+            _inImpulse = false;
+            
+            _impulseDirection = new Vector2(0,0);
         }
 
         //create invisible at player's feet. If the player is touching the ground, the player can jump.
@@ -210,6 +231,18 @@ namespace _Scripts.Controllers
         private void RpcReceiveBoolAnimation(string animationName, bool value)
         {
             anim.SetBool(animationName, value);
+        }
+        
+        [Command]
+        public void CmdSendTriggerAnimation(string animationName)
+        {
+            RpcReceiveTriggerAnimation(animationName);
+        }
+        
+        [ClientRpc]
+        private void RpcReceiveTriggerAnimation(string animationName)
+        {
+            anim.SetTrigger(animationName);
         }
 
         /// <summary>

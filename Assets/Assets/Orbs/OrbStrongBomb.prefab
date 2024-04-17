@@ -76,7 +76,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1015279779
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 3
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1528744744447075150
@@ -249,7 +249,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1015279779
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 9aae1ab14d74d0b409ebbb3f0779fa22, type: 3}
   m_Color: {r: 1, g: 0.30588236, b: 0.30588236, a: 1}
@@ -287,7 +287,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &5939897562834385650
 CircleCollider2D:
@@ -343,7 +343,7 @@ MonoBehaviour:
   amountText: {fileID: 1528744744447075150}
   orbAmount: 1
   speed: 5
-  maxOrbAmount: 4
+  maxOrbAmount: 1
   minOrbAmount: 1
 --- !u!114 &-93304860527938125
 MonoBehaviour:

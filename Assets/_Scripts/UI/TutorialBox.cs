@@ -14,6 +14,9 @@ namespace _Scripts.UI
         
         private int _tutorialIndex = 0;
         
+        public CanvasGroup _tutorial1;
+        public CanvasGroup _tutorial2;
+        
         private void Start()
         {
            
@@ -22,23 +25,30 @@ namespace _Scripts.UI
         
         public void StartAnimation()
         {
+            _startPos = transform.position;
+            
+            transform.rotation = Quaternion.Euler(0, 0, -animRotation);
+        
+            LeanTween.rotateZ(gameObject, animRotation, animRotationSpeed)
+                .setEaseInOutSine()
+                .setLoopPingPong();
+
+            StartCoroutine(StartAnimationRoutine());
+            
             if (_tutorialIndex == 0)
             {
-                _startPos = transform.position;
-            
-                transform.rotation = Quaternion.Euler(0, 0, -animRotation);
-        
-                LeanTween.rotateZ(gameObject, animRotation, animRotationSpeed)
-                    .setEaseInOutSine()
-                    .setLoopPingPong();
-
-                StartCoroutine(StartAnimationRoutine());
+                _tutorial1.alpha = 1;
+                _tutorial2.alpha = 0;
             }
             else
             {
+                _tutorial1.alpha = 0;
+                _tutorial2.alpha = 1;
                 // Add the second tutorial here.
             }
             
+            
+            _tutorialIndex++;
         }
 
         private IEnumerator StartAnimationRoutine()

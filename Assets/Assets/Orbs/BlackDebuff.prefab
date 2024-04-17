@@ -287,7 +287,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &3703571534113283168
 CircleCollider2D:
@@ -343,7 +343,7 @@ MonoBehaviour:
   amountText: {fileID: 7665183525508846100}
   orbAmount: 2
   speed: 5
-  maxOrbAmount: 2
+  maxOrbAmount: 1
   minOrbAmount: 1
 --- !u!114 &-4861432846946802449
 MonoBehaviour:

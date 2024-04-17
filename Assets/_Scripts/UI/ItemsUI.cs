@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Scripts.UI
 {
-    public class GlobalItemUI : MonoBehaviour
+    public class ItemsUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _regularBombText;
         [SerializeField] private TextMeshProUGUI _strongBombText;

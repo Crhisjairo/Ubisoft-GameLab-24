@@ -20,6 +20,7 @@ public class Orb : NetworkBehaviour
 
     public TextMeshPro amountText;
 
+    [SyncVar]
     public int orbAmount = 1;
     
     [SerializeField]
@@ -53,29 +54,44 @@ public class Orb : NetworkBehaviour
         if(transform.position.y <= -188f)
             Destroy(gameObject);
     }
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        
         PlayerController playerServerDataSync = null;
         
         if (other.CompareTag("Player"))
         {
-            playerServerDataSync = other.GetComponent<PlayerController>();
+            //playerServerDataSync = other.GetComponent<PlayerController>();
             //TODO: in boss fight ?
         } else if (other.CompareTag("Basket"))
         {
             // NOTE: Only the basket has an specific behavior when colliding with an orb.
             //Basket basket = other.GetComponent<Basket>();
-            playerServerDataSync = NetworkClient.connection.identity.GetComponent<PlayerController>();
+            //playerServerDataSync = NetworkClient.connection.identity.GetComponent<PlayerController>();
+            //playerServerDataSync = other.GetComponent<PlayerController>();
+            Debug.Log("Collision with -> Basket: " + other.gameObject.name);
+            if (isServer)
+            {
+                StartCoroutine(DestroyServerDelayed());
+                RpcApplyOrbEffect();
+            }
+            else
+            {
+                spriteRenderer.enabled = false;
+                collider2D.enabled = false;
+                amountText.enabled = false;
+            }
             
         }
         
-        if (playerServerDataSync != null)
-        {
-            OnApplyOrbEffect(playerServerDataSync);
-            StartCoroutine(DestroyDelayed());
-        }
-        
+    }
+
+    [ClientRpc]
+    private void RpcApplyOrbEffect()
+    {
+        OnApplyOrbEffect(NetworkClient.connection.identity.GetComponent<PlayerController>());
     }
 
     public virtual void OnApplyOrbEffect(PlayerController playerController)
@@ -89,13 +105,13 @@ public class Orb : NetworkBehaviour
         speed = newSpeed;
     }
     
-    private IEnumerator DestroyDelayed()
+    private IEnumerator DestroyServerDelayed()
     {
         spriteRenderer.enabled = false;
         collider2D.enabled = false;
         amountText.enabled = false;
         
-        yield return new WaitForSeconds(1.0f);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(2.0f);
+        NetworkServer.Destroy(gameObject);
     } 
 }

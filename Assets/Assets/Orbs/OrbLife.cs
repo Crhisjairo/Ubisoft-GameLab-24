@@ -8,7 +8,6 @@ namespace Assets.Orbs
     {
         public override void OnApplyOrbEffect(PlayerController playerController)
         {
-            Debug.Log("OrbLife applied!");
             playerController.AddHealth(1);
         }
     }

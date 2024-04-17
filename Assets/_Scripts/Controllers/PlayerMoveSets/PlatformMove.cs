@@ -37,6 +37,11 @@ namespace _Scripts.Controllers.PlayerMoveSets
         public void Jump(InputAction.CallbackContext context)
         {
             _player.Jumped = context.action.triggered; // context.action.triggered;
+            
+            _player.anim.SetBool(PlayerAnimations.IsJumping.ToString(), 
+                _player.Jumped);
+            _player.CmdSendBoolAnimation(PlayerAnimations.IsJumping.ToString(), 
+                _player.Jumped);
         }
         public void Dash(InputAction.CallbackContext context)
         {
@@ -51,7 +56,11 @@ namespace _Scripts.Controllers.PlayerMoveSets
             if (_player.IsDashing) return;
             
             _player.rb.velocity = new Vector2(_player.MovementInput.x * _player.speed, _player.rb.velocity.y);
+
+            
         }
+        
+       
 
         private IEnumerator DashRoutine()
         {

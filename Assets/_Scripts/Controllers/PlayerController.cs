@@ -26,7 +26,7 @@ namespace _Scripts.Controllers
     public class PlayerController : NetworkBehaviour
     {
         [FormerlySerializedAs("_playerDataSync")]
-        [SerializeField] PlayerServerDataSync playerServerDataSync;
+        [SerializeField] public PlayerServerDataSync playerServerDataSync;
 
         [SerializeField] private GameObject normalBombPrefab;
         [SerializeField] private GameObject strongBombPrefab;
@@ -46,11 +46,15 @@ namespace _Scripts.Controllers
             _playerMovement = GetComponent<PlayerMovement>();
         }
 
-        public void TakeDamage(float amount)
+        public void TakeDamage(Vector2 impulseDirection, float amount)
         {
             // Check if dead
             var newHealth = playerServerDataSync.GetHealth();
             newHealth -= amount;
+            
+            StartCoroutine(_playerMovement.ActivateImpulseCounter(impulseDirection));
+            _playerMovement.anim.SetTrigger(PlayerAnimations.Damaged.ToString());
+            _playerMovement.CmdSendTriggerAnimation(PlayerAnimations.Damaged.ToString());
 
             // Notify server
             playerServerDataSync.CmdChangeHealth(newHealth);
@@ -70,7 +74,7 @@ namespace _Scripts.Controllers
             if(newHealth >= playerServerDataSync.GetMaxHealth()) return;
             
             newHealth += amount;
-            
+
             // Notify server
             playerServerDataSync.CmdChangeHealth(newHealth);
         }
@@ -130,7 +134,13 @@ namespace _Scripts.Controllers
                     strongBomb.GetComponent<ThrowableBomb>().SetDirection(position);
                     
                     NetworkServer.Spawn(strongBomb);
-                    RemoveStrongBombs(1);
+                    
+                    var newStrongBombs = playerServerDataSync.GetStrongBombs();
+                    newStrongBombs -= 1;
+
+                    if (newStrongBombs <= 0)
+                        newStrongBombs = 0;
+                    playerServerDataSync.SetStrongBombsServerSide(newStrongBombs);
                     
                     break;
                 default:
@@ -152,8 +162,12 @@ namespace _Scripts.Controllers
                 _currentBombType = BombType.Strong;
             }
             
+            _playerMovement.anim.SetTrigger(PlayerAnimations.OnAttack.ToString());
+            _playerMovement.CmdSendTriggerAnimation(PlayerAnimations.OnAttack.ToString());
+            
             // Notify server
             Vector2 position = _playerMovement.GetFacingDirection();
+            
             CmdSpawnBomb(position, _currentBombType);
         }
         
@@ -170,7 +184,7 @@ namespace _Scripts.Controllers
             if(HUDDebug.Instance == null) return;
             
             HUDDebug.Instance.AddHealthListener(() => AddHealth(1));
-            HUDDebug.Instance.RemoveHealthListener((() => TakeDamage(1)));
+            HUDDebug.Instance.RemoveHealthListener((() => TakeDamage(Vector2.zero, 1)));
         }
 
     }

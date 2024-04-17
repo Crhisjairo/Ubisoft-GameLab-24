@@ -89,16 +89,20 @@ namespace _Scripts.UI.PlayerUIs
 
             _currentHeart = currentHeartToAnimate;
         }
+
+        public int hearts = 0;
         
         public void AddHeart(int amount)
         {
             SetFilledHeartsTo(amount);
+            hearts = 0;
             //TODO custom animations here
         }
 
         public void RemoveHeart(int amount)
         {
             SetFilledHeartsTo(amount);
+            hearts = amount;
             //TODO custom animations here
         }
 

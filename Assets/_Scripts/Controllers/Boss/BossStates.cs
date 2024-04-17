@@ -4,6 +4,7 @@
     {
         BossState1,
         BossState2,
-        BossState3
+        BossState3,
+        BossStateDead
     }
 }

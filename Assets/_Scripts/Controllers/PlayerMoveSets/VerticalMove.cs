@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using _Scripts.Managers.Multiplayer;
 using _Scripts.Shared;
 using Cinemachine;
 using UnityEngine;
@@ -13,7 +14,13 @@ namespace _Scripts.Controllers.PlayerMoveSets
         {
             _player = player;
             _player.rb.gravityScale = 0f;
-            _player.col.enabled = false;
+            //_player.col.enabled = false;
+
+            if (player.GetComponent<PlayerServerDataSync>().GetPlayerIndex() == PlayerIndex.Player2)
+            {
+                var newScale = player.transform.localScale;
+                player.transform.localScale = new Vector3(-newScale.x, newScale.y, newScale.z);
+            }
 
             _player.speed = 8.0f;
         }

@@ -44,6 +44,8 @@ namespace _Scripts.Managers.Multiplayer
         [SyncVar(hook = nameof(OnStrongBombsChanged))]
         private int strongBombs = 0;
         
+        public PlayerData playerDataAttached;
+        
         #endregion
         
         private void Awake()
@@ -57,6 +59,7 @@ namespace _Scripts.Managers.Multiplayer
         public void SetHealthServerSide(float amount)
         {
             health = amount; // This will trigger the hook on client side, because it's a SyncVar.
+            playerDataAttached.health = amount;
         }
         
         [Server]
@@ -64,22 +67,24 @@ namespace _Scripts.Managers.Multiplayer
         {
             health = amount;
             maxHealth = amount;
+            playerDataAttached.maxHealth = amount;
+            playerDataAttached.health = amount;
         }
         
         [Server]
         public void SetStrongBombsServerSide(int amount)
         {
             strongBombs = amount;
+            playerDataAttached.strongBombs = amount;
         }
         
         [Server]
         public void SetRegularBombsServerSide(int amount)
         {
             regularBombs = amount;
+            playerDataAttached.regularBombs = amount;
         }
-
-        private PlayerData playerDataAttached;
-
+        
         [Server]
         public void SetPlayerIndex(PlayerIndex playerIndex)
         {
@@ -88,6 +93,7 @@ namespace _Scripts.Managers.Multiplayer
             if (playerIndex == PlayerIndex.Player1)
             {
                 playerDataAttached = GameObject.FindWithTag("Player1Data").GetComponent<PlayerData>();
+                //Debug.Log("PlayerDataAttached to: " + name);
                 
                 maxHealth = playerDataAttached.maxHealth;
                 health = playerDataAttached.health;
@@ -96,6 +102,7 @@ namespace _Scripts.Managers.Multiplayer
             } else if (playerIndex == PlayerIndex.Player2)
             {
                 playerDataAttached = GameObject.FindWithTag("Player2Data").GetComponent<PlayerData>();
+                //Debug.Log("PlayerDataAttached to: " + name);
 
                 maxHealth = playerDataAttached.maxHealth;
                 health = playerDataAttached.health;
@@ -104,19 +111,10 @@ namespace _Scripts.Managers.Multiplayer
             }
         }
 
-        private void OnDestroy()
-        {
-            playerDataAttached.maxHealth = maxHealth;
-            playerDataAttached.health = health;
-            playerDataAttached.regularBombs = regularBombs;
-            playerDataAttached.strongBombs = strongBombs;
-        }
-
-
         [Command] // Command -> are methods that are called from client and executed on server.
         public void CmdChangeHealth(float amount)
         {
-            Debug.Log("Cmd on server: Health changed to " + amount);
+            //Debug.Log("Cmd on server: Health changed to " + amount);
             // We can call a server method from here.
             SetHealthServerSide(amount);   
         }
@@ -137,27 +135,34 @@ namespace _Scripts.Managers.Multiplayer
         public void CmdChangeStrongBombs(int amount)
         {
             SetStrongBombsServerSide(amount);
+            //ClientRPCOnBombs(amount);
         }
         
         #endregion
         
         #region ClientSide
-        
+
+        public void ClientRPCOnBombs(int amount)
+        {
+            strongBombs = amount;
+            playerDataAttached.strongBombs = amount;
+        }
         
         public void OnHealthChanged(float oldValue, float newValue)
         {
-            Debug.Log("Client: Health changed from " + oldValue + " to " + newValue);
+            //Debug.Log("Client: Health changed from " + oldValue + " to " + newValue);
             
             health = newValue;
+            playerDataAttached.health = newValue;
             PlayerUI.lifeUIController.AddHeart((int)newValue); // TODO: Must be changed to float
-            
         }
         
         public void OnMaxHealthChanged(float oldValue, float newValue)
         {
-            Debug.Log("Client: Max Health changed from " + oldValue + " to " + newValue);
+            //Debug.Log("Client: Max Health changed from " + oldValue + " to " + newValue);
             
             maxHealth = newValue;
+            playerDataAttached.maxHealth = newValue;
             PlayerUI.lifeUIController.SetMaxHeartsTo((int)newValue); // TODO: Must be changed to float
             
         }
@@ -165,17 +170,19 @@ namespace _Scripts.Managers.Multiplayer
         public void OnRegularBombsChanged(int oldValue, int newValue)
         {
             regularBombs = newValue;
+            playerDataAttached.regularBombs = newValue;
             
-            HUDPlayersManager.Instance.globalItemUI.UpdateRegularBombText(newValue);
+            PlayerUI.itemsUI.UpdateRegularBombText(newValue);
         }
 
         public void OnStrongBombsChanged(int oldValue, int newValue)
         {
-            Debug.Log("Strong bombs changed from " + oldValue + " to " + newValue);
+            //Debug.Log("Strong bombs changed from " + oldValue + " to " + newValue);
             
             strongBombs = newValue;
+            playerDataAttached.strongBombs = newValue;
             
-            HUDPlayersManager.Instance.globalItemUI.UpdateStrongBombText(newValue);
+            PlayerUI.itemsUI.UpdateStrongBombText(newValue);
         }
         
         /// <summary>
@@ -185,29 +192,43 @@ namespace _Scripts.Managers.Multiplayer
         /// <param name="newPlayerIndex"></param>
         public void OnPlayerIndexUpdate(PlayerIndex oldPlayerIndex, PlayerIndex newPlayerIndex)
         {
-            Debug.Log("Player number updated from " + oldPlayerIndex + " to " + newPlayerIndex);
+           // Debug.Log("Player number updated from " + oldPlayerIndex + " to " + newPlayerIndex);
 
             if(newPlayerIndex == PlayerIndex.Player1)
             {
                 // Set player 1 specs
                 SpriteRenderer.sprite = playerSprites[0];
-                Debug.Log("Player 1 Sprite :" + SpriteRenderer.sprite.name);
+               // Debug.Log("Player 1 Sprite :" + SpriteRenderer.sprite.name);
                 GetComponent<PlayerMovement>().anim.runtimeAnimatorController = playerAnimators[0];
                 
                 PlayerUI = HUDPlayersManager.Instance.player1UI;
-                Debug.Log("OnPlayerNumberUpdate: " + name + " with UI: " + PlayerUI.name);
+                //Debug.Log("OnPlayerNumberUpdate: " + name + " with UI: " + PlayerUI.name);
+                
+                
+                playerDataAttached = GameObject.FindWithTag("Player1Data").GetComponent<PlayerData>();
+                //Debug.Log("PlayerDataAttached to: " + name);
+                maxHealth = playerDataAttached.maxHealth;
+                health = playerDataAttached.health;
+                regularBombs = playerDataAttached.regularBombs;
+                strongBombs = playerDataAttached.strongBombs;
             }
             else if(newPlayerIndex == PlayerIndex.Player2)
             {
                 // Set player 2 specs
                SpriteRenderer.sprite = playerSprites[1];
-               Debug.Log("Player 2 Sprite :" + SpriteRenderer.sprite.name);
+               //Debug.Log("Player 2 Sprite :" + SpriteRenderer.sprite.name);
                PlayerUI = HUDPlayersManager.Instance.player2UI;
                GetComponent<PlayerMovement>().anim.runtimeAnimatorController = playerAnimators[1];
-               //var newScale = transform.localScale;
-               //transform.localScale = new Vector3(-newScale.x, newScale.y, newScale.z);
                
-               Debug.Log("OnPlayerNumberUpdate: " + name + " with UI: " + PlayerUI.name);
+               //Debug.Log("OnPlayerNumberUpdate: " + name + " with UI: " + PlayerUI.name);
+               
+               
+               playerDataAttached = GameObject.FindWithTag("Player2Data").GetComponent<PlayerData>();
+               //Debug.Log("PlayerDataAttached to: " + name);
+               maxHealth = playerDataAttached.maxHealth;
+               health = playerDataAttached.health;
+               regularBombs = playerDataAttached.regularBombs;
+               strongBombs = playerDataAttached.strongBombs;
             }
         }
         

@@ -267,7 +267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5085364860433311905, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_BodyType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5571597269171475063, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_ActionEvents.Array.size
@@ -336,7 +336,7 @@ PrefabInstance:
     - target: {fileID: 5891242089191156156, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: playerAnimators.Array.data[1]
       value: 
-      objectReference: {fileID: 9100000, guid: 7953ddb989f883f438ede685013ec0ed, type: 2}
+      objectReference: {fileID: 9100000, guid: a05cbeee7db8ded4eaa6e36185cec179, type: 2}
     - target: {fileID: 6547249118592196743, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: m_Size.x
       value: 0.25221032

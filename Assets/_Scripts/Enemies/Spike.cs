@@ -62,7 +62,7 @@ public class Spike : NetworkBehaviour
          
             if(!player.isOwned) return;
             
-            player.TakeDamage(1);
+            player.TakeDamage(Vector2.zero, 1);
         }
     }
 }

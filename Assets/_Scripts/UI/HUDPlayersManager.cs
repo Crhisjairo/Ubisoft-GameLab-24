@@ -1,4 +1,5 @@
 using System;
+using _Scripts.UI.MainMenu;
 using _Scripts.UI.PlayerUIs;
 using TMPro;
 using UnityEngine;
@@ -9,9 +10,7 @@ namespace _Scripts.UI
     {
         public PlayerUI player1UI;
         public PlayerUI player2UI;
-        
-        public GlobalItemUI globalItemUI;
-        
+
         public static HUDPlayersManager Instance { get; private set; }
         
         [SerializeField] private TutorialBox tutorialBox;

@@ -91,7 +91,7 @@ namespace _Scripts.Managers.Multiplayer
         public override void OnServerReady(NetworkConnectionToClient conn)
         {
             base.OnServerReady(conn);
-            Debug.Log(conn.connectionId + " is ready");
+            //Debug.Log(conn.connectionId + " is ready");
             PlayersOnLobbyCount++;
             
             if(PlayersOnLobbyCount == 1)
@@ -113,7 +113,7 @@ namespace _Scripts.Managers.Multiplayer
         public void ServerOnClientWithSceneLoaded(NetworkConnectionToClient conn, SceneStatusMessage message)
         {
             // Contar hasta que los dos jugadores estên cargados. Una vez cargados, les aviso que activen el tiempo para jugar.
-            Debug.Log("Player " + conn.connectionId + " is ready to start minigame!");
+            //Debug.Log("Player " + conn.connectionId + " is ready to start minigame!");
             _playersWithSceneReady++;
 
             // Set Minigame settings like PlayerMoveSetStates, etc.
@@ -135,7 +135,7 @@ namespace _Scripts.Managers.Multiplayer
 
         private void AssignPlayersNetEntitiesByScene(NetworkConnectionToClient conn, int player)
         {
-            Debug.Log("Assigning net entities to players on scene: " + currentSceneName + " for player " + player + "!");
+           // Debug.Log("Assigning net entities to players on scene: " + currentSceneName + " for player " + player + "!");
             
             switch (currentSceneName)
             {
@@ -192,7 +192,7 @@ namespace _Scripts.Managers.Multiplayer
 
             conn.identity.GetComponent<PlayerInput>().enabled = false;
             
-            Debug.Log("PlayerOnLobbyCount: " + PlayersOnLobbyCount);
+            //Debug.Log("PlayerOnLobbyCount: " + PlayersOnLobbyCount);
 
             // Player is notified on SetPlayerNumber method.
             if (numPlayers == 1)
@@ -276,7 +276,7 @@ namespace _Scripts.Managers.Multiplayer
 
         public void OnReadyToStartMinigame(MinigameStatusMessage message)
         {
-            Debug.Log("Server says to start minigame and change timeScale!");
+            //Debug.Log("Server says to start minigame and change timeScale!");
             if (message.StartMinigame)
             {
                 Time.timeScale = 1;
@@ -298,7 +298,7 @@ namespace _Scripts.Managers.Multiplayer
 
         public void ClientReceiveTransitionAnim(TransitionAnimMessage message)
         {
-            Debug.Log("Receive " + message.TransitionName);
+            //Debug.Log("Receive " + message.TransitionName);
             
             if(message.TransitionName.Equals(TransitionAnimations.FadeIn.ToString()))
             {
@@ -308,7 +308,7 @@ namespace _Scripts.Managers.Multiplayer
             {
                 StartCoroutine(_canvasGroupFade.FadeOut());
             }
-            
+
         }
 
         public void StartClientBtn()
@@ -320,7 +320,7 @@ namespace _Scripts.Managers.Multiplayer
                 return;
             }
 
-            Debug.Log(_ipField.text);
+            //Debug.Log(_ipField.text);
 
             if (_ipField.text == string.Empty)
             {

@@ -46,7 +46,7 @@ namespace _Scripts.Map
         {
             if (!poolDict.ContainsKey(tag))
             {
-                Debug.Log("El Pool con el tag " + tag + " no existe.");
+                //Debug.Log("El Pool con el tag " + tag + " no existe.");
                 return null;
             }
         

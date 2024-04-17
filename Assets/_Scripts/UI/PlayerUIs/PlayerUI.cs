@@ -8,5 +8,8 @@ namespace _Scripts.UI.PlayerUIs
     {
         [FormerlySerializedAs("healthSlider")]
         public LifeUIController lifeUIController;
+        
+        [FormerlySerializedAs("globalItemUI")]
+        public ItemsUI itemsUI;
     }
 }

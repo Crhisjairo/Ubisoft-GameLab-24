@@ -8,5 +8,7 @@
         /// </summary>
         /// <param name="boss"></param>
         public void StartState(Boss boss);
+
+        public void StopState();
     }
 }

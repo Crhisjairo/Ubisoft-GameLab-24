@@ -18,6 +18,10 @@ namespace _Scripts.Controllers.Boss
             _boss = boss;
             MoveToNextWaypoint();
         }
+        public void StopState()
+        {
+            LeanTween.cancel(_boss.gameObject);
+        }
 
         void MoveToNextWaypoint()
         {
