@@ -7,10 +7,13 @@ namespace _Scripts.Controllers.PlayerMoveSets
     public class PlatformMove : IPlayerMoveSetState
     {
         private PlayerMovement _player;
+        private PlayerController _playerController;
         
         public PlatformMove(PlayerMovement player)
         {
             _player = player;
+            _playerController = player.GetComponent<PlayerController>();
+            
             _player.rb.gravityScale = _player.defaultGravityScale;
             _player.rb.bodyType = RigidbodyType2D.Dynamic;
             _player.rb.isKinematic = false;
@@ -24,7 +27,7 @@ namespace _Scripts.Controllers.PlayerMoveSets
         
         public void Move(InputAction.CallbackContext context)
         {
-            if (_player.IsDashing) return;
+            if (_player.IsDashing || _playerController.isDead) return;
             
             _player.MovementInput = context.ReadValue<Vector2>();
 
@@ -36,6 +39,8 @@ namespace _Scripts.Controllers.PlayerMoveSets
 
         public void Jump(InputAction.CallbackContext context)
         {
+            if(_playerController.isDead) return;
+            
             _player.Jumped = context.action.triggered; // context.action.triggered;
             
             _player.anim.SetBool(PlayerAnimations.IsJumping.ToString(), 
@@ -45,6 +50,8 @@ namespace _Scripts.Controllers.PlayerMoveSets
         }
         public void Dash(InputAction.CallbackContext context)
         {
+            if(_playerController.isDead) return;
+            
             if (context.action.triggered && _player.CanDash)
             {
                 _player.StartCoroutine(DashRoutine());

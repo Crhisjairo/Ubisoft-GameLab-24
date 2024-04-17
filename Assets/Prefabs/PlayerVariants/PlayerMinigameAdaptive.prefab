@@ -182,6 +182,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6866331027139920870}
     - target: {fileID: 3638586763167249223, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
+      propertyPath: fireRateWaitTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3638586763167249223, guid: fb2f54c005afc5d44a9cc1babf9e09fd, type: 3}
       propertyPath: normalBombPrefab
       value: 
       objectReference: {fileID: 5160951916430349907, guid: bdae6be72ed68024da23f3364c457fe6, type: 3}

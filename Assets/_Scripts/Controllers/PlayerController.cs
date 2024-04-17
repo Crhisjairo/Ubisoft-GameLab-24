@@ -38,7 +38,7 @@ namespace _Scripts.Controllers
         
         
         private bool _canFire = true;
-        public float fireRateWaitTime = 0.5f;
+        public float fireRateWaitTime = 0.3f;
         
         private void Awake()
         {
@@ -46,6 +46,26 @@ namespace _Scripts.Controllers
             _playerMovement = GetComponent<PlayerMovement>();
         }
 
+        [Command]
+        public void CmdDie()
+        {
+            RpcDie();
+        }
+        
+        public bool isDead = false;
+        
+        [ClientRpc]
+        public void RpcDie()
+        {
+            _playerMovement.anim.SetTrigger(PlayerAnimations.OnDeath.ToString());
+            _playerMovement.CmdSendTriggerAnimation(PlayerAnimations.OnDeath.ToString());
+            _playerMovement.GetComponent<PlayerMovement>().MovementInput = Vector2.zero;
+            _playerMovement.GetComponent<PlayerMovement>().rb.velocity = Vector2.zero;
+            
+            
+            isDead = true;
+        }
+        
         public void TakeDamage(Vector2 impulseDirection, float amount)
         {
             // Check if dead
@@ -62,7 +82,7 @@ namespace _Scripts.Controllers
             if (newHealth <= 0)
             {
                 // Notify server
-                //playerServerDataSync.CmdDie();
+                CmdDie();
             }
         }
         
@@ -153,6 +173,7 @@ namespace _Scripts.Controllers
             if(_playerMovement._currentMoveSetState == PlayerMoveSetStates.VerticalMove) return;
             
             if (!context.performed || !_canFire) return;
+            if(isDead) return;
             
             StartCoroutine(StartCooldownTimer());
             
