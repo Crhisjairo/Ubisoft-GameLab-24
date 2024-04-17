@@ -154,6 +154,8 @@ namespace _Scripts.Controllers
             
             if (!context.performed || !_canFire) return;
             
+            StartCoroutine(StartCooldownTimer());
+            
             if (playerServerDataSync.GetStrongBombs() <= 0)
             {
                 _currentBombType = BombType.Regular;

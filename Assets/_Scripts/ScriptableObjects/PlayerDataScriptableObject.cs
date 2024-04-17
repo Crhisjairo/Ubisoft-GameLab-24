@@ -4,7 +4,7 @@ namespace _Scripts.ScriptableObjects
     [CreateAssetMenu(fileName = "DefaultPlayerData", menuName = "PlayerData/Default", order = 0)]
     public class PlayerDataScriptableObject : ScriptableObject
     {
-        public float maxHealth = 9;
+        public float maxHealth = 15;
         public float health = 4;
         public float currentHealth = 5;
         

@@ -245,7 +245,7 @@ MonoBehaviour:
   gravityScale: 2
   explosionPrefab: {fileID: 0}
   waitTimeBeforeGravity: 1
-  damage: 3
+  damage: 1
 --- !u!1 &9018209167821557729
 GameObject:
   m_ObjectHideFlags: 0

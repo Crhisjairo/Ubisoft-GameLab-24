@@ -5,7 +5,7 @@ namespace _Scripts.Controllers
     public class PlayerData : NetworkBehaviour
     {
         [SyncVar]
-        public float maxHealth = 9f;
+        public float maxHealth = 15f;
         [SyncVar]
         public float health = 5f;
         [SyncVar]
