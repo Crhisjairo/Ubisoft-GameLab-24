@@ -1,6 +1,6 @@
 # Dreambound
 
-> This game was developed as part of the Ubisoft Game Lab Competition 2024. The game was developed by a team of 3 students from UQAM - Université du Québec à Montréal. Even though the competition lasted around 3 months, this video game was developed in just 1 month.
+This game was developed as part of the ![Ubisoft Game Lab Competition 2024](https://montreal.ubisoft.com/fr/nos-engagements/education/concours-universitaire/). The game was developed by a team of 3 students from UQAM - Université du Québec à Montréal. Even though the competition lasted around 3 months, this video game was developed in just 1 month.
 
 ## Description
 
