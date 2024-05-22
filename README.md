@@ -1,6 +1,6 @@
 # Dreambound
 
-This game was developed as part of the ![Ubisoft Game Lab Competition 2024](https://montreal.ubisoft.com/fr/nos-engagements/education/concours-universitaire/). The game was developed by a team of 3 students from UQAM - Université du Québec à Montréal. Even though the competition lasted around 3 months, this video game was developed in just 1 month.
+This game was developed as part of the [Ubisoft Game Lab Competition 2024](https://montreal.ubisoft.com/fr/nos-engagements/education/concours-universitaire/). The game was developed by a team of 3 students from UQAM - Université du Québec à Montréal. Even though the competition lasted around 3 months, this video game was developed in just 1 month.
 
 ## Description
 
@@ -23,8 +23,7 @@ This game was developed using Unity Engine and Mirror Networking Framework.
 ![gameplay-2](https://drive.google.com/uc?export=view&id=1fVLrhHOebYOeseWDADHPcv03j0bS9AXT)
 ![gameplay-3](https://drive.google.com/uc?export=view&id=1mEGXPwmWeSpQGlX0InN7hnA5IXYQR8zO)
 ![gameplay-4](https://drive.google.com/uc?export=view&id=1WLbyOLTKUD5kFzEjX9Tq4IZmTwDwWybX)
-Teaser:
-<iframe src="https://drive.google.com/file/d/1SwjQZM_aWWCuEMJ3wPIQaZDEZK0bRfI_/preview" width="640" height="480" allow="autoplay"></iframe>
+[Dreambound Teaser and Gameplay video](https://drive.google.com/file/d/1SwjQZM_aWWCuEMJ3wPIQaZDEZK0bRfI_/preview)
 
 ## Installation
 
