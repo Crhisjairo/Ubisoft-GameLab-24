@@ -82,6 +82,7 @@ public class Orb : NetworkBehaviour
                 spriteRenderer.enabled = false;
                 collider2D.enabled = false;
                 amountText.enabled = false;
+                
             }
             
         }
@@ -91,6 +92,7 @@ public class Orb : NetworkBehaviour
     [ClientRpc]
     private void RpcApplyOrbEffect()
     {
+        // Send message to all players.
         OnApplyOrbEffect(NetworkClient.connection.identity.GetComponent<PlayerController>());
     }
 

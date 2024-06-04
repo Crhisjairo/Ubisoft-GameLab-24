@@ -1578,8 +1578,8 @@ MonoBehaviour:
   BossState2: {fileID: 779057947}
   BossState3: {fileID: 779057946}
   BossStateDead: {fileID: 779057949}
-  bossState1Limit: 75
-  bossState2Limit: 30
+  bossState1Limit: 70
+  bossState2Limit: 40
   bossState3Limit: 0
   handPosition: {fileID: 995575551}
   missilePrefab: {fileID: 3182005008035425444, guid: 142dd39ab365ebf45a66ffe072749ebc, type: 3}
@@ -11523,7 +11523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1912609181
 MonoBehaviour:
   m_ObjectHideFlags: 0
