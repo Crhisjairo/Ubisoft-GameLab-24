@@ -8506,10 +8506,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2710454617832408419, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
-      propertyPath: m_text
-      value: Loading Minigames...
-      objectReference: {fileID: 0}
     - target: {fileID: 3549900509032016984, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
       propertyPath: endAnimTime
       value: 0
@@ -8590,25 +8586,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadingScreen
       objectReference: {fileID: 0}
-    - target: {fileID: 7866411202881922749, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
-      propertyPath: m_Color.b
-      value: 0.78431374
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866411202881922749, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
-      propertyPath: m_Color.g
-      value: 0.061540436
-      objectReference: {fileID: 0}
-    - target: {fileID: 7866411202881922749, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
-      propertyPath: m_Color.r
-      value: 0.003921565
-      objectReference: {fileID: 0}
     - target: {fileID: 8991205878751884738, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
       propertyPath: m_SortingOrder
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 9030066239903813167, guid: ea42d73f014e8c6418f2c66f365e5f23, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -378
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

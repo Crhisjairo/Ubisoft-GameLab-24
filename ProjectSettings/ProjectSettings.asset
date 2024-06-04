@@ -163,7 +163,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.DefaultCompany.Ubisoft-GameLLab-24
+    Standalone: com.CID.Dreambound-Ubisoft-GameLab-24
   buildNumber:
     Standalone: 0
     VisionOS: 0
